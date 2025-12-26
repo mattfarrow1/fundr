@@ -1,0 +1,2 @@
+# fundr
+Fundraising helper functions
