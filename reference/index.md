@@ -8,4 +8,5 @@
 - [`fy_quarter()`](fy_quarter.md) : Fiscal quarter for a date
 - [`fy_year()`](fy_year.md) : Fiscal year for a date
 - [`normalize_phone()`](normalize_phone.md) : Normalize phone numbers
+- [`normalize_zip()`](normalize_zip.md) : Normalize postal (ZIP) codes
 - [`theme_fundr()`](theme_fundr.md) : fundr ggplot theme
