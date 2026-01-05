@@ -7,7 +7,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/fundr)](https://CRAN.R-project.org/package=fundr) -->
+[![R-CMD-check](https://github.com/mattfarrow1/fundr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mattfarrow1/fundr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of `fundr` is to provide lightweight, tidyverse-compatible
