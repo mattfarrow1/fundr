@@ -7,4 +7,5 @@
 - [`fy_label()`](fy_label.md) : Fiscal year label for a date
 - [`fy_quarter()`](fy_quarter.md) : Fiscal quarter for a date
 - [`fy_year()`](fy_year.md) : Fiscal year for a date
+- [`normalize_phone()`](normalize_phone.md) : Normalize phone numbers
 - [`theme_fundr()`](theme_fundr.md) : fundr ggplot theme
