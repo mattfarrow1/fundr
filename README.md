@@ -7,11 +7,12 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/fundr)](https://CRAN.R-project.org/package=fundr)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/fundr)](https://CRAN.R-project.org/package=fundr) -->
 <!-- badges: end -->
 
-The goal of fundr is to …
+The goal of `fundr` is to provide lightweight, tidyverse-compatible
+utilities for fundraising and advancement analytics, with minimal
+required dependencies.
 
 ## Installation
 
@@ -23,35 +24,31 @@ You can install the development version of fundr from
 pak::pak("mattfarrow1/fundr")
 ```
 
-## Example
+## Examples
 
-This is a basic example which shows you how to solve a common problem:
+### Fiscal Year Helpers
 
 ``` r
 library(fundr)
-## basic example code
+
+dates <- as.Date(c("2024-06-30", "2024-07-01"))
+
+fy_year(dates, fy_start_month = 7)
+#> [1] 2024 2025
+
+fy_label(dates, fy_start_month = 7)
+#> [1] "FY24" "FY25"
+
+fy_quarter(dates, fy_start_month = 7)
+#> [1] 4 1
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+### Optional: Load Google Fonts for Plotting
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+fundr_use_google_font("Montserrat", family = "montserrat")
+
+ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+  ggplot2::geom_point() +
+  theme_fundr()
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" alt="" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
