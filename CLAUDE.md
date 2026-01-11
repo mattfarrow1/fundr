@@ -45,10 +45,11 @@ when packages like ggplot2, showtext, and sysfonts are installed.
 ### Key Modules
 
 - **Fiscal Year Functions** (`R/fiscal_year.R`):
-  [`fy_year()`](reference/fy_year.md),
-  [`fy_label()`](reference/fy_label.md),
-  [`fy_quarter()`](reference/fy_quarter.md) - Convert dates to fiscal
-  year representations. Default fiscal year starts in July (month 7).
+  [`fy_year()`](https://mattfarrow1.github.io/fundr/reference/fy_year.md),
+  [`fy_label()`](https://mattfarrow1.github.io/fundr/reference/fy_label.md),
+  [`fy_quarter()`](https://mattfarrow1.github.io/fundr/reference/fy_quarter.md) -
+  Convert dates to fiscal year representations. Default fiscal year
+  starts in July (month 7).
 
 - **Data Normalization** (`R/normalize_phone.R`, `R/normalize_zip.R`):
   Clean and standardize phone numbers and ZIP codes. Both support
