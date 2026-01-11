@@ -8,8 +8,6 @@ Description: Utility functions for fundraising and advancement analytics. Design
 License: MIT + file LICENSE
 URL: https://github.com/mattfarrow1/fundr
 BugReports: https://github.com/mattfarrow1/fundr/issues
-Depends: 
-    R (>= 3.5.0)
 Suggests: 
     ggplot2,
     scales,
