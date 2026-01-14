@@ -10,6 +10,8 @@ Useful links:
 
 - <https://github.com/mattfarrow1/fundr>
 
+- <https://mattfarrow1.github.io/fundr/>
+
 - Report bugs at <https://github.com/mattfarrow1/fundr/issues>
 
 ## Author
