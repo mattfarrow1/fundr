@@ -13,6 +13,7 @@ designed to be tidyverse-compatible with minimal required dependencies.
 Useful links:
 \itemize{
   \item \url{https://github.com/mattfarrow1/fundr}
+  \item \url{https://mattfarrow1.github.io/fundr/}
   \item Report bugs at \url{https://github.com/mattfarrow1/fundr/issues}
 }
 
