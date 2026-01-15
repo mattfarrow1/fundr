@@ -10,6 +10,8 @@ URL: https://github.com/mattfarrow1/fundr, https://mattfarrow1.github.io/fundr/
 BugReports: https://github.com/mattfarrow1/fundr/issues
 Suggests: 
     ggplot2,
+    knitr,
+    rmarkdown,
     scales,
     showtext,
     sysfonts,
@@ -22,3 +24,4 @@ RoxygenNote: 7.3.3
 Depends: 
     R (>= 3.5)
 LazyData: true
+VignetteBuilder: knitr

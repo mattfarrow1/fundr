@@ -1,0 +1,59 @@
+---
+title: "Bucketing gift levels and rating levels"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Bucketing gift levels and rating levels}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+fundr includes reference tables for common gift/ask levels and wealth rating levels, plus helpers to bucket numeric values into consistent labels.
+
+## Gift Level Bucketing
+
+```{r}
+library(fundr)
+
+x <- c(NA, 0, 1, 99999, 100000, 250000, 150000000)
+
+bucket_gift_level(x, what = "giving_level")
+bucket_gift_level(x, what = "ask_bucket")
+```
+
+## Rating Level Bucketing
+
+```{r}
+y <- c(NA, 0, 1, 9999, 10000, 250000, 100000000)
+
+bucket_rating_level(y, what = "rating_level")
+bucket_rating_level(y, what = "rating_bucket")
+```
+
+## Working with a Data Frame
+
+Below is a base R example; these functions are also designed to work well in `dplyr::mutate()` if you prefer tidy workflows.
+
+```{r}
+df <- data.frame(
+  donor_id = 1:6,
+  ask_amount = c(0, 50000, 250000, 1200000, NA, 10000000),
+  capacity_value = c(0, 8000, 250000, 5000000, 100000000, NA)
+)
+
+df$ask_bucket <- bucket_gift_level(df$ask_amount, what = "ask_bucket")
+df$rating_bucket <- bucket_rating_level(df$capacity_value, what = "rating_bucket")
+
+df
+```
+
+## Optional: Plotting
+
+```{r}
+ggplot2::ggplot(df, ggplot2::aes(x = ask_bucket)) +
+  ggplot2::geom_bar() +
+  ggplot2::coord_flip()
+```
