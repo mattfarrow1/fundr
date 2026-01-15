@@ -49,10 +49,14 @@ ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
 
 - [`fundr_colors()`](https://mattfarrow1.github.io/fundr/reference/fundr_colors.md)
   : fundr colors
+- [`fundr_gift_levels`](https://mattfarrow1.github.io/fundr/reference/fundr_gift_levels.md)
+  : Gift level reference table
 - [`fundr_pal()`](https://mattfarrow1.github.io/fundr/reference/fundr_pal.md)
   : Palette function for ggplot2 discrete scales
 - [`fundr_palette()`](https://mattfarrow1.github.io/fundr/reference/fundr_palette.md)
   : fundr palettes
+- [`fundr_rating_levels`](https://mattfarrow1.github.io/fundr/reference/fundr_rating_levels.md)
+  : Rating level reference table
 - [`fundr_use_google_font()`](https://mattfarrow1.github.io/fundr/reference/fundr_use_google_font.md)
   : Ensure a Google Font is available for plotting
 - [`fy_label()`](https://mattfarrow1.github.io/fundr/reference/fy_label.md)
