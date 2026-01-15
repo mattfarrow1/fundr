@@ -2,6 +2,10 @@
 
 ## All functions
 
+- [`bucket_gift_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_gift_level.md)
+  : Bucket gift ask amounts using fundr_gift_levels
+- [`bucket_rating_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_rating_level.md)
+  : Bucket wealth/capacity values using fundr_rating_levels
 - [`fundr_colors()`](https://mattfarrow1.github.io/fundr/reference/fundr_colors.md)
   : fundr colors
 - [`fundr_gift_levels`](https://mattfarrow1.github.io/fundr/reference/fundr_gift_levels.md)
