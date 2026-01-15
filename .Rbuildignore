@@ -10,3 +10,5 @@
 ^pkgdown$
 ^btw\.md$
 ^data-raw$
+^CLAUDE\.md$
+^\.claude$

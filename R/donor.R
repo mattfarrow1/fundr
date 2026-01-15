@@ -1,0 +1,212 @@
+#' Calculate age from birthdate
+#'
+#' Computes age in whole years from a birthdate. Correctly handles
+#' birthdays that haven't occurred yet in the current year.
+#'
+#' @param birthdate Date vector (or coercible via `as.Date()`).
+#' @param as_of Reference date for age calculation. Default is today.
+#'
+#' @return Integer vector of ages in years. Returns NA for NA inputs
+#'   or future birthdates.
+#'
+#' @examples
+#' # Basic usage
+#' calc_age(as.Date("1980-06-15"))
+#'
+#' # Age as of a specific date
+#' calc_age(as.Date("1980-06-15"), as_of = as.Date("2020-01-01"))
+#' #> 39
+#'
+#' # Vectorized
+#' birthdates <- as.Date(c("1980-01-15", "1990-06-20", "2000-12-01"))
+#' calc_age(birthdates, as_of = as.Date("2024-06-01"))
+#' #> 44, 33, 23
+#'
+#' @export
+calc_age <- function(birthdate, as_of = Sys.Date()) {
+  birthdate <- as.Date(birthdate)
+  as_of <- as.Date(as_of)
+
+  if (length(as_of) != 1L || is.na(as_of)) {
+    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+  }
+
+  n <- length(birthdate)
+  out <- rep(NA_integer_, n)
+
+  ok <- !is.na(birthdate)
+  if (!any(ok)) return(out)
+
+  bd <- birthdate[ok]
+
+  # Extract year, month, day components
+  bd_lt <- as.POSIXlt(bd)
+  as_of_lt <- as.POSIXlt(as_of)
+
+  # Calculate raw year difference
+  years <- as_of_lt$year - bd_lt$year
+
+  # Adjust for birthdays that haven't happened yet this year
+  # Birthday hasn't happened if: (month < birth_month) OR
+  # (month == birth_month AND day < birth_day)
+  not_yet <- (as_of_lt$mon < bd_lt$mon) |
+    (as_of_lt$mon == bd_lt$mon & as_of_lt$mday < bd_lt$mday)
+
+  years[not_yet] <- years[not_yet] - 1L
+
+  # Future birthdates get NA
+  years[bd > as_of] <- NA_integer_
+
+  out[ok] <- as.integer(years)
+  out
+}
+
+#' Classify donor status based on giving history
+#'
+#' Categorizes donors based on their last gift date relative to the current
+#' fiscal year. This is fundamental for advancement reporting and outreach
+#' segmentation.
+#'
+#' @param last_gift_date Date vector of most recent gift dates (or coercible
+#'   via `as.Date()`). Use NA for constituents who have never given.
+#' @param as_of Reference date for status calculation. Default is today.
+#' @param fy_start_month Integer 1-12 indicating fiscal year start month.
+#'   Default 7 (July).
+#' @param lapsed_years Number of years with no gifts before a donor is
+#'   considered "Lapsed". Default 5.
+#'
+#' @return Ordered factor with levels: "Active", "LYBUNT", "SYBUNT",
+#'   "Lapsed", "Never" (from most to least engaged).
+#'
+#' @details
+#' Status definitions:
+#' \itemize{
+#'   \item \strong{Active}: Gave during the current fiscal year
+#'   \item \strong{LYBUNT}: "Last Year But Unfortunately Not This" - gave
+#'     last fiscal year but not yet this year
+#'   \item \strong{SYBUNT}: "Some Year But Unfortunately Not This" - gave
+#'     2+ fiscal years ago but within the lapsed threshold
+#'   \item \strong{Lapsed}: Last gift was more than `lapsed_years` ago
+#'   \item \strong{Never}: No gift on record (NA last_gift_date)
+#' }
+#'
+#' @examples
+#' # Assuming today is in FY2025 (July 2024 - June 2025)
+#' dates <- as.Date(c(
+#'   "2024-09-15",  # Active (current FY)
+#'   "2024-03-01",  # LYBUNT (last FY)
+#'   "2022-01-15",  # SYBUNT (2+ years ago)
+#'   "2018-06-01",  # Lapsed (5+ years)
+#'   NA             # Never
+#' ))
+#'
+#' donor_status(dates, as_of = as.Date("2025-01-15"))
+#'
+#' @export
+donor_status <- function(
+    last_gift_date,
+    as_of = Sys.Date(),
+    fy_start_month = 7L,
+    lapsed_years = 5L
+) {
+  last_gift_date <- as.Date(last_gift_date)
+  as_of <- as.Date(as_of)
+
+  if (length(as_of) != 1L || is.na(as_of)) {
+    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+  }
+
+  fy_start_month <- fundr_check_month(fy_start_month)
+  lapsed_years <- as.integer(lapsed_years)
+
+  if (length(lapsed_years) != 1L || is.na(lapsed_years) || lapsed_years < 1L) {
+    stop("`lapsed_years` must be a single positive integer.", call. = FALSE)
+  }
+
+  n <- length(last_gift_date)
+
+  # Define status levels (most to least engaged)
+  status_levels <- c("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never")
+  out <- factor(rep(NA_character_, n), levels = status_levels, ordered = TRUE)
+
+  # Never given
+  never <- is.na(last_gift_date)
+  out[never] <- "Never"
+
+  ok <- !never
+  if (!any(ok)) return(out)
+
+  # Get fiscal years
+  current_fy <- fy_year(as_of, fy_start_month)
+  gift_fy <- fy_year(last_gift_date[ok], fy_start_month)
+
+  # Calculate fiscal years since last gift
+  fy_diff <- current_fy - gift_fy
+
+  # Classify
+  # Active: gave this fiscal year (diff == 0)
+  # LYBUNT: gave last fiscal year (diff == 1)
+  # SYBUNT: gave 2+ years ago but within lapsed threshold
+  # Lapsed: gave more than lapsed_years ago
+
+  status <- rep("Lapsed", sum(ok))
+  status[fy_diff == 0L] <- "Active"
+  status[fy_diff == 1L] <- "LYBUNT"
+  status[fy_diff >= 2L & fy_diff <= lapsed_years] <- "SYBUNT"
+  status[fy_diff > lapsed_years] <- "Lapsed"
+
+  out[ok] <- status
+  out
+}
+
+#' Calculate years since a date
+#'
+#' Computes the number of years (as a decimal) between a date and a
+#' reference date. Useful for calculating time since last gift,
+#' years of giving, or other duration metrics.
+#'
+#' @param date Date vector (or coercible via `as.Date()`).
+#' @param as_of Reference date. Default is today.
+#' @param digits Number of decimal places to round to. Default 1.
+#'   Use NULL for no rounding.
+#'
+#' @return Numeric vector of years. Negative values indicate future dates.
+#'   Returns NA for NA inputs.
+#'
+#' @examples
+#' years_since(as.Date("2020-06-15"))
+#'
+#' years_since(as.Date("2020-06-15"), as_of = as.Date("2024-06-15"))
+#' #> 4.0
+#'
+#' # Vectorized
+#' dates <- as.Date(c("2020-01-01", "2022-06-15", "2023-09-01"))
+#' years_since(dates, as_of = as.Date("2024-06-15"))
+#'
+#' @export
+years_since <- function(date, as_of = Sys.Date(), digits = 1L) {
+  date <- as.Date(date)
+  as_of <- as.Date(as_of)
+
+  if (length(as_of) != 1L || is.na(as_of)) {
+    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+  }
+
+  n <- length(date)
+  out <- rep(NA_real_, n)
+
+  ok <- !is.na(date)
+  if (!any(ok)) return(out)
+
+  # Calculate difference in days and convert to years
+  # Using 365.25 to account for leap years
+  days_diff <- as.numeric(difftime(as_of, date[ok], units = "days"))
+  years <- days_diff / 365.25
+
+  if (!is.null(digits)) {
+    years <- round(years, digits = as.integer(digits))
+  }
+
+  out[ok] <- years
+  out
+}
