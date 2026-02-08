@@ -4,12 +4,13 @@
 \alias{fy_year}
 \title{Fiscal year for a date}
 \usage{
-fy_year(date, fy_start_month = 7L)
+fy_year(date, fy_start_month = getOption("fundr.fy_start_month", 7L))
 }
 \arguments{
 \item{date}{A Date (or something coercible via as.Date()).}
 
-\item{fy_start_month}{Integer 1-12. Default 7 = July fiscal year start.}
+\item{fy_start_month}{Integer 1-12. Default uses \code{getOption("fundr.fy_start_month", 7)}.
+Set session default with \code{\link[=fundr_setup]{fundr_setup()}} or \code{\link[=set_fy_start_month]{set_fy_start_month()}}.}
 }
 \value{
 Integer fiscal year (e.g., 2026).

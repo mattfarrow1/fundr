@@ -8,10 +8,19 @@ Description: Utility functions for fundraising and advancement analytics. Design
 License: MIT + file LICENSE
 URL: https://github.com/mattfarrow1/fundr, https://mattfarrow1.github.io/fundr/
 BugReports: https://github.com/mattfarrow1/fundr/issues
-Suggests: 
+Suggests:
+    cli,
+    DBI,
     ggplot2,
+    httr,
+    jsonlite,
     knitr,
+    odbc,
     rmarkdown,
+    RMariaDB,
+    RMySQL,
+    RPostgres,
+    RSQLite,
     scales,
     showtext,
     sysfonts,

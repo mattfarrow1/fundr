@@ -150,3 +150,116 @@ theme_fundr <- function(base_family = "montserrat", base_size = 12,
 
   ret
 }
+
+#' Move legend to bottom of plot
+#'
+#' A convenience function that returns a theme element to place the legend
+#' at the bottom of a ggplot. Commonly used in reports where horizontal
+#' space is limited.
+#'
+#' @param direction Legend direction: "horizontal" (default) or "vertical".
+#' @param justify Legend justification: "center" (default), "left", or "right".
+#' @param box How to arrange multiple legends: "horizontal" or "vertical" (default).
+#' @param title_position Position of legend title: "top" (default), "left",
+#'   "right", or "bottom".
+#'
+#' @return A ggplot2 theme object that can be added to a plot.
+#'
+#' @examples
+#' \dontrun{
+#' library(ggplot2)
+#'
+#' # Basic usage
+#' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+#'   geom_point() +
+#'   legend_bottom()
+#'
+#' # Horizontal legend with left justification
+#' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+#'   geom_point() +
+#'   legend_bottom(justify = "left")
+#' }
+#'
+#' @export
+legend_bottom <- function(
+    direction = c("horizontal", "vertical"),
+    justify = c("center", "left", "right"),
+    box = c("vertical", "horizontal"),
+    title_position = c("top", "left", "right", "bottom")
+) {
+  fundr_needs("ggplot2")
+
+  direction <- match.arg(direction)
+  justify <- match.arg(justify)
+  box <- match.arg(box)
+  title_position <- match.arg(title_position)
+
+  hjust <- switch(
+    justify,
+    "left" = 0,
+    "center" = 0.5,
+    "right" = 1
+  )
+
+  ggplot2::theme(
+    legend.position = "bottom",
+    legend.direction = direction,
+    legend.justification = c(hjust, 0.5),
+    legend.box = box,
+    legend.title.position = title_position
+  )
+}
+
+#' Move legend to a specific position
+#'
+#' A convenience function that returns a theme element to control legend
+#' position in ggplot2 plots.
+#'
+#' @param position Legend position: "bottom", "top", "left", "right", or "none".
+#' @param direction Legend direction: "horizontal" or "vertical".
+#'   Defaults to horizontal for bottom/top, vertical for left/right.
+#' @param box How to arrange multiple legends: "horizontal" or "vertical".
+#'
+#' @return A ggplot2 theme object that can be added to a plot.
+#'
+#' @examples
+#' \dontrun{
+#' library(ggplot2)
+#'
+#' # Legend on the right (default ggplot behavior)
+#' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+#'   geom_point() +
+#'   legend_position("right")
+#'
+#' # Remove legend
+#' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+#'   geom_point() +
+#'   legend_position("none")
+#' }
+#'
+#' @export
+legend_position <- function(
+    position = c("bottom", "top", "left", "right", "none"),
+    direction = NULL,
+    box = c("vertical", "horizontal")
+) {
+  fundr_needs("ggplot2")
+
+  position <- match.arg(position)
+  box <- match.arg(box)
+
+  if (position == "none") {
+    return(ggplot2::theme(legend.position = "none"))
+  }
+
+  # Default direction based on position
+  if (is.null(direction)) {
+    direction <- if (position %in% c("bottom", "top")) "horizontal" else "vertical"
+  }
+
+  ggplot2::theme(
+    legend.position = position,
+    legend.direction = direction,
+    legend.box = box
+  )
+}
