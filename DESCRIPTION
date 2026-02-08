@@ -1,7 +1,7 @@
 Type: Package
 Package: fundr
 Title: Fundraising Analytics Helpers
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Matt", "Farrow", , "matt@mattfarrow.co", role = c("aut", "cre"))
 Description: Utility functions for fundraising and advancement analytics. Designed to be tidyverse-compatible while keeping required dependencies minimal.
