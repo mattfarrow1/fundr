@@ -1,0 +1,71 @@
+# Calculate consecutive years of giving
+
+Counts the number of consecutive fiscal years of giving, going back from
+a reference fiscal year. Useful for streak tracking and recognition
+programs.
+
+## Usage
+
+``` r
+consecutive_giving_years(
+  gift_dates,
+  as_of = Sys.Date(),
+  fy_start_month = 7L,
+  include_current = TRUE
+)
+```
+
+## Arguments
+
+- gift_dates:
+
+  Date vector of gift dates (or coercible via
+  [`as.Date()`](https://rdrr.io/r/base/as.Date.html)).
+
+- as_of:
+
+  Reference date for calculation. Default is today.
+
+- fy_start_month:
+
+  Integer 1-12 indicating fiscal year start month. Default 7 (July).
+
+- include_current:
+
+  Logical. If TRUE (default), includes the current fiscal year in the
+  streak count if donor gave this year.
+
+## Value
+
+Integer count of consecutive fiscal years of giving. Returns 0 if donor
+has no gifts or if streak is broken.
+
+## Details
+
+The streak counts backwards from the reference fiscal year. If there's a
+gap in giving, the streak resets. For example, with gifts in FY2024,
+FY2023, and FY2021 (as of FY2024), the consecutive count is 2 (not 3)
+because FY2022 is missing.
+
+## Examples
+
+``` r
+# Consecutive giving FY2022, FY2023, FY2024
+gifts <- as.Date(c("2021-09-01", "2022-09-01", "2023-09-01"))
+consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"))
+#> [1] 3
+#> 3
+
+# Gap in FY2023 breaks the streak
+gifts <- as.Date(c("2021-09-01", "2023-09-01"))
+consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"))
+#> [1] 1
+#> 1
+
+# No gift this year, streak includes last year back
+gifts <- as.Date(c("2021-09-01", "2022-09-01"))
+consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"),
+                         include_current = FALSE)
+#> [1] 2
+#> 0
+```

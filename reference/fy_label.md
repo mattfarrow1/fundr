@@ -5,7 +5,12 @@ Fiscal year label for a date
 ## Usage
 
 ``` r
-fy_label(date, fy_start_month = 7L, prefix = "FY", short = TRUE)
+fy_label(
+  date,
+  fy_start_month = getOption("fundr.fy_start_month", 7L),
+  prefix = "FY",
+  short = TRUE
+)
 ```
 
 ## Arguments
@@ -16,7 +21,7 @@ fy_label(date, fy_start_month = 7L, prefix = "FY", short = TRUE)
 
 - fy_start_month:
 
-  Integer 1-12. Default 7 = July fiscal year start.
+  Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`.
 
 - prefix:
 

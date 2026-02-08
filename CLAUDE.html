@@ -39,6 +39,7 @@
 <div id="claudemd" class="section level1">
 
 <p>This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.</p>
+<p>Please reference Sarah Johnson’s <a href="https://gist.githubusercontent.com/sj-io/3828d64d0969f2a0f05297e59e6c15ad/raw/cbbd46f7ca76cb3aa5758a74341bff3c8d960ea3/CLAUDE.md" class="external-link">Modern R Development Guide</a> for best practices with R code and the Tidyverse.</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a></h2>
 <p>fundr is an R package providing lightweight, tidyverse-compatible utilities for fundraising and advancement analytics. The package has minimal required dependencies (only base R for core functions) with optional dependencies for plotting features.</p>
@@ -74,7 +75,35 @@
 <h3 id="key-modules">Key Modules<a class="anchor" aria-label="anchor" href="#key-modules"></a></h3>
 <ul><li><p><strong>Fiscal Year Functions</strong> (<code>R/fiscal_year.R</code>): <code><a href="reference/fy_year.html">fy_year()</a></code>, <code><a href="reference/fy_label.html">fy_label()</a></code>, <code><a href="reference/fy_quarter.html">fy_quarter()</a></code> - Convert dates to fiscal year representations. Default fiscal year starts in July (month 7).</p></li>
 <li><p><strong>Data Normalization</strong> (<code>R/normalize_phone.R</code>, <code>R/normalize_zip.R</code>): Clean and standardize phone numbers and ZIP codes. Both support strict/lenient parsing modes.</p></li>
-<li><p><strong>Plotting</strong> (<code>R/theme_fundr.R</code>, <code>R/fonts.R</code>): ggplot2 theme and Google Fonts integration. These require suggested packages (ggplot2, showtext, sysfonts).</p></li>
+<li><p><strong>Session Setup</strong> (<code>R/setup.R</code>): <code><a href="reference/fundr_setup.html">fundr_setup()</a></code> - Configure R session for fundraising work. Disables scientific notation so large dollar amounts display properly.</p></li>
+<li><p><strong>Formatting</strong> (<code>R/format.R</code>): <code><a href="reference/format_currency.html">format_currency()</a></code>, <code><a href="reference/format_currency_short.html">format_currency_short()</a></code>, <code><a href="reference/format_pct.html">format_pct()</a></code> - Format numbers as currency strings with proper thousands separators. Short format uses K/M/B suffixes for compact display.</p></li>
+<li><p><strong>Donor Analytics</strong> (<code>R/donor.R</code>): <code><a href="reference/calc_age.html">calc_age()</a></code>, <code><a href="reference/donor_status.html">donor_status()</a></code>, <code><a href="reference/years_since.html">years_since()</a></code>, <code><a href="reference/total_giving_years.html">total_giving_years()</a></code>, <code><a href="reference/consecutive_giving_years.html">consecutive_giving_years()</a></code> - Calculate constituent age, classify donors as Active/LYBUNT/SYBUNT/Lapsed/Never based on fiscal year giving, compute years since a date, and track giving streaks.</p></li>
+<li><p><strong>Bucketing Functions</strong> (<code>R/buckets.R</code>): <code><a href="reference/bucket_gift_level.html">bucket_gift_level()</a></code>, <code><a href="reference/bucket_rating_level.html">bucket_rating_level()</a></code> - Map numeric values to categorical levels using reference data tables. Uses <code><a href="https://rdrr.io/r/base/findInterval.html" class="external-link">findInterval()</a></code> for threshold matching. Reference data stored in <code>data/</code> as <code>.rda</code> files.</p></li>
+<li><p><strong>Color Palettes</strong> (<code>R/colors.R</code>): <code><a href="reference/fundr_colors.html">fundr_colors()</a></code>, <code><a href="reference/fundr_palette.html">fundr_palette()</a></code>, <code><a href="reference/scale_fill_fundr.html">scale_fill_fundr()</a></code>, <code><a href="reference/scale_colour_fundr.html">scale_colour_fundr()</a></code> - Named hex colors and ggplot2 discrete scales. Three palettes: primary (2 colors), secondary (10 colors), tertiary (4 colors).</p></li>
+<li><p><strong>Currency Scales</strong> (<code>R/scales.R</code>): <code><a href="reference/scale_y_currency.html">scale_y_currency()</a></code>, <code><a href="reference/scale_x_currency.html">scale_x_currency()</a></code> - ggplot2 continuous scales that format axis labels as currency. Supports full format ($1,234,567) and compact format ($1.2M) via <code>short = TRUE</code>.</p></li>
+<li><p><strong>Plotting</strong> (<code>R/theme_fundr.R</code>, <code>R/fonts.R</code>): ggplot2 theme and Google Fonts integration. These require suggested packages (ggplot2, showtext, sysfonts). Includes <code><a href="reference/legend_bottom.html">legend_bottom()</a></code> and <code><a href="reference/legend_position.html">legend_position()</a></code> helpers.</p></li>
+<li><p><strong>Partial Dates</strong> (<code>R/partial_date.R</code>): <code><a href="reference/parse_partial_date.html">parse_partial_date()</a></code>, <code><a href="reference/calc_age_partial.html">calc_age_partial()</a></code>, <code><a href="reference/date_precision.html">date_precision()</a></code> - Handle year-only and year-month dates commonly seen with birth dates.</p></li>
+<li><p><strong>Date Utilities</strong> (<code>R/date_utils.R</code>): <code><a href="reference/date_interval.html">date_interval()</a></code>, <code><a href="reference/bucket_recency.html">bucket_recency()</a></code>, <code><a href="reference/is_within.html">is_within()</a></code>, <code><a href="reference/last_weekday.html">last_weekday()</a></code>, <code><a href="reference/next_weekday.html">next_weekday()</a></code>, <code><a href="reference/weekday_name.html">weekday_name()</a></code> - Calculate time between dates, bucket by recency, and find specific weekdays.</p></li>
+<li><p><strong>File Utilities</strong> (<code>R/files.R</code>): <code><a href="reference/latest_file.html">latest_file()</a></code>, <code><a href="reference/read_latest.html">read_latest()</a></code>, <code><a href="reference/list_recent_files.html">list_recent_files()</a></code> - Find and read the most recent files in a directory.</p></li>
+<li><p><strong>Case Conversion</strong> (<code>R/case_convert.R</code>): <code><a href="reference/to_snake_case.html">to_snake_case()</a></code>, <code><a href="reference/to_title_case.html">to_title_case()</a></code>, <code><a href="reference/to_camel_case.html">to_camel_case()</a></code>, <code><a href="reference/convert_names.html">convert_names()</a></code> - Convert strings and column names between case formats.</p></li>
+<li><p><strong>Utilities</strong> (<code>R/utils.R</code>): <code>%notin%</code>, <code>%!in%</code>, <code><a href="reference/comment_block.html">comment_block()</a></code>, <code><a href="reference/comment_header.html">comment_header()</a></code>, <code><a href="reference/comment_divider.html">comment_divider()</a></code> - Convenience operators and comment formatting helpers.</p></li>
+<li><p><strong>SKY API</strong> (<code>R/sky_api.R</code>): <code><a href="reference/sky_connect.html">sky_connect()</a></code>, <code><a href="reference/sky_get.html">sky_get()</a></code>, <code><a href="reference/sky_get_all.html">sky_get_all()</a></code>, <code><a href="reference/sky_test.html">sky_test()</a></code> - Integration with Blackbaud SKY API for Raiser’s Edge NXT. Requires httr and jsonlite.</p></li>
+<li><p><strong>Database</strong> (<code>R/database.R</code>): <code><a href="reference/db_connect.html">db_connect()</a></code>, <code><a href="reference/db_query.html">db_query()</a></code>, <code><a href="reference/db_test.html">db_test()</a></code> - Database connection helpers for SQL Server, PostgreSQL, MySQL, and SQLite.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="reference-data">Reference Data<a class="anchor" aria-label="anchor" href="#reference-data"></a></h3>
+<ul><li>
+<code>fundr_gift_levels</code> - Thresholds for donor giving levels (e.g., “$1,000,000+”)</li>
+<li>
+<code>fundr_rating_levels</code> - Thresholds for wealth/capacity ratings (e.g., “A - $100M+”)</li>
+</ul><p>Data preparation scripts are in <code>data-raw/</code>. Run them to regenerate <code>.rda</code> files after changes.</p>
+</div>
+<div class="section level3">
+<h3 id="design-patterns">Design Patterns<a class="anchor" aria-label="anchor" href="#design-patterns"></a></h3>
+<ul><li>All functions are fully vectorized and handle NA values gracefully</li>
+<li>Bucketing functions preserve factor levels/ordering from source data</li>
+<li>Optional dependencies checked at runtime via <code>fundr_needs()</code> with helpful error messages</li>
+<li>Functions return character vectors by default; factors returned when source column is a factor</li>
 </ul></div>
 <div class="section level3">
 <h3 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h3>

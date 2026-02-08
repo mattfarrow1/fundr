@@ -8,7 +8,7 @@ calendar year.
 ## Usage
 
 ``` r
-fy_year(date, fy_start_month = 7L)
+fy_year(date, fy_start_month = getOption("fundr.fy_start_month", 7L))
 ```
 
 ## Arguments
@@ -19,7 +19,11 @@ fy_year(date, fy_start_month = 7L)
 
 - fy_start_month:
 
-  Integer 1-12. Default 7 = July fiscal year start.
+  Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`. Set
+  session default with
+  [`fundr_setup()`](https://mattfarrow1.github.io/fundr/reference/fundr_setup.md)
+  or
+  [`set_fy_start_month()`](https://mattfarrow1.github.io/fundr/reference/set_fy_start_month.md).
 
 ## Value
 

@@ -6,7 +6,7 @@ Quarters are numbered 1-4 within the fiscal year defined by
 ## Usage
 
 ``` r
-fy_quarter(date, fy_start_month = 7L)
+fy_quarter(date, fy_start_month = getOption("fundr.fy_start_month", 7L))
 ```
 
 ## Arguments
@@ -17,7 +17,7 @@ fy_quarter(date, fy_start_month = 7L)
 
 - fy_start_month:
 
-  Integer 1-12. Default 7 = July fiscal year start.
+  Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`.
 
 ## Value
 
