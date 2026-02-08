@@ -4,7 +4,7 @@
 \alias{fundr_setup}
 \title{Configure R session for fundraising analytics}
 \usage{
-fundr_setup(scipen = 999L, digits = 7L, quiet = FALSE)
+fundr_setup(scipen = 999L, digits = 7L, fy_start_month = 7L, quiet = FALSE)
 }
 \arguments{
 \item{scipen}{Integer passed to \code{options(scipen = ...)}. Higher values make
@@ -12,6 +12,10 @@ R less likely to use scientific notation. Default 999 effectively disables
 it. Set to 0 to restore R's default behavior.}
 
 \item{digits}{Number of significant digits to display. Default 7.}
+
+\item{fy_start_month}{Integer 1-12 indicating fiscal year start month.
+Default 7 (July). Set to 1 for calendar year fiscal periods.
+This sets the \code{fundr.fy_start_month} option.}
 
 \item{quiet}{Logical; if TRUE, suppresses the startup message.}
 }
@@ -30,6 +34,8 @@ This function sets the following options:
 \item \code{scipen = 999}: Prevents scientific notation (e.g., displays
 1000000 instead of 1e+06)
 \item \code{digits}: Controls significant digits in output
+\item \code{fundr.fy_start_month}: Default fiscal year start month
+used by functions like \code{fy_year()} and \code{donor_status()}
 }
 
 Call \code{fundr_setup()} at the beginning of your script or in your .Rprofile
@@ -39,8 +45,11 @@ to ensure consistent behavior throughout your session.
 # Before setup: large numbers may show as scientific notation
 format(1234567890)
 
-# Configure session
+# Configure session with July fiscal year (default)
 old_opts <- fundr_setup()
+
+# Configure for calendar year fiscal periods
+fundr_setup(fy_start_month = 1)
 
 # Now large numbers display normally
 format(1234567890)

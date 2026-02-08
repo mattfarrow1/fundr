@@ -210,3 +210,121 @@ years_since <- function(date, as_of = Sys.Date(), digits = 1L) {
   out[ok] <- years
   out
 }
+
+#' Calculate total years of giving
+#'
+#' Counts the number of distinct fiscal years in which a donor gave.
+#' Useful for loyalty metrics and donor recognition programs.
+#'
+#' @param gift_dates Date vector of gift dates (or coercible via `as.Date()`).
+#' @param fy_start_month Integer 1-12 indicating fiscal year start month.
+#'   Default 7 (July).
+#'
+#' @return Integer count of distinct fiscal years with giving.
+#'
+#' @examples
+#' # Gifts in multiple years
+#' gifts <- as.Date(c("2020-01-15", "2020-06-01", "2021-03-15",
+#'                    "2023-09-01", "2023-12-25"))
+#' total_giving_years(gifts)
+#' #> 3
+#'
+#' # Single gift
+#' total_giving_years(as.Date("2024-01-01"))
+#' #> 1
+#'
+#' @export
+total_giving_years <- function(gift_dates, fy_start_month = 7L) {
+  gift_dates <- as.Date(gift_dates)
+
+  ok <- !is.na(gift_dates)
+  if (!any(ok)) return(0L)
+
+  fy_start_month <- fundr_check_month(fy_start_month)
+  gift_fys <- fy_year(gift_dates[ok], fy_start_month)
+
+  length(unique(gift_fys))
+}
+
+#' Calculate consecutive years of giving
+#'
+#' Counts the number of consecutive fiscal years of giving, going back
+#' from a reference fiscal year. Useful for streak tracking and
+#' recognition programs.
+#'
+#' @param gift_dates Date vector of gift dates (or coercible via `as.Date()`).
+#' @param as_of Reference date for calculation. Default is today.
+#' @param fy_start_month Integer 1-12 indicating fiscal year start month.
+#'   Default 7 (July).
+#' @param include_current Logical. If TRUE (default), includes the current
+#'   fiscal year in the streak count if donor gave this year.
+#'
+#' @return Integer count of consecutive fiscal years of giving.
+#'   Returns 0 if donor has no gifts or if streak is broken.
+#'
+#' @details
+#' The streak counts backwards from the reference fiscal year. If there's
+#' a gap in giving, the streak resets. For example, with gifts in FY2024,
+#' FY2023, and FY2021 (as of FY2024), the consecutive count is 2 (not 3)
+#' because FY2022 is missing.
+#'
+#' @examples
+#' # Consecutive giving FY2022, FY2023, FY2024
+#' gifts <- as.Date(c("2021-09-01", "2022-09-01", "2023-09-01"))
+#' consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"))
+#' #> 3
+#'
+#' # Gap in FY2023 breaks the streak
+#' gifts <- as.Date(c("2021-09-01", "2023-09-01"))
+#' consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"))
+#' #> 1
+#'
+#' # No gift this year, streak includes last year back
+#' gifts <- as.Date(c("2021-09-01", "2022-09-01"))
+#' consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"),
+#'                          include_current = FALSE)
+#' #> 0
+#'
+#' @export
+consecutive_giving_years <- function(
+    gift_dates,
+    as_of = Sys.Date(),
+    fy_start_month = 7L,
+    include_current = TRUE
+) {
+  gift_dates <- as.Date(gift_dates)
+  as_of <- as.Date(as_of)
+
+  if (length(as_of) != 1L || is.na(as_of)) {
+    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+  }
+
+  ok <- !is.na(gift_dates)
+  if (!any(ok)) return(0L)
+
+  fy_start_month <- fundr_check_month(fy_start_month)
+
+  # Get fiscal years
+  current_fy <- fy_year(as_of, fy_start_month)
+  gift_fys <- unique(sort(fy_year(gift_dates[ok], fy_start_month), decreasing = TRUE))
+
+  # Start from current or previous FY
+  start_fy <- if (isTRUE(include_current)) current_fy else current_fy - 1L
+
+  # Count consecutive years going backwards
+  count <- 0L
+  check_fy <- start_fy
+
+  for (fy in gift_fys) {
+    if (fy == check_fy) {
+      count <- count + 1L
+      check_fy <- check_fy - 1L
+    } else if (fy < check_fy) {
+      # Gap detected - stop counting
+      break
+    }
+    # If fy > check_fy, skip (future or already counted)
+  }
+
+  count
+}
