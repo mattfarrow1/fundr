@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,13 +37,149 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.0" id="fundr-010">fundr 0.1.0<a class="anchor" aria-label="anchor" href="#fundr-010"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-1-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-1-0"></a></h3>
+<div class="section level4">
+<h4 id="donor-analytics-0-1-0">Donor Analytics<a class="anchor" aria-label="anchor" href="#donor-analytics-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/calc_age.html">calc_age()</a></code> calculates constituent age from birth date.</li>
+<li>
+<code><a href="../reference/donor_status.html">donor_status()</a></code> classifies donors as Active/LYBUNT/SYBUNT/Lapsed/Never based on fiscal year giving.</li>
+<li>
+<code><a href="../reference/years_since.html">years_since()</a></code> computes years elapsed since a date.</li>
+<li>
+<code><a href="../reference/total_giving_years.html">total_giving_years()</a></code> and <code><a href="../reference/consecutive_giving_years.html">consecutive_giving_years()</a></code> track donor giving streaks.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="formatting-0-1-0">Formatting<a class="anchor" aria-label="anchor" href="#formatting-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/format_currency.html">format_currency()</a></code> formats numbers as currency with thousands separators.</li>
+<li>
+<code><a href="../reference/format_currency_short.html">format_currency_short()</a></code> uses K/M/B suffixes for compact display.</li>
+<li>
+<code><a href="../reference/format_pct.html">format_pct()</a></code> formats numbers as percentages.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="date-utilities-0-1-0">Date Utilities<a class="anchor" aria-label="anchor" href="#date-utilities-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/date_interval.html">date_interval()</a></code> calculates time between dates.</li>
+<li>
+<code><a href="../reference/bucket_recency.html">bucket_recency()</a></code> buckets dates by recency categories.</li>
+<li>
+<code><a href="../reference/is_within.html">is_within()</a></code> checks if a date falls within a time period.</li>
+<li>
+<code><a href="../reference/last_weekday.html">last_weekday()</a></code> and <code><a href="../reference/next_weekday.html">next_weekday()</a></code> find specific weekdays.</li>
+<li>
+<code><a href="../reference/weekday_name.html">weekday_name()</a></code> returns the name of a weekday.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="partial-dates-0-1-0">Partial Dates<a class="anchor" aria-label="anchor" href="#partial-dates-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/parse_partial_date.html">parse_partial_date()</a></code> handles year-only and year-month dates.</li>
+<li>
+<code><a href="../reference/calc_age_partial.html">calc_age_partial()</a></code> calculates age from partial birth dates.</li>
+<li>
+<code><a href="../reference/date_precision.html">date_precision()</a></code> determines the precision of a date value.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="file-utilities-0-1-0">File Utilities<a class="anchor" aria-label="anchor" href="#file-utilities-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/latest_file.html">latest_file()</a></code> finds the most recent file in a directory.</li>
+<li>
+<code><a href="../reference/read_latest.html">read_latest()</a></code> reads the most recent file matching a pattern.</li>
+<li>
+<code><a href="../reference/list_recent_files.html">list_recent_files()</a></code> lists files sorted by modification time.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="data-normalization-0-1-0">Data Normalization<a class="anchor" aria-label="anchor" href="#data-normalization-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/normalize_phone.html">normalize_phone()</a></code> cleans and standardizes phone numbers.</li>
+<li>
+<code><a href="../reference/normalize_zip.html">normalize_zip()</a></code> cleans and standardizes ZIP codes.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="case-conversion-0-1-0">Case Conversion<a class="anchor" aria-label="anchor" href="#case-conversion-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/to_snake_case.html">to_snake_case()</a></code>, <code><a href="../reference/to_title_case.html">to_title_case()</a></code>, <code><a href="../reference/to_camel_case.html">to_camel_case()</a></code> convert strings between formats.</li>
+<li>
+<code><a href="../reference/convert_names.html">convert_names()</a></code> converts column names to a specified case.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="bucketing-functions-0-1-0">Bucketing Functions<a class="anchor" aria-label="anchor" href="#bucketing-functions-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/bucket_gift_level.html">bucket_gift_level()</a></code> maps gift amounts to categorical levels.</li>
+<li>
+<code><a href="../reference/bucket_rating_level.html">bucket_rating_level()</a></code> maps wealth ratings to categorical levels.</li>
+<li>Added <code>fundr_gift_levels</code> and <code>fundr_rating_levels</code> reference datasets.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="color-palettes-0-1-0">Color Palettes<a class="anchor" aria-label="anchor" href="#color-palettes-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/fundr_colors.html">fundr_colors()</a></code> provides named hex colors.</li>
+<li>
+<code><a href="../reference/fundr_palette.html">fundr_palette()</a></code> returns palette vectors (primary, secondary, tertiary).</li>
+<li>
+<code><a href="../reference/scale_fill_fundr.html">scale_fill_fundr()</a></code> and <code><a href="../reference/scale_colour_fundr.html">scale_colour_fundr()</a></code> for ggplot2 discrete scales.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="currency-scales-0-1-0">Currency Scales<a class="anchor" aria-label="anchor" href="#currency-scales-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/scale_y_currency.html">scale_y_currency()</a></code> and <code><a href="../reference/scale_x_currency.html">scale_x_currency()</a></code> format ggplot2 axes as currency.</li>
+<li>Support compact format via <code>short = TRUE</code> parameter.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="sky-api-integration-0-1-0">SKY API Integration<a class="anchor" aria-label="anchor" href="#sky-api-integration-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/sky_connect.html">sky_connect()</a></code> establishes connection to Blackbaud SKY API.</li>
+<li>
+<code><a href="../reference/sky_get.html">sky_get()</a></code> and <code><a href="../reference/sky_get_all.html">sky_get_all()</a></code> fetch data from SKY API endpoints.</li>
+<li>
+<code><a href="../reference/sky_test.html">sky_test()</a></code> tests API connection.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="database-helpers-0-1-0">Database Helpers<a class="anchor" aria-label="anchor" href="#database-helpers-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/db_connect.html">db_connect()</a></code> connects to SQL Server, PostgreSQL, MySQL, or SQLite.</li>
+<li>
+<code><a href="../reference/db_query.html">db_query()</a></code> executes queries and returns results.</li>
+<li>
+<code><a href="../reference/db_test.html">db_test()</a></code> tests database connection.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="utilities-0-1-0">Utilities<a class="anchor" aria-label="anchor" href="#utilities-0-1-0"></a></h4>
+<ul><li>
+<code>%notin%</code> and <code>%!in%</code> operators for negated <code>%in%</code>.</li>
+<li>
+<code><a href="../reference/comment_block.html">comment_block()</a></code>, <code><a href="../reference/comment_header.html">comment_header()</a></code>, <code><a href="../reference/comment_divider.html">comment_divider()</a></code> format code comments.</li>
+<li>
+<code><a href="../reference/fundr_setup.html">fundr_setup()</a></code> configures R session for fundraising work.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plotting-0-1-0">Plotting<a class="anchor" aria-label="anchor" href="#plotting-0-1-0"></a></h4>
+<ul><li>
+<code><a href="../reference/theme_fundr.html">theme_fundr()</a></code> provides a clean ggplot2 theme.</li>
+<li>
+<code><a href="../reference/fundr_use_google_font.html">fundr_use_google_font()</a></code> loads Google Fonts for plots.</li>
+<li>
+<code><a href="../reference/legend_bottom.html">legend_bottom()</a></code> and <code><a href="../reference/legend_position.html">legend_position()</a></code> helpers for legend placement.</li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="internal-0-1-0">Internal<a class="anchor" aria-label="anchor" href="#internal-0-1-0"></a></h3>
+<ul><li>Added <code>fundr_needs()</code> for runtime dependency checking with helpful error messages.</li>
+<li>Zero required dependencies for core functions; optional packages enhance features.</li>
+</ul><hr></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9000" id="fundr-0009000">fundr 0.0.0.9000<a class="anchor" aria-label="anchor" href="#fundr-0009000"></a></h2>
 <ul><li>Initial development version.</li>
 <li>Added fiscal year helpers: <code><a href="../reference/fy_year.html">fy_year()</a></code>, <code><a href="../reference/fy_quarter.html">fy_quarter()</a></code>, <code><a href="../reference/fy_label.html">fy_label()</a></code>.</li>
 <li>Added optional Google Fonts helper: <code><a href="../reference/fundr_use_google_font.html">fundr_use_google_font()</a></code>.</li>
 <li>Added ggplot2 theme: <code><a href="../reference/theme_fundr.html">theme_fundr()</a></code>.</li>
 </ul></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

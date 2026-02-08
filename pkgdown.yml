@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   bucketing-levels: bucketing-levels.html
-last_built: 2026-02-08T18:33Z
+last_built: 2026-02-08T18:50Z
 urls:
   reference: https://mattfarrow1.github.io/fundr/reference
   article: https://mattfarrow1.github.io/fundr/articles
