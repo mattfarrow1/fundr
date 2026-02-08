@@ -40,7 +40,11 @@ latest_file <- function(
   by <- match.arg(by)
 
   if (!dir.exists(path)) {
-    stop("Directory does not exist: ", path, call. = FALSE)
+    fundr_abort(c(
+      "Directory does not exist.",
+      "x" = paste0("Path: ", path),
+      "i" = "Check that the directory path is correct."
+    ))
   }
 
   # List files
@@ -145,8 +149,11 @@ read_latest <- function(
   }
 
   if (is.null(reader)) {
-    stop("Cannot auto-detect reader for: ", basename(file_path),
-         "\nPlease provide a `reader` function.", call. = FALSE)
+    fundr_abort(c(
+      "Cannot auto-detect file reader.",
+      "x" = paste0("Unknown file type: ", basename(file_path)),
+      "i" = "Provide a `reader` function for this file type."
+    ))
   }
 
   # Special handling for .rda/.RData files
@@ -192,8 +199,9 @@ detect_reader <- function(file_path) {
 #' @param recursive Logical. If TRUE, searches subdirectories. Default FALSE.
 #' @param n Maximum number of files to return. Default NULL returns all.
 #'
-#' @return Data frame with columns: file (basename), path (full path),
-#'   size (in bytes), mtime (modification time). Sorted by mtime descending.
+#' @return A tibble (or data frame if tibble not installed) with columns:
+#'   file (basename), path (full path), size (in bytes), mtime (modification
+#'   time). Sorted by mtime descending.
 #'
 #' @examples
 #' \dontrun{
@@ -209,7 +217,11 @@ list_recent_files <- function(
     n = NULL
 ) {
   if (!dir.exists(path)) {
-    stop("Directory does not exist: ", path, call. = FALSE)
+    fundr_abort(c(
+      "Directory does not exist.",
+      "x" = paste0("Path: ", path),
+      "i" = "Check that the directory path is correct."
+    ))
   }
 
   files <- list.files(
@@ -220,23 +232,21 @@ list_recent_files <- function(
   )
 
   if (length(files) == 0L) {
-    return(data.frame(
+    return(fundr_df(
       file = character(0),
       path = character(0),
       size = numeric(0),
-      mtime = as.POSIXct(character(0)),
-      stringsAsFactors = FALSE
+      mtime = as.POSIXct(character(0))
     ))
   }
 
   info <- file.info(files)
 
-  result <- data.frame(
+  result <- fundr_df(
     file = basename(files),
     path = files,
     size = info$size,
-    mtime = info$mtime,
-    stringsAsFactors = FALSE
+    mtime = info$mtime
   )
 
   # Sort by mtime descending

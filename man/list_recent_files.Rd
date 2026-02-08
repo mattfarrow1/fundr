@@ -16,8 +16,9 @@ list_recent_files(path, pattern = NULL, recursive = FALSE, n = NULL)
 \item{n}{Maximum number of files to return. Default NULL returns all.}
 }
 \value{
-Data frame with columns: file (basename), path (full path),
-size (in bytes), mtime (modification time). Sorted by mtime descending.
+A tibble (or data frame if tibble not installed) with columns:
+file (basename), path (full path), size (in bytes), mtime (modification
+time). Sorted by mtime descending.
 }
 \description{
 Returns a data frame of files with their metadata, sorted by modification

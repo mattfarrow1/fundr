@@ -54,4 +54,8 @@ date_interval(as.Date("2024-01-15"), as.Date("2024-06-15"), unit = "months")
 dates <- as.Date(c("2020-01-01", "2022-06-15", "2023-09-01"))
 date_interval(dates, as.Date("2024-06-15"), unit = "years")
 
+# In a dplyr pipeline (using native pipe)
+# gifts |>
+#   mutate(years_ago = date_interval(gift_date, unit = "years"))
+
 }

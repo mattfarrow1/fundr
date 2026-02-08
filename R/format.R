@@ -32,8 +32,9 @@
 #' format_currency(-500, negative = "minus")
 #' #> "-$500"
 #'
-#' # In a dplyr pipeline
-#' # df |> mutate(gift_formatted = format_currency(gift_amount))
+#' # In a dplyr pipeline (using native pipe)
+#' # df |>
+#' #   mutate(gift_formatted = format_currency(gift_amount))
 #'
 #' @export
 format_currency <- function(

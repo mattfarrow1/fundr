@@ -28,7 +28,11 @@ calc_age <- function(birthdate, as_of = Sys.Date()) {
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "x" = if (length(as_of) != 1L) "Multiple values provided." else "Value is NA.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   n <- length(birthdate)
@@ -102,6 +106,10 @@ calc_age <- function(birthdate, as_of = Sys.Date()) {
 #'
 #' donor_status(dates, as_of = as.Date("2025-01-15"))
 #'
+#' # In a dplyr pipeline (using native pipe)
+#' # donors |>
+#' #   mutate(status = donor_status(last_gift_date))
+#'
 #' @export
 donor_status <- function(
     last_gift_date,
@@ -113,14 +121,22 @@ donor_status <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "x" = if (length(as_of) != 1L) "Multiple values provided." else "Value is NA.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   fy_start_month <- fundr_check_month(fy_start_month)
   lapsed_years <- as.integer(lapsed_years)
 
   if (length(lapsed_years) != 1L || is.na(lapsed_years) || lapsed_years < 1L) {
-    stop("`lapsed_years` must be a single positive integer.", call. = FALSE)
+    fundr_abort(c(
+      "`lapsed_years` must be a single positive integer.",
+      "x" = paste0("Got: ", lapsed_years),
+      "i" = "Use a value like `lapsed_years = 5`."
+    ))
   }
 
   n <- length(last_gift_date)
@@ -189,7 +205,11 @@ years_since <- function(date, as_of = Sys.Date(), digits = 1L) {
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "x" = if (length(as_of) != 1L) "Multiple values provided." else "Value is NA.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   n <- length(date)
@@ -296,7 +316,11 @@ consecutive_giving_years <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "x" = if (length(as_of) != 1L) "Multiple values provided." else "Value is NA.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   ok <- !is.na(gift_dates)

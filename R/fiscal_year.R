@@ -3,7 +3,11 @@ fundr_check_month <- function(fy_start_month) {
 
   if (length(fy_start_month) != 1L || is.na(fy_start_month) ||
       fy_start_month < 1L || fy_start_month > 12L) {
-    stop("`fy_start_month` must be a single integer between 1 and 12.", call. = FALSE)
+    fundr_abort(c(
+      "`fy_start_month` must be a single integer between 1 and 12.",
+      "x" = paste0("Got: ", fy_start_month),
+      "i" = "Common values: 1 (January/calendar year), 7 (July), 10 (October/federal)."
+    ))
   }
 
   fy_start_month

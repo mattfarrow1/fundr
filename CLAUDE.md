@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Please reference Sarah Johnson's [Modern R Development Guide](https://gist.githubusercontent.com/sj-io/3828d64d0969f2a0f05297e59e6c15ad/raw/cbbd46f7ca76cb3aa5758a74341bff3c8d960ea3/CLAUDE.md) for best practices with R code and the Tidyverse.
+
 ## Overview
 
 fundr is an R package providing lightweight, tidyverse-compatible utilities for fundraising and advancement analytics. The package has minimal required dependencies (only base R for core functions) with optional dependencies for plotting features.
@@ -85,29 +87,3 @@ Data preparation scripts are in `data-raw/`. Run them to regenerate `.rda` files
 ### Testing
 
 Tests use testthat (edition 3). Test files mirror the structure of `R/` files in `tests/testthat/`.
-
-## Feature Wishlist
-
-### [P0] High Priority
-
-- [x] Add support for handling dates that are only year & month or just years. These are most commonly seen with birth dates. → `parse_partial_date()`, `calc_age_partial()`, `date_precision()`
-- [x] Add code to calculate the time period (days, months, years) between two dates. Most frequently this will be used between a date in the past and today. → `date_interval()`
-- [x] Add code to put dates into buckets by their recency (this year, last year, last **n** years). This should have an option to calculate by calendar year or fiscal year. → `bucket_recency()`, `is_within()`
-- [x] Add code for reading the most recent file inside a specified folder → `latest_file()`, `read_latest()`, `list_recent_files()`
-
-### [P1] Medium Priority
-
-- [x] Add code to reformat large numbers with "K", "B", and "M" as appropriate. → Already exists: `format_currency_short()`
-- [x] Add code to calculate the total number of years of giving → `total_giving_years()`
-- [x] Add code to calculate the number of consecutive years of giving, going back from the last fiscal year. → `consecutive_giving_years()`
-- [x] Add code for calculating a specific day of the week. For example, my SQL databases refresh on Fridays. I often want to use that date in the file names the analyses I'm saving out so I know when the data is from. → `last_weekday()`, `next_weekday()`, `weekday_name()`
-- [x] While the default for my fiscal year scripts is to use July as the start year, my personal fiscal year starts in January. Is there way to support that? Perhaps in `setup.R`? → `fundr_setup(fy_start_month = 1)`, `get_fy_start_month()`, `set_fy_start_month()`
-- [x] Add functionality to convert column names to and from snake_case and TitleCase → `to_snake_case()`, `to_title_case()`, `to_camel_case()`, `convert_names()`
-- [x] Add code for putting the legend on the bottom of a plot with a ggplot object → `legend_bottom()`, `legend_position()`
-
-### [P2] Low Priority
-
-- [x] Add code for pulling data from SKY API → `sky_connect()`, `sky_get()`, `sky_get_all()`, `sky_test()`
-- [x] Add code for building database connections → `db_connect()`, `db_query()`, `db_test()`
-- [x] Add shortcut code for "not in" → `%notin%`, `%!in%`
-- [x] Add commenting formatting (ala monospaced) → `comment_block()`, `comment_header()`, `comment_divider()`

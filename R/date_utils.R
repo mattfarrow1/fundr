@@ -37,6 +37,10 @@
 #' dates <- as.Date(c("2020-01-01", "2022-06-15", "2023-09-01"))
 #' date_interval(dates, as.Date("2024-06-15"), unit = "years")
 #'
+#' # In a dplyr pipeline (using native pipe)
+#' # gifts |>
+#' #   mutate(years_ago = date_interval(gift_date, unit = "years"))
+#'
 #' @export
 date_interval <- function(
     from,
@@ -181,12 +185,18 @@ bucket_recency <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   buckets <- as.integer(buckets)
   if (any(is.na(buckets)) || is.unsorted(buckets)) {
-    stop("`buckets` must be a sorted vector of non-NA integers.", call. = FALSE)
+    fundr_abort(c(
+      "`buckets` must be a sorted vector of non-NA integers.",
+      "i" = "Example: `buckets = c(0, 1, 2, 5)` for this year, last year, 2-5 years, 5+."
+    ))
   }
 
   # Generate default labels if not provided
@@ -321,7 +331,10 @@ is_within <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   n <- length(date)
@@ -381,7 +394,10 @@ last_weekday <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   target_wday <- parse_weekday(weekday)
@@ -429,7 +445,10 @@ next_weekday <- function(
   as_of <- as.Date(as_of)
 
   if (length(as_of) != 1L || is.na(as_of)) {
-    stop("`as_of` must be a single non-NA date.", call. = FALSE)
+    fundr_abort(c(
+      "`as_of` must be a single non-NA date.",
+      "i" = "Provide a single date like `as_of = Sys.Date()`."
+    ))
   }
 
   target_wday <- parse_weekday(weekday)
@@ -451,7 +470,10 @@ parse_weekday <- function(x) {
   if (is.numeric(x)) {
     x <- as.integer(x)
     if (x < 1L || x > 7L) {
-      stop("Weekday number must be 1-7 (1 = Sunday, 7 = Saturday).", call. = FALSE)
+      fundr_abort(c(
+        "Weekday number must be 1-7.",
+        "i" = "1 = Sunday, 2 = Monday, ..., 6 = Friday, 7 = Saturday."
+      ))
     }
     return(x)
   }
@@ -470,8 +492,10 @@ parse_weekday <- function(x) {
 
   result <- weekday_map[x]
   if (is.na(result)) {
-    stop("Invalid weekday: '", x, "'. Use name (e.g., 'Friday') or number 1-7.",
-         call. = FALSE)
+    fundr_abort(c(
+      paste0("Invalid weekday: '", x, "'."),
+      "i" = "Use a name (e.g., 'Friday', 'fri') or number 1-7."
+    ))
   }
 
   unname(result)

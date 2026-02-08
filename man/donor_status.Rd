@@ -56,4 +56,8 @@ dates <- as.Date(c(
 
 donor_status(dates, as_of = as.Date("2025-01-15"))
 
+# In a dplyr pipeline (using native pipe)
+# donors |>
+#   mutate(status = donor_status(last_gift_date))
+
 }
