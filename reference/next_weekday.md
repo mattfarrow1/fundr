@@ -33,7 +33,7 @@ Date of the next occurrence of the specified weekday.
 ``` r
 # Find next Monday
 next_weekday("Monday")
-#> [1] "2026-02-09"
+#> [1] "2026-02-16"
 
 # From a specific date
 next_weekday("Monday", as_of = as.Date("2024-06-14"))
