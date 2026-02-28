@@ -50,3 +50,8 @@ rsconnect/
 .Rproj.user
 docs
 inst/doc
+
+# Claude
+CLAUDE.md
+/doc/
+/Meta/

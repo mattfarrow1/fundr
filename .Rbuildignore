@@ -12,3 +12,5 @@
 ^data-raw$
 ^CLAUDE\.md$
 ^\.claude$
+^doc$
+^Meta$

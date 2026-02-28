@@ -1,0 +1,276 @@
+---
+title: "Working with Fiscal Years and Dates"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Working with Fiscal Years and Dates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+Nonprofits typically operate on fiscal years that don't align with the calendar year. fundr provides comprehensive tools for working with fiscal years, partial dates (common with birth dates), and other date utilities.
+
+```{r}
+library(fundr)
+```
+
+## Fiscal Year Functions
+
+Most educational institutions and many nonprofits use a July 1 - June 30 fiscal year. fundr defaults to this convention.
+
+### Basic Fiscal Year Conversion
+
+```{r}
+# Key dates around fiscal year boundary
+dates <- as.Date(c("2024-06-30", "2024-07-01", "2025-01-15", "2025-06-30"))
+
+# Get the fiscal year number
+fy_year(dates)
+
+# Get a formatted label
+fy_label(dates)
+
+# Get the fiscal quarter
+fy_quarter(dates)
+```
+
+Note that June 30, 2024 is in FY24, while July 1, 2024 starts FY25.
+
+### Customizing the Fiscal Year Start
+
+If your organization uses a different fiscal year, specify the starting month:
+
+```{r}
+date <- as.Date("2024-10-15")
+
+# July start (default)
+fy_year(date, fy_start_month = 7)
+
+# October start (federal fiscal year)
+fy_year(date, fy_start_month = 10)
+
+# January start (calendar year)
+fy_year(date, fy_start_month = 1)
+```
+
+### Setting a Global Default
+
+Use `fundr_setup()` to set your organization's fiscal year start globally:
+
+```{r eval=FALSE}
+# Set fiscal year to start in October
+fundr_setup(fy_start_month = 10)
+
+# Now all fiscal year functions use October
+fy_year(as.Date("2024-10-15"))  # Returns 2025
+```
+
+### Fiscal Year Labels
+
+`fy_label()` provides human-readable fiscal year labels:
+
+```{r}
+dates <- as.Date(c("2024-08-15", "2025-02-20"))
+
+# Default short format (FY25, FY26)
+fy_label(dates)
+
+# With custom prefix
+fy_label(dates, prefix = "Fiscal ")
+
+# Full year format
+fy_label(dates, short = FALSE)
+```
+
+### Fiscal Quarters
+
+`fy_quarter()` returns the fiscal quarter (1-4):
+
+```{r}
+# Sample dates throughout fiscal year 2025
+dates <- as.Date(c(
+  "2024-07-15",  # Q1
+  "2024-10-15",  # Q2
+  "2025-01-15",  # Q3
+  "2025-04-15"   # Q4
+))
+
+fy_quarter(dates)
+```
+
+## Partial Dates
+
+Birth dates in fundraising databases often have incomplete information - sometimes only the year, or year and month. fundr handles these gracefully.
+
+### Parsing Partial Dates
+
+```{r}
+# Various date formats from the portfolio
+dob_samples <- c(
+  "03/15/1985",      # Full date
+  "March 1985",      # Month and year
+  "1985",            # Year only
+  "1985-03-15",      # ISO format
+  "03-15-85"         # Two-digit year
+)
+
+parse_partial_date(dob_samples)
+```
+
+### Date Precision
+
+Determine what level of precision each date has:
+
+```{r}
+dob_samples <- c("03/15/1985", "March 1985", "1985", NA)
+
+date_precision(dob_samples)
+```
+
+### Calculating Age with Partial Dates
+
+`calc_age_partial()` calculates age from potentially incomplete dates:
+
+```{r}
+dob_samples <- c("03/15/1985", "March 1985", "1985")
+
+calc_age_partial(dob_samples)
+```
+
+For year-only dates, the function assumes mid-year (July 1) for the calculation.
+
+### Working with Portfolio DOBs
+
+The portfolio dataset includes dates in various formats:
+
+```{r}
+# Sample DOBs from the portfolio
+sample_dobs <- fundr_portfolio$dob[!is.na(fundr_portfolio$dob)][1:10]
+sample_dobs
+
+# Parse them
+parsed <- parse_partial_date(sample_dobs)
+parsed
+
+# Check precision
+date_precision(sample_dobs)
+```
+
+## Date Utilities
+
+fundr includes several helpful date utility functions.
+
+### Time Intervals
+
+Calculate time between dates:
+```{r}
+start <- as.Date("2020-01-15")
+end <- as.Date("2024-06-30")
+
+date_interval(start, end, unit = "years")
+date_interval(start, end, unit = "months")
+date_interval(start, end, unit = "days")
+```
+
+### Years Since
+
+Calculate years since a date (useful for giving recency):
+
+```{r}
+last_gift_dates <- as.Date(c("2024-01-15", "2022-06-30", "2018-03-01"))
+
+years_since(last_gift_dates)
+```
+
+### Recency Bucketing
+
+Categorize dates by how recent they are:
+
+```{r}
+dates <- as.Date(c("2025-12-01", "2024-06-15", "2022-01-01", "2018-06-30"))
+
+bucket_recency(dates)
+```
+
+### Checking Date Ranges
+
+Test if dates fall within a specified range:
+
+```{r}
+dates <- as.Date(c("2024-01-15", "2024-06-30", "2025-01-15"))
+
+# Within last 6 months?
+is_within(dates, within = 6, unit = "months")
+
+# Within last 2 years?
+is_within(dates, within = 2, unit = "years")
+```
+
+### Finding Weekdays
+
+Useful for scheduling and reporting:
+
+```{r}
+date <- as.Date("2025-02-28")
+
+# What day is this?
+weekday_name(date)
+
+# Find next Monday
+next_weekday("Monday", as_of = date)
+
+# Find last Friday
+last_weekday("Friday", as_of = date)
+```
+
+## Practical Examples
+
+### Fiscal Year Giving Summary
+
+```{r}
+# Add fiscal year to giving data
+portfolio_fy <- fundr_portfolio
+portfolio_fy$last_gift_fy <- fy_year(portfolio_fy$last_gift_date)
+
+# Count donors by fiscal year
+table(portfolio_fy$last_gift_fy, useNA = "ifany")
+```
+
+### Age Distribution
+
+```{r}
+# Calculate ages from DOBs
+ages <- calc_age_partial(fundr_portfolio$dob)
+
+# Summary statistics
+summary(ages)
+```
+
+### Donor Recency Analysis
+
+```{r}
+# Categorize donors by recency
+recency <- bucket_recency(fundr_portfolio$last_gift_date)
+table(recency, useNA = "ifany")
+```
+
+## Summary
+
+| Function | Purpose |
+|----------|---------|
+| `fy_year()` | Convert date to fiscal year number |
+| `fy_label()` | Convert date to fiscal year label (e.g., "FY25") |
+| `fy_quarter()` | Get fiscal quarter (1-4) |
+| `parse_partial_date()` | Parse dates with varying precision |
+| `date_precision()` | Determine date precision level |
+| `calc_age_partial()` | Calculate age from partial dates |
+| `date_interval()` | Calculate time between dates |
+| `years_since()` | Years elapsed since a date |
+| `bucket_recency()` | Categorize by recency |
+| `is_within()` | Check if within time range |
+| `last_weekday()` | Find previous occurrence of weekday |
+| `next_weekday()` | Find next occurrence of weekday |
+| `weekday_name()` | Get day of week name |

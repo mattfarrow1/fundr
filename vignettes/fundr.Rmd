@@ -1,0 +1,158 @@
+---
+title: "Introduction to fundr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to fundr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+fundr is an R package providing lightweight, tidyverse-compatible utilities for fundraising and advancement analytics. It's designed with minimal dependencies while offering powerful tools for common nonprofit data tasks.
+## Installation
+
+```{r eval=FALSE}
+# Install from GitHub
+# install.packages("pak")
+pak::pak("mattfarrow1/fundr")
+```
+
+## Quick Start
+
+Load the package and set up your session:
+
+```{r}
+library(fundr)
+
+# Configure session for fundraising work
+fundr_setup()
+```
+
+`fundr_setup()` disables scientific notation so large dollar amounts display properly (e.g., `$1,000,000` instead of `1e+06`).
+
+## Sample Data
+
+fundr includes `fundr_portfolio`, a synthetic dataset of 10,000 constituent records for learning and testing:
+```{r}
+dim(fundr_portfolio)
+names(fundr_portfolio)[1:15]
+```
+
+The dataset includes individuals (singles and married couples) and organizations with realistic data quality variations:
+
+```{r}
+table(fundr_portfolio$record_type)
+```
+
+## Package Overview
+
+### Data Cleaning
+
+**Phone normalization** - Clean messy phone numbers:
+
+```{r}
+messy_phones <- c("(214) 555-1234", "972.555.4567", "1-817-555-8901")
+normalize_phone(messy_phones)
+```
+
+**ZIP code normalization** - Standardize postal codes:
+
+```{r}
+messy_zips <- c("75201-1234", "75201 5678", " 75201 ")
+normalize_zip(messy_zips)
+```
+
+**Case conversion** - Convert between naming conventions:
+
+```{r}
+to_snake_case("FirstName")
+to_title_case("first_name")
+```
+
+### Fiscal Year Functions
+
+Work with fiscal years (default July start):
+
+```{r}
+dates <- as.Date(c("2024-06-30", "2024-07-01", "2025-01-15"))
+
+fy_year(dates)
+fy_label(dates)
+fy_quarter(dates)
+```
+
+### Donor Analytics
+
+Classify donors by recency:
+
+```{r}
+last_gifts <- as.Date(c("2025-10-15", "2024-08-01", "2023-05-20", "2020-01-01", NA))
+donor_status(last_gifts)
+```
+
+Calculate constituent age:
+
+```{r}
+calc_age(as.Date("1985-03-15"))
+```
+
+### Currency Formatting
+
+Format numbers as currency:
+
+```{r}
+amounts <- c(1234.56, 1500000, 25000000)
+
+format_currency(amounts)
+format_currency_short(amounts)
+```
+
+### Bucketing
+
+Categorize gifts and ratings:
+
+```{r}
+gift_amounts <- c(500, 50000, 1000000)
+bucket_gift_level(gift_amounts, what = "giving_level")
+bucket_gift_level(gift_amounts, what = "ask_bucket")
+```
+
+### Visualization (requires ggplot2)
+fundr provides a custom theme, color palettes, and currency scales:
+
+```{r eval=FALSE}
+library(ggplot2)
+
+ggplot(data, aes(x = year, y = amount)) +
+geom_col(fill = fundr_colors("teal")) +
+  scale_y_currency(short = TRUE) +
+  theme_fundr()
+```
+
+## Learning More
+
+Explore the other vignettes for deeper dives:
+
+- `vignette("data-cleaning")` - Phone, ZIP, and case conversion
+- `vignette("fiscal-years-dates")` - Working with dates and fiscal years
+- `vignette("donor-analytics")` - Analyzing the portfolio dataset
+- `vignette("visualization")` - Themes, colors, and scales
+
+## Convenience Operators
+
+fundr includes helpful operators:
+
+```{r}
+# "not in" operator (opposite of %in%)
+c("a", "b", "c") %notin% c("b", "d")
+```
+
+And comment formatting helpers for scripts:
+
+```{r}
+comment_header("Data Import")
+comment_divider()
+```
