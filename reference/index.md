@@ -48,6 +48,8 @@
   : Palette function for ggplot2 discrete scales
 - [`fundr_palette()`](https://mattfarrow1.github.io/fundr/reference/fundr_palette.md)
   : fundr palettes
+- [`fundr_portfolio`](https://mattfarrow1.github.io/fundr/reference/fundr_portfolio.md)
+  : Sample fundraising portfolio
 - [`fundr_rating_levels`](https://mattfarrow1.github.io/fundr/reference/fundr_rating_levels.md)
   : Rating level reference table
 - [`fundr_setup()`](https://mattfarrow1.github.io/fundr/reference/fundr_setup.md)
