@@ -4,6 +4,9 @@
 
 - **Matt Farrow**. Author, maintainer.
 
+- **Claude (Anthropic AI)**. Contributor.  
+  AI programming assistant
+
 ## Citation
 
 Source:

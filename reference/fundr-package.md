@@ -17,3 +17,7 @@ Useful links:
 ## Author
 
 **Maintainer**: Matt Farrow <matt@mattfarrow.co>
+
+Other contributors:
+
+- Claude (Anthropic AI) (AI programming assistant) \[contributor\]
