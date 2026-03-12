@@ -16,3 +16,22 @@ A named character vector of hex color codes.
 \description{
 Named hex colors used by fundr palettes.
 }
+\examples{
+# Get all available colors
+fundr_colors()
+
+# Get specific colors by name
+fundr_colors("teal", "magenta")
+
+# Use in base R plotting
+barplot(1:3, col = fundr_colors("teal", "peach", "purple"))
+
+}
+\seealso{
+Other colors: 
+\code{\link{fundr_pal}()},
+\code{\link{fundr_palette}()},
+\code{\link{scale_colour_fundr}()},
+\code{\link{scale_fill_fundr}()}
+}
+\concept{colors}

@@ -45,3 +45,10 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 }
 
 }
+\seealso{
+Other theme: 
+\code{\link{fundr_use_google_font}()},
+\code{\link{legend_position}()},
+\code{\link{theme_fundr}()}
+}
+\concept{theme}

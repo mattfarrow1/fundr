@@ -7,6 +7,26 @@
 #' @param family The family name you'll reference in ggplot2 (e.g., "montserrat")
 #' @param enable_showtext If TRUE, calls showtext::showtext_auto()
 #' @param ... Passed to sysfonts::font_add_google() (e.g., db_cache = TRUE)
+#'
+#' @return Invisibly returns the family name.
+#'
+#' @examples
+#' \dontrun{
+#' # Load the default Montserrat font
+#' fundr_use_google_font()
+#'
+#' # Load a different Google Font
+#' fundr_use_google_font("Roboto", "roboto")
+#'
+#' # Use in ggplot2 with theme_fundr()
+#' library(ggplot2)
+#' fundr_use_google_font()
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   theme_fundr()
+#' }
+#'
+#' @family theme
 #' @export
 fundr_use_google_font <- function(
     name = "Montserrat",

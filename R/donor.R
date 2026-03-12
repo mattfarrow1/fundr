@@ -9,6 +9,7 @@
 #' @return Integer vector of ages in years. Returns NA for NA inputs
 #'   or future birthdates.
 #'
+#' @family donor-analytics
 #' @examples
 #' # Basic usage
 #' calc_age(as.Date("1980-06-15"))
@@ -110,6 +111,7 @@ calc_age <- function(birthdate, as_of = Sys.Date()) {
 #' # donors |>
 #' #   mutate(status = donor_status(last_gift_date))
 #'
+#' @family donor-analytics
 #' @export
 donor_status <- function(
     last_gift_date,
@@ -199,6 +201,7 @@ donor_status <- function(
 #' dates <- as.Date(c("2020-01-01", "2022-06-15", "2023-09-01"))
 #' years_since(dates, as_of = as.Date("2024-06-15"))
 #'
+#' @family donor-analytics
 #' @export
 years_since <- function(date, as_of = Sys.Date(), digits = 1L) {
   date <- as.Date(date)
@@ -253,6 +256,7 @@ years_since <- function(date, as_of = Sys.Date(), digits = 1L) {
 #' total_giving_years(as.Date("2024-01-01"))
 #' #> 1
 #'
+#' @family donor-analytics
 #' @export
 total_giving_years <- function(gift_dates, fy_start_month = 7L) {
   gift_dates <- as.Date(gift_dates)
@@ -305,6 +309,7 @@ total_giving_years <- function(gift_dates, fy_start_month = 7L) {
 #'                          include_current = FALSE)
 #' #> 0
 #'
+#' @family donor-analytics
 #' @export
 consecutive_giving_years <- function(
     gift_dates,

@@ -20,3 +20,9 @@ Fiscal year is returned as the year in which the fiscal period ends.
 For example, with a July start (fy_start_month = 7), 2024-07-01 is FY2025.
 With a January start (fy_start_month = 1), fiscal year matches the calendar year.
 }
+\seealso{
+Other fiscal-year: 
+\code{\link{fy_label}()},
+\code{\link{fy_quarter}()}
+}
+\concept{fiscal-year}

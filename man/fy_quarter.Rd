@@ -17,3 +17,9 @@ Integer vector (1-4).
 \description{
 Quarters are numbered 1-4 within the fiscal year defined by \code{fy_start_month}.
 }
+\seealso{
+Other fiscal-year: 
+\code{\link{fy_label}()},
+\code{\link{fy_year}()}
+}
+\concept{fiscal-year}

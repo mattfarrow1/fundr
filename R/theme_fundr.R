@@ -26,6 +26,8 @@
 #' x-axis title (`l`, `m`/`c`, `r`) and the second controls the y-axis title (`b`, `m`/`c`, `t`).
 #' The default `"rt"` places the x title right and the y title at the top.
 #' @return A ggplot2 theme object.
+#'
+#' @family theme
 #' @export
 theme_fundr <- function(base_family = "montserrat", base_size = 12,
                         plot_title_family = base_family, plot_title_size = 16,
@@ -180,6 +182,7 @@ theme_fundr <- function(base_family = "montserrat", base_size = 12,
 #'   legend_bottom(justify = "left")
 #' }
 #'
+#' @family theme
 #' @export
 legend_bottom <- function(
     direction = c("horizontal", "vertical"),
@@ -237,6 +240,7 @@ legend_bottom <- function(
 #'   legend_position("none")
 #' }
 #'
+#' @family theme
 #' @export
 legend_position <- function(
     position = c("bottom", "top", "left", "right", "none"),

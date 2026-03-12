@@ -36,3 +36,20 @@ A factor (ordered if the source column is ordered), or character if source is ch
 Maps numeric ask amounts to the nearest threshold in \code{fundr_gift_levels}.
 Returns labels such as "$1,000,000+" and/or broader buckets.
 }
+\examples{
+# Bucket gift amounts into giving levels
+amounts <- c(500, 5000, 25000, 100000, 1500000, NA)
+bucket_gift_level(amounts)
+
+# Return broader ask buckets instead
+bucket_gift_level(amounts, what = "ask_bucket")
+
+# Vectorized for use in data frames
+# df |> mutate(level = bucket_gift_level(gift_amount))
+
+}
+\seealso{
+Other bucketing: 
+\code{\link{bucket_rating_level}()}
+}
+\concept{bucketing}

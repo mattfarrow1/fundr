@@ -23,6 +23,8 @@ fundr_check_month <- function(fy_start_month) {
 #' @param fy_start_month Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`.
 #'   Set session default with [fundr_setup()] or [set_fy_start_month()].
 #' @return Integer fiscal year (e.g., 2026).
+#'
+#' @family fiscal-year
 #' @export
 fy_year <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L)) {
   fy_start_month <- fundr_check_month(fy_start_month)
@@ -53,6 +55,8 @@ fy_year <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L)
 #' @param prefix Prefix for the label (default "FY").
 #' @param short If TRUE, uses 2-digit year (e.g., "FY26"); otherwise "FY2026".
 #' @return Character vector of fiscal year labels.
+#'
+#' @family fiscal-year
 #' @export
 fy_label <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L), prefix = "FY", short = TRUE) {
   y <- fy_year(date, fy_start_month)
@@ -78,6 +82,8 @@ fy_label <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L
 #' @param date A Date (or something coercible via as.Date()).
 #' @param fy_start_month Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`.
 #' @return Integer vector (1-4).
+#'
+#' @family fiscal-year
 #' @export
 fy_quarter <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L)) {
   fy_start_month <- fundr_check_month(fy_start_month)

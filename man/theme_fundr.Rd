@@ -85,3 +85,10 @@ A minimal theme with fundraising-report friendly defaults.
 x-axis title (\code{l}, \code{m}/\code{c}, \code{r}) and the second controls the y-axis title (\code{b}, \code{m}/\code{c}, \code{t}).
 The default \code{"rt"} places the x title right and the y title at the top.
 }
+\seealso{
+Other theme: 
+\code{\link{fundr_use_google_font}()},
+\code{\link{legend_bottom}()},
+\code{\link{legend_position}()}
+}
+\concept{theme}

@@ -45,3 +45,8 @@ A character vector of normalized phone numbers.
 Normalizes phone numbers by removing punctuation and formatting them into a
 consistent representation.
 }
+\seealso{
+Other normalization: 
+\code{\link{normalize_zip}()}
+}
+\concept{normalization}

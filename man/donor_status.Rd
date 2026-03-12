@@ -61,3 +61,11 @@ donor_status(dates, as_of = as.Date("2025-01-15"))
 #   mutate(status = donor_status(last_gift_date))
 
 }
+\seealso{
+Other donor-analytics: 
+\code{\link{calc_age}()},
+\code{\link{consecutive_giving_years}()},
+\code{\link{total_giving_years}()},
+\code{\link{years_since}()}
+}
+\concept{donor-analytics}

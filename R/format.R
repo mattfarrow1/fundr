@@ -36,6 +36,7 @@
 #' # df |>
 #' #   mutate(gift_formatted = format_currency(gift_amount))
 #'
+#' @family formatting
 #' @export
 format_currency <- function(
     x,
@@ -116,6 +117,7 @@ format_currency <- function(
 #' format_currency_short(c(1000, 50000, 2500000, 1000000000))
 #' #> "$1K" "$50K" "$2.5M" "$1B"
 #'
+#' @family formatting
 #' @export
 format_currency_short <- function(
     x,
@@ -209,6 +211,7 @@ format_currency_short <- function(
 #' format_pct(45.67, multiply = FALSE)
 #' #> "45.7%"
 #'
+#' @family formatting
 #' @export
 format_pct <- function(
     x,

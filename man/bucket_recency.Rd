@@ -54,3 +54,12 @@ bucket_recency(dates, as_of = as.Date("2024-06-15"),
                           "3-10 years", "10+ years"))
 
 }
+\seealso{
+Other date-utilities: 
+\code{\link{date_interval}()},
+\code{\link{is_within}()},
+\code{\link{last_weekday}()},
+\code{\link{next_weekday}()},
+\code{\link{weekday_name}()}
+}
+\concept{date-utilities}

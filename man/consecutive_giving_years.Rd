@@ -55,3 +55,11 @@ consecutive_giving_years(gifts, as_of = as.Date("2024-01-15"),
 #> 0
 
 }
+\seealso{
+Other donor-analytics: 
+\code{\link{calc_age}()},
+\code{\link{donor_status}()},
+\code{\link{total_giving_years}()},
+\code{\link{years_since}()}
+}
+\concept{donor-analytics}

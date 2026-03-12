@@ -26,3 +26,9 @@ Character vector of fiscal year labels.
 \description{
 Fiscal year label for a date
 }
+\seealso{
+Other fiscal-year: 
+\code{\link{fy_quarter}()},
+\code{\link{fy_year}()}
+}
+\concept{fiscal-year}

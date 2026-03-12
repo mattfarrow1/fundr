@@ -15,5 +15,26 @@ fundr_pal(palette = c("primary", "secondary", "tertiary"), direction = 1)
 A function that takes \code{n} and returns \code{n} colors.
 }
 \description{
-Palette function for ggplot2 discrete scales
+Creates a function that returns \code{n} colors from a fundr palette.
+Used internally by \code{\link[=scale_fill_fundr]{scale_fill_fundr()}} and \code{\link[=scale_colour_fundr]{scale_colour_fundr()}}.
 }
+\examples{
+# Create a palette function
+pal <- fundr_pal("secondary")
+
+# Get 3 colors from the palette
+pal(3)
+
+# Reverse the palette direction
+pal_rev <- fundr_pal("secondary", direction = -1)
+pal_rev(3)
+
+}
+\seealso{
+Other colors: 
+\code{\link{fundr_colors}()},
+\code{\link{fundr_palette}()},
+\code{\link{scale_colour_fundr}()},
+\code{\link{scale_fill_fundr}()}
+}
+\concept{colors}

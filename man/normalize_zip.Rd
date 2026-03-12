@@ -34,3 +34,8 @@ Normalizes US ZIP codes to either 5-digit ("12345") or ZIP+4 ("12345-6789")
 format by removing punctuation and whitespace. Postal codes are treated as
 character strings; leading zeros are preserved.
 }
+\seealso{
+Other normalization: 
+\code{\link{normalize_phone}()}
+}
+\concept{normalization}

@@ -35,3 +35,20 @@ A factor (ordered if the source column is ordered), or character if source is ch
 \description{
 Maps numeric rating values to the nearest threshold in \code{fundr_rating_levels}.
 }
+\examples{
+# Bucket capacity ratings into levels
+ratings <- c(25000, 75000, 500000, 5000000, 150000000, NA)
+bucket_rating_level(ratings)
+
+# Return broader rating buckets instead
+bucket_rating_level(ratings, what = "rating_bucket")
+
+# Vectorized for use in data frames
+# df |> mutate(rating = bucket_rating_level(estimated_capacity))
+
+}
+\seealso{
+Other bucketing: 
+\code{\link{bucket_gift_level}()}
+}
+\concept{bucketing}

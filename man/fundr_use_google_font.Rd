@@ -20,7 +20,34 @@ fundr_use_google_font(
 
 \item{...}{Passed to sysfonts::font_add_google() (e.g., db_cache = TRUE)}
 }
+\value{
+Invisibly returns the family name.
+}
 \description{
 Downloads/registers a Google Font via sysfonts and enables showtext rendering
 so the font works reliably across devices.
 }
+\examples{
+\dontrun{
+# Load the default Montserrat font
+fundr_use_google_font()
+
+# Load a different Google Font
+fundr_use_google_font("Roboto", "roboto")
+
+# Use in ggplot2 with theme_fundr()
+library(ggplot2)
+fundr_use_google_font()
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme_fundr()
+}
+
+}
+\seealso{
+Other theme: 
+\code{\link{legend_bottom}()},
+\code{\link{legend_position}()},
+\code{\link{theme_fundr}()}
+}
+\concept{theme}

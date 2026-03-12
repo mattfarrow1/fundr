@@ -20,3 +20,27 @@ scale_fill_fundr(
 \description{
 Discrete fill scale using fundr palettes
 }
+\examples{
+\dontrun{
+library(ggplot2)
+
+# Bar chart with fundr fill colors
+ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  scale_fill_fundr("secondary")
+
+# Reverse palette direction
+ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
+  geom_bar() +
+  scale_fill_fundr("tertiary", direction = -1)
+}
+
+}
+\seealso{
+Other colors: 
+\code{\link{fundr_colors}()},
+\code{\link{fundr_pal}()},
+\code{\link{fundr_palette}()},
+\code{\link{scale_colour_fundr}()}
+}
+\concept{colors}

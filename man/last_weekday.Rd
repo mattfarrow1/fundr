@@ -44,3 +44,12 @@ last_weekday("Friday", as_of = as.Date("2024-06-14"),
 #> "2024-06-07"
 
 }
+\seealso{
+Other date-utilities: 
+\code{\link{bucket_recency}()},
+\code{\link{date_interval}()},
+\code{\link{is_within}()},
+\code{\link{next_weekday}()},
+\code{\link{weekday_name}()}
+}
+\concept{date-utilities}

@@ -1,24 +1,44 @@
 # Internal helper: validate levels table structure
 fundr_check_levels_table <- function(df, value_col, label_col, bucket_col) {
-  stopifnot(is.data.frame(df))
+  if (!is.data.frame(df)) {
+    fundr_abort(c(
+      "Levels table must be a data frame.",
+      "x" = paste0("Got: ", class(df)[1]),
+      "i" = "Use a data frame like `fundr_gift_levels` or `fundr_rating_levels`."
+    ))
+  }
+
   req <- c(value_col, label_col, bucket_col)
   missing <- setdiff(req, names(df))
   if (length(missing) > 0) {
-    stop("Levels table is missing columns: ", paste(missing, collapse = ", "), call. = FALSE)
+    fundr_abort(c(
+      "Levels table is missing required columns.",
+      "x" = paste0("Missing: ", paste(missing, collapse = ", ")),
+      "i" = paste0("Required columns: ", paste(req, collapse = ", "))
+    ))
   }
 
   values <- df[[value_col]]
   if (!is.numeric(values)) {
-    stop("`", value_col, "` must be numeric in levels table.", call. = FALSE)
+    fundr_abort(c(
+      paste0("`", value_col, "` must be numeric in levels table."),
+      "x" = paste0("Got: ", class(values)[1])
+    ))
   }
 
   if (anyNA(values)) {
-    stop("`", value_col, "` must not contain NA in levels table.", call. = FALSE)
+    fundr_abort(c(
+      paste0("`", value_col, "` must not contain NA in levels table."),
+      "i" = "Remove or replace NA values in the threshold column."
+    ))
   }
 
   # We assume values are thresholds sorted ascending.
   if (is.unsorted(values, strictly = TRUE)) {
-    stop("`", value_col, "` must be strictly increasing (ascending) in levels table.", call. = FALSE)
+    fundr_abort(c(
+      paste0("`", value_col, "` must be strictly increasing (ascending) in levels table."),
+      "i" = "Sort thresholds from smallest to largest with no duplicates."
+    ))
   }
 
   invisible(TRUE)
@@ -37,6 +57,19 @@ fundr_check_levels_table <- function(df, value_col, label_col, bucket_col) {
 #' @param what Which label to return: "giving_level" or "ask_bucket".
 #' @param na_value Value to return when `ask_amount` is NA or cannot be bucketed.
 #' @return A factor (ordered if the source column is ordered), or character if source is character.
+#'
+#' @examples
+#' # Bucket gift amounts into giving levels
+#' amounts <- c(500, 5000, 25000, 100000, 1500000, NA)
+#' bucket_gift_level(amounts)
+#'
+#' # Return broader ask buckets instead
+#' bucket_gift_level(amounts, what = "ask_bucket")
+#'
+#' # Vectorized for use in data frames
+#' # df |> mutate(level = bucket_gift_level(gift_amount))
+#'
+#' @family bucketing
 #' @export
 bucket_gift_level <- function(
     ask_amount,
@@ -97,6 +130,19 @@ bucket_gift_level <- function(
 #' @param what Which label to return: "rating_level" or "rating_bucket".
 #' @param na_value Value to return when `rating_value` is NA or cannot be bucketed.
 #' @return A factor (ordered if the source column is ordered), or character if source is character.
+#'
+#' @examples
+#' # Bucket capacity ratings into levels
+#' ratings <- c(25000, 75000, 500000, 5000000, 150000000, NA)
+#' bucket_rating_level(ratings)
+#'
+#' # Return broader rating buckets instead
+#' bucket_rating_level(ratings, what = "rating_bucket")
+#'
+#' # Vectorized for use in data frames
+#' # df |> mutate(rating = bucket_rating_level(estimated_capacity))
+#'
+#' @family bucketing
 #' @export
 bucket_rating_level <- function(
     rating_value,

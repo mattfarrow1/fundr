@@ -15,6 +15,8 @@
 #' @param strict Logical; When strict = TRUE, numbers must be 10 digits (or 7 digits if allow_7 = TRUE).
 #'
 #' @return A character vector of normalized phone numbers.
+#'
+#' @family normalization
 #' @export
 normalize_phone <- function(
     phone,
@@ -93,7 +95,11 @@ normalize_phone <- function(
     )
   } else if (format == "e164") {
     if (toupper(country) != "US") {
-      stop("`format = 'e164'` currently supports only `country = 'US'`.", call. = FALSE)
+      fundr_abort(c(
+        "`format = 'e164'` currently supports only `country = 'US'`.",
+        "x" = paste0("Got: country = '", country, "'"),
+        "i" = "Use `country = 'US'` or choose a different format."
+      ))
     }
     out[is_10] <- paste0("+1", digits[is_10])
     # 7-digit numbers can't be represented in E.164 without area code

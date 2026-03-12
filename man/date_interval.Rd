@@ -59,3 +59,12 @@ date_interval(dates, as.Date("2024-06-15"), unit = "years")
 #   mutate(years_ago = date_interval(gift_date, unit = "years"))
 
 }
+\seealso{
+Other date-utilities: 
+\code{\link{bucket_recency}()},
+\code{\link{is_within}()},
+\code{\link{last_weekday}()},
+\code{\link{next_weekday}()},
+\code{\link{weekday_name}()}
+}
+\concept{date-utilities}

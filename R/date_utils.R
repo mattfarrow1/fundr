@@ -41,6 +41,7 @@
 #' # gifts |>
 #' #   mutate(years_ago = date_interval(gift_date, unit = "years"))
 #'
+#' @family date-utilities
 #' @export
 date_interval <- function(
     from,
@@ -172,6 +173,7 @@ calc_year_diff <- function(from, to) {
 #'                labels = c("Current year", "Last year", "1-3 years",
 #'                           "3-10 years", "10+ years"))
 #'
+#' @family date-utilities
 #' @export
 bucket_recency <- function(
     date,
@@ -205,7 +207,11 @@ bucket_recency <- function(
   }
 
   if (length(labels) != length(buckets) + 1L) {
-    stop("`labels` must have length equal to `buckets` length + 1.", call. = FALSE)
+    fundr_abort(c(
+      "`labels` must have length equal to `buckets` length + 1.",
+      "x" = paste0("Got ", length(labels), " labels for ", length(buckets), " buckets."),
+      "i" = paste0("Need ", length(buckets) + 1L, " labels (one for each bucket boundary plus the final '5+ years ago' style label).")
+    ))
   }
 
   n <- length(date)
@@ -313,6 +319,7 @@ generate_recency_labels <- function(buckets) {
 #' is_within(dates, 6, "months", as_of = as.Date("2024-06-15"))
 #' #> TRUE, FALSE, FALSE
 #'
+#' @family date-utilities
 #' @export
 is_within <- function(
     date,
@@ -324,7 +331,11 @@ is_within <- function(
   within <- as.numeric(within)
 
   if (length(within) != 1L || is.na(within) || within < 0) {
-    stop("`within` must be a single non-negative number.", call. = FALSE)
+    fundr_abort(c(
+      "`within` must be a single non-negative number.",
+      "x" = paste0("Got: ", within),
+      "i" = "Example: `is_within(date, within = 2, unit = 'years')`"
+    ))
   }
 
   date <- as.Date(date)
@@ -385,6 +396,7 @@ is_within <- function(
 #'              include_today = FALSE)
 #' #> "2024-06-07"
 #'
+#' @family date-utilities
 #' @export
 last_weekday <- function(
     weekday,
@@ -436,6 +448,7 @@ last_weekday <- function(
 #' next_weekday("Monday", as_of = as.Date("2024-06-14"))
 #' #> "2024-06-17"
 #'
+#' @family date-utilities
 #' @export
 next_weekday <- function(
     weekday,
@@ -518,6 +531,7 @@ parse_weekday <- function(x) {
 #' weekday_name(as.Date("2024-06-14"), abbreviate = TRUE)
 #' #> "Fri"
 #'
+#' @family date-utilities
 #' @export
 weekday_name <- function(date, abbreviate = FALSE) {
   date <- as.Date(date)

@@ -31,3 +31,11 @@ total_giving_years(as.Date("2024-01-01"))
 #> 1
 
 }
+\seealso{
+Other donor-analytics: 
+\code{\link{calc_age}()},
+\code{\link{consecutive_giving_years}()},
+\code{\link{donor_status}()},
+\code{\link{years_since}()}
+}
+\concept{donor-analytics}

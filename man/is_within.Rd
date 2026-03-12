@@ -41,3 +41,12 @@ is_within(dates, 6, "months", as_of = as.Date("2024-06-15"))
 #> TRUE, FALSE, FALSE
 
 }
+\seealso{
+Other date-utilities: 
+\code{\link{bucket_recency}()},
+\code{\link{date_interval}()},
+\code{\link{last_weekday}()},
+\code{\link{next_weekday}()},
+\code{\link{weekday_name}()}
+}
+\concept{date-utilities}

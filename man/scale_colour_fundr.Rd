@@ -27,3 +27,27 @@ scale_color_fundr(
 \description{
 Discrete colour scale using fundr palettes
 }
+\examples{
+\dontrun{
+library(ggplot2)
+
+# Scatter plot with fundr colors
+ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_colour_fundr("secondary")
+
+# US spelling also works
+ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_color_fundr("tertiary")
+}
+
+}
+\seealso{
+Other colors: 
+\code{\link{fundr_colors}()},
+\code{\link{fundr_pal}()},
+\code{\link{fundr_palette}()},
+\code{\link{scale_fill_fundr}()}
+}
+\concept{colors}

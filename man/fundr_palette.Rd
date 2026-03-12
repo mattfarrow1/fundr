@@ -13,5 +13,24 @@ fundr_palette(palette = c("primary", "secondary", "tertiary"))
 An unnamed character vector of hex color codes.
 }
 \description{
-fundr palettes
+Returns a vector of hex colors from one of the fundr palettes.
 }
+\examples{
+# Get the primary palette (2 colors)
+fundr_palette("primary")
+
+# Get the secondary palette (10 colors)
+fundr_palette("secondary")
+
+# Get the tertiary palette (4 colors)
+fundr_palette("tertiary")
+
+}
+\seealso{
+Other colors: 
+\code{\link{fundr_colors}()},
+\code{\link{fundr_pal}()},
+\code{\link{scale_colour_fundr}()},
+\code{\link{scale_fill_fundr}()}
+}
+\concept{colors}

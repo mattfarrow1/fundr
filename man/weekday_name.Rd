@@ -26,3 +26,12 @@ weekday_name(as.Date("2024-06-14"), abbreviate = TRUE)
 #> "Fri"
 
 }
+\seealso{
+Other date-utilities: 
+\code{\link{bucket_recency}()},
+\code{\link{date_interval}()},
+\code{\link{is_within}()},
+\code{\link{last_weekday}()},
+\code{\link{next_weekday}()}
+}
+\concept{date-utilities}

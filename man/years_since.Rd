@@ -34,3 +34,11 @@ dates <- as.Date(c("2020-01-01", "2022-06-15", "2023-09-01"))
 years_since(dates, as_of = as.Date("2024-06-15"))
 
 }
+\seealso{
+Other donor-analytics: 
+\code{\link{calc_age}()},
+\code{\link{consecutive_giving_years}()},
+\code{\link{donor_status}()},
+\code{\link{total_giving_years}()}
+}
+\concept{donor-analytics}

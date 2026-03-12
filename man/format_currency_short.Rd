@@ -47,3 +47,9 @@ format_currency_short(c(1000, 50000, 2500000, 1000000000))
 #> "$1K" "$50K" "$2.5M" "$1B"
 
 }
+\seealso{
+Other formatting: 
+\code{\link{format_currency}()},
+\code{\link{format_pct}()}
+}
+\concept{formatting}

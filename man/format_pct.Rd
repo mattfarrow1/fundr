@@ -34,3 +34,9 @@ format_pct(45.67, multiply = FALSE)
 #> "45.7\%"
 
 }
+\seealso{
+Other formatting: 
+\code{\link{format_currency}()},
+\code{\link{format_currency_short}()}
+}
+\concept{formatting}

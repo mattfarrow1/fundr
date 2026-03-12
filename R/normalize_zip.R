@@ -14,6 +14,8 @@
 #' @param na_if_blank Logical; if TRUE, blank/whitespace-only inputs become `invalid`.
 #'
 #' @return A character vector of normalized postal codes.
+#'
+#' @family normalization
 #' @export
 normalize_zip <- function(
     postal,

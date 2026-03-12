@@ -33,3 +33,11 @@ calc_age(birthdates, as_of = as.Date("2024-06-01"))
 #> 44, 33, 23
 
 }
+\seealso{
+Other donor-analytics: 
+\code{\link{consecutive_giving_years}()},
+\code{\link{donor_status}()},
+\code{\link{total_giving_years}()},
+\code{\link{years_since}()}
+}
+\concept{donor-analytics}

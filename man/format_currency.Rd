@@ -62,3 +62,9 @@ format_currency(-500, negative = "minus")
 #   mutate(gift_formatted = format_currency(gift_amount))
 
 }
+\seealso{
+Other formatting: 
+\code{\link{format_currency_short}()},
+\code{\link{format_pct}()}
+}
+\concept{formatting}
