@@ -2,8 +2,11 @@ Type: Package
 Package: fundr
 Title: Fundraising Analytics Helpers
 Version: 0.1.0
-Authors@R: 
-    person("Matt", "Farrow", , "matt@mattfarrow.co", role = c("aut", "cre"))
+Authors@R: c(
+    person("Matt", "Farrow", , "matt@mattfarrow.co", role = c("aut", "cre")),
+    person("Claude", "(Anthropic AI)", role = "ctb",
+           comment = "AI programming assistant")
+  )
 Description: Utility functions for fundraising and advancement analytics. Designed to be tidyverse-compatible while keeping required dependencies minimal.
 License: MIT + file LICENSE
 URL: https://github.com/mattfarrow1/fundr, https://mattfarrow1.github.io/fundr/

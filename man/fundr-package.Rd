@@ -21,5 +21,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Matt Farrow \email{matt@mattfarrow.co}
 
+Other contributors:
+\itemize{
+  \item Claude (Anthropic AI) (AI programming assistant) [contributor]
+}
+
 }
 \keyword{internal}

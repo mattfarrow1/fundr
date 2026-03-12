@@ -132,3 +132,19 @@ theme_fundr()
 - **SKY API**: `sky_connect()`, `sky_get()` for Blackbaud integration
 - **Database helpers**: `db_connect()`, `db_query()` for SQL Server,
   PostgreSQL, MySQL, SQLite
+
+## Development
+
+This package was developed in partnership with
+[Claude](https://claude.ai), Anthropic’s AI assistant, using [Claude
+Code](https://claude.ai/code). Claude contributed to code architecture,
+function implementation, documentation, and testing throughout the
+development process. All code has been reviewed and approved by the
+package maintainer.
+
+## Code of Conduct
+
+Please note that the fundr project is released with a [Contributor Code
+of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
