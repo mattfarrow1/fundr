@@ -35,15 +35,15 @@ Date of the most recent occurrence of the specified weekday.
 ``` r
 # Find last Friday
 last_weekday("Friday")
-#> [1] "2026-02-27"
+#> [1] "2026-03-06"
 
 # Using abbreviation
 last_weekday("fri")
-#> [1] "2026-02-27"
+#> [1] "2026-03-06"
 
 # Using number (6 = Friday)
 last_weekday(6)
-#> [1] "2026-02-27"
+#> [1] "2026-03-06"
 
 # From a specific date
 last_weekday("Friday", as_of = as.Date("2024-06-15"))

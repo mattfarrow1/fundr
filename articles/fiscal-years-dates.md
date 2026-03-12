@@ -211,7 +211,7 @@ Calculate years since a date (useful for giving recency):
 last_gift_dates <- as.Date(c("2024-01-15", "2022-06-30", "2018-03-01"))
 
 years_since(last_gift_dates)
-#> [1] 2.1 3.7 8.0
+#> [1] 2.2 3.7 8.0
 ```
 
 ### Recency Bucketing
