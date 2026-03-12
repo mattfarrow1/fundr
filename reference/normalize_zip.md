@@ -45,3 +45,8 @@ normalize_zip(
 ## Value
 
 A character vector of normalized postal codes.
+
+## See also
+
+Other normalization:
+[`normalize_phone()`](https://mattfarrow1.github.io/fundr/reference/normalize_phone.md)

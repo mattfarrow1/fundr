@@ -28,6 +28,15 @@ next_weekday(weekday, as_of = Sys.Date(), include_today = TRUE)
 
 Date of the next occurrence of the specified weekday.
 
+## See also
+
+Other date-utilities:
+[`bucket_recency()`](https://mattfarrow1.github.io/fundr/reference/bucket_recency.md),
+[`date_interval()`](https://mattfarrow1.github.io/fundr/reference/date_interval.md),
+[`is_within()`](https://mattfarrow1.github.io/fundr/reference/is_within.md),
+[`last_weekday()`](https://mattfarrow1.github.io/fundr/reference/last_weekday.md),
+[`weekday_name()`](https://mattfarrow1.github.io/fundr/reference/weekday_name.md)
+
 ## Examples
 
 ``` r

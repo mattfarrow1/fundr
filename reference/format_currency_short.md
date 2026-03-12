@@ -44,6 +44,12 @@ format_currency_short(
 
 Character vector of formatted currency strings.
 
+## See also
+
+Other formatting:
+[`format_currency()`](https://mattfarrow1.github.io/fundr/reference/format_currency.md),
+[`format_pct()`](https://mattfarrow1.github.io/fundr/reference/format_pct.md)
+
 ## Examples
 
 ``` r

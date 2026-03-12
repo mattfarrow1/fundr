@@ -124,3 +124,10 @@ A ggplot2 theme object.
 first character controls the x-axis title (`l`, `m`/`c`, `r`) and the
 second controls the y-axis title (`b`, `m`/`c`, `t`). The default `"rt"`
 places the x title right and the y title at the top.
+
+## See also
+
+Other theme:
+[`fundr_use_google_font()`](https://mattfarrow1.github.io/fundr/reference/fundr_use_google_font.md),
+[`legend_bottom()`](https://mattfarrow1.github.io/fundr/reference/legend_bottom.md),
+[`legend_position()`](https://mattfarrow1.github.io/fundr/reference/legend_position.md)

@@ -47,6 +47,14 @@ gap in giving, the streak resets. For example, with gifts in FY2024,
 FY2023, and FY2021 (as of FY2024), the consecutive count is 2 (not 3)
 because FY2022 is missing.
 
+## See also
+
+Other donor-analytics:
+[`calc_age()`](https://mattfarrow1.github.io/fundr/reference/calc_age.md),
+[`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md),
+[`total_giving_years()`](https://mattfarrow1.github.io/fundr/reference/total_giving_years.md),
+[`years_since()`](https://mattfarrow1.github.io/fundr/reference/years_since.md)
+
 ## Examples
 
 ``` r

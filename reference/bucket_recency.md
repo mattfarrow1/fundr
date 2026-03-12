@@ -53,6 +53,15 @@ bucket_recency(
 
 Ordered factor of recency bucket labels.
 
+## See also
+
+Other date-utilities:
+[`date_interval()`](https://mattfarrow1.github.io/fundr/reference/date_interval.md),
+[`is_within()`](https://mattfarrow1.github.io/fundr/reference/is_within.md),
+[`last_weekday()`](https://mattfarrow1.github.io/fundr/reference/last_weekday.md),
+[`next_weekday()`](https://mattfarrow1.github.io/fundr/reference/next_weekday.md),
+[`weekday_name()`](https://mattfarrow1.github.io/fundr/reference/weekday_name.md)
+
 ## Examples
 
 ``` r

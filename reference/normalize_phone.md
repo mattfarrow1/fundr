@@ -67,3 +67,8 @@ normalize_phone(
 ## Value
 
 A character vector of normalized phone numbers.
+
+## See also
+
+Other normalization:
+[`normalize_zip()`](https://mattfarrow1.github.io/fundr/reference/normalize_zip.md)

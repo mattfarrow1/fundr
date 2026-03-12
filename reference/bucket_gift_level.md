@@ -52,3 +52,27 @@ bucket_gift_level(
 
 A factor (ordered if the source column is ordered), or character if
 source is character.
+
+## See also
+
+Other bucketing:
+[`bucket_rating_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_rating_level.md)
+
+## Examples
+
+``` r
+# Bucket gift amounts into giving levels
+amounts <- c(500, 5000, 25000, 100000, 1500000, NA)
+bucket_gift_level(amounts)
+#> [1] $.01+       $.01+       $.01+       $100,000+   $1,000,000+ <NA>       
+#> 14 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
+
+# Return broader ask buckets instead
+bucket_gift_level(amounts, what = "ask_bucket")
+#> [1] Less than $100K Less than $100K Less than $100K $100K to $249K 
+#> [5] $1M to $2.49M   <NA>           
+#> 14 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
+
+# Vectorized for use in data frames
+# df |> mutate(level = bucket_gift_level(gift_amount))
+```

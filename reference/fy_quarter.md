@@ -22,3 +22,9 @@ fy_quarter(date, fy_start_month = getOption("fundr.fy_start_month", 7L))
 ## Value
 
 Integer vector (1-4).
+
+## See also
+
+Other fiscal-year:
+[`fy_label()`](https://mattfarrow1.github.io/fundr/reference/fy_label.md),
+[`fy_year()`](https://mattfarrow1.github.io/fundr/reference/fy_year.md)

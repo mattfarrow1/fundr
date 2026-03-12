@@ -38,6 +38,15 @@ is_within(
 Logical vector. TRUE if date is within the specified period of `as_of`
 (inclusive). NA for NA inputs.
 
+## See also
+
+Other date-utilities:
+[`bucket_recency()`](https://mattfarrow1.github.io/fundr/reference/bucket_recency.md),
+[`date_interval()`](https://mattfarrow1.github.io/fundr/reference/date_interval.md),
+[`last_weekday()`](https://mattfarrow1.github.io/fundr/reference/last_weekday.md),
+[`next_weekday()`](https://mattfarrow1.github.io/fundr/reference/next_weekday.md),
+[`weekday_name()`](https://mattfarrow1.github.io/fundr/reference/weekday_name.md)
+
 ## Examples
 
 ``` r

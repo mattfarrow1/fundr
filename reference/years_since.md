@@ -31,6 +31,14 @@ years_since(date, as_of = Sys.Date(), digits = 1L)
 Numeric vector of years. Negative values indicate future dates. Returns
 NA for NA inputs.
 
+## See also
+
+Other donor-analytics:
+[`calc_age()`](https://mattfarrow1.github.io/fundr/reference/calc_age.md),
+[`consecutive_giving_years()`](https://mattfarrow1.github.io/fundr/reference/consecutive_giving_years.md),
+[`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md),
+[`total_giving_years()`](https://mattfarrow1.github.io/fundr/reference/total_giving_years.md)
+
 ## Examples
 
 ``` r

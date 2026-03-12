@@ -94,7 +94,31 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A factor (ordered if the source column is ordered), or character if source is character.</p>
     </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>Other bucketing:
+<code><a href="bucket_gift_level.html">bucket_gift_level()</a></code></p></div>
+    </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Bucket capacity ratings into levels</span></span></span>
+<span class="r-in"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25000</span>, <span class="fl">75000</span>, <span class="fl">500000</span>, <span class="fl">5000000</span>, <span class="fl">150000000</span>, <span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bucket_rating_level</span><span class="op">(</span><span class="va">ratings</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] L - $25K to $49K   K - $50K to $99K   H - $500K to $999K E - $5M to $9.9M  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] A - $100M+         &lt;NA&gt;              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Levels: A - $100M+ &lt; B - $50M to $99.9M &lt; ... &lt; U - Unrated</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Return broader rating buckets instead</span></span></span>
+<span class="r-in"><span><span class="fu">bucket_rating_level</span><span class="op">(</span><span class="va">ratings</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Mid-Level Mid-Level Major     Principal Principal &lt;NA&gt;     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Principal &lt; Major &lt; Mid-Level &lt; Annual &lt; Unrated</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Vectorized for use in data frames</span></span></span>
+<span class="r-in"><span><span class="co"># df |&gt; mutate(rating = bucket_rating_level(estimated_capacity))</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

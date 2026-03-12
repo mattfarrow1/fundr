@@ -32,6 +32,13 @@ legend_position(
 
 A ggplot2 theme object that can be added to a plot.
 
+## See also
+
+Other theme:
+[`fundr_use_google_font()`](https://mattfarrow1.github.io/fundr/reference/fundr_use_google_font.md),
+[`legend_bottom()`](https://mattfarrow1.github.io/fundr/reference/legend_bottom.md),
+[`theme_fundr()`](https://mattfarrow1.github.io/fundr/reference/theme_fundr.md)
+
 ## Examples
 
 ``` r

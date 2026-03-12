@@ -25,6 +25,14 @@ calc_age(birthdate, as_of = Sys.Date())
 Integer vector of ages in years. Returns NA for NA inputs or future
 birthdates.
 
+## See also
+
+Other donor-analytics:
+[`consecutive_giving_years()`](https://mattfarrow1.github.io/fundr/reference/consecutive_giving_years.md),
+[`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md),
+[`total_giving_years()`](https://mattfarrow1.github.io/fundr/reference/total_giving_years.md),
+[`years_since()`](https://mattfarrow1.github.io/fundr/reference/years_since.md)
+
 ## Examples
 
 ``` r

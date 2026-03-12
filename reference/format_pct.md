@@ -32,6 +32,12 @@ format_pct(x, digits = 1L, symbol = TRUE, multiply = TRUE)
 
 Character vector of formatted percentage strings.
 
+## See also
+
+Other formatting:
+[`format_currency()`](https://mattfarrow1.github.io/fundr/reference/format_currency.md),
+[`format_currency_short()`](https://mattfarrow1.github.io/fundr/reference/format_currency_short.md)
+
 ## Examples
 
 ``` r

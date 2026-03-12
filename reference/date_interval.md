@@ -49,6 +49,15 @@ values indicate `to` is after `from`. Returns NA for NA inputs.
 For months and years, calculations account for varying month lengths and
 leap years using calendar-based arithmetic rather than fixed day counts.
 
+## See also
+
+Other date-utilities:
+[`bucket_recency()`](https://mattfarrow1.github.io/fundr/reference/bucket_recency.md),
+[`is_within()`](https://mattfarrow1.github.io/fundr/reference/is_within.md),
+[`last_weekday()`](https://mattfarrow1.github.io/fundr/reference/last_weekday.md),
+[`next_weekday()`](https://mattfarrow1.github.io/fundr/reference/next_weekday.md),
+[`weekday_name()`](https://mattfarrow1.github.io/fundr/reference/weekday_name.md)
+
 ## Examples
 
 ``` r

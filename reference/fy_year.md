@@ -28,3 +28,9 @@ fy_year(date, fy_start_month = getOption("fundr.fy_start_month", 7L))
 ## Value
 
 Integer fiscal year (e.g., 2026).
+
+## See also
+
+Other fiscal-year:
+[`fy_label()`](https://mattfarrow1.github.io/fundr/reference/fy_label.md),
+[`fy_quarter()`](https://mattfarrow1.github.io/fundr/reference/fy_quarter.md)

@@ -57,6 +57,14 @@ Status definitions:
 
 - **Never**: No gift on record (NA last_gift_date)
 
+## See also
+
+Other donor-analytics:
+[`calc_age()`](https://mattfarrow1.github.io/fundr/reference/calc_age.md),
+[`consecutive_giving_years()`](https://mattfarrow1.github.io/fundr/reference/consecutive_giving_years.md),
+[`total_giving_years()`](https://mattfarrow1.github.io/fundr/reference/total_giving_years.md),
+[`years_since()`](https://mattfarrow1.github.io/fundr/reference/years_since.md)
+
 ## Examples
 
 ``` r

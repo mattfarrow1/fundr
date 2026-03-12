@@ -24,6 +24,14 @@ total_giving_years(gift_dates, fy_start_month = 7L)
 
 Integer count of distinct fiscal years with giving.
 
+## See also
+
+Other donor-analytics:
+[`calc_age()`](https://mattfarrow1.github.io/fundr/reference/calc_age.md),
+[`consecutive_giving_years()`](https://mattfarrow1.github.io/fundr/reference/consecutive_giving_years.md),
+[`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md),
+[`years_since()`](https://mattfarrow1.github.io/fundr/reference/years_since.md)
+
 ## Examples
 
 ``` r

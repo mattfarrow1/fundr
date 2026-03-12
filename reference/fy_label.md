@@ -34,3 +34,9 @@ fy_label(
 ## Value
 
 Character vector of fiscal year labels.
+
+## See also
+
+Other fiscal-year:
+[`fy_quarter()`](https://mattfarrow1.github.io/fundr/reference/fy_quarter.md),
+[`fy_year()`](https://mattfarrow1.github.io/fundr/reference/fy_year.md)
