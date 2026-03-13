@@ -18,7 +18,6 @@
 - Improved function documentation with more examples across all modules.
 - Added package logo.
 
----
 # fundr 0.1.0
 
 ## New Features
@@ -97,7 +96,6 @@
 - Added `fundr_needs()` for runtime dependency checking with helpful error messages.
 - Zero required dependencies for core functions; optional packages enhance features.
 
----
 # fundr 0.0.0.9000
 
 - Initial development version.
