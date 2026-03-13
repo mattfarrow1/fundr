@@ -44,15 +44,15 @@ Other date-utilities:
 ``` r
 # Find last Friday
 last_weekday("Friday")
-#> [1] "2026-03-06"
+#> [1] "2026-03-13"
 
 # Using abbreviation
 last_weekday("fri")
-#> [1] "2026-03-06"
+#> [1] "2026-03-13"
 
 # Using number (6 = Friday)
 last_weekday(6)
-#> [1] "2026-03-06"
+#> [1] "2026-03-13"
 
 # From a specific date
 last_weekday("Friday", as_of = as.Date("2024-06-15"))

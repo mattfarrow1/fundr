@@ -1,5 +1,31 @@
 # Changelog
 
+## fundr 0.2.0
+
+### New Features
+
+#### Sample Data
+
+- Added `fundr_portfolio`, a synthetic dataset of 10,000 constituent
+  records for demonstrating package functions and learning R/tidyverse.
+  Includes realistic data quality variations (mixed date formats, varied
+  phone/ZIP formatting, missing values).
+
+#### Vignettes
+
+- Added comprehensive vignettes covering key package functionality:
+  - “Getting Started with fundr” - package overview
+  - “Fiscal Years and Dates” - fiscal year functions and date utilities
+  - “Donor Analytics” - donor classification and giving analysis
+  - “Data Cleaning” - phone/ZIP normalization and case conversion
+  - “Visualization” - themes, colors, and currency scales
+  - “Bucketing Levels” - gift and rating level bucketing
+
+#### Documentation
+
+- Improved function documentation with more examples across all modules.
+- Added package logo.
+
 ## fundr 0.1.0
 
 ### New Features
@@ -151,8 +177,6 @@
   error messages.
 - Zero required dependencies for core functions; optional packages
   enhance features.
-
-------------------------------------------------------------------------
 
 ## fundr 0.0.0.9000
 
