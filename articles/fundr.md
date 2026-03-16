@@ -115,7 +115,7 @@ Calculate constituent age:
 
 ``` r
 calc_age(as.Date("1985-03-15"))
-#> [1] 40
+#> [1] 41
 ```
 
 ### Currency Formatting

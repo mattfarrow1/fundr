@@ -34,3 +34,22 @@ Integer fiscal year (e.g., 2026).
 Other fiscal-year:
 [`fy_label()`](https://mattfarrow1.github.io/fundr/reference/fy_label.md),
 [`fy_quarter()`](https://mattfarrow1.github.io/fundr/reference/fy_quarter.md)
+
+## Examples
+
+``` r
+# July fiscal year start (default)
+fy_year(as.Date("2024-06-30"))
+#> [1] 2024
+fy_year(as.Date("2024-07-01"))
+#> [1] 2025
+
+# October fiscal year start (federal)
+fy_year(as.Date("2024-10-01"), fy_start_month = 10)
+#> [1] 2025
+
+# Vectorized
+dates <- as.Date(c("2024-06-30", "2024-07-01", "2025-01-15"))
+fy_year(dates)
+#> [1] 2024 2025 2025
+```

@@ -66,7 +66,6 @@ A ggplot2 scale object.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 df <- data.frame(
@@ -78,5 +77,4 @@ ggplot(df, aes(revenue, profit)) +
   geom_point() +
   scale_x_currency(short = TRUE) +
   scale_y_currency(short = TRUE)
-} # }
 ```

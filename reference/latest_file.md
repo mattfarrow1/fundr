@@ -49,14 +49,16 @@ matching files are found.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# Find the most recent CSV in a data folder
-latest_file("data/exports", pattern = "\\.csv$")
+# Create temporary files for demonstration
+tmp <- tempdir()
+writeLines("a", file.path(tmp, "file1.csv"))
+Sys.sleep(0.1)
+writeLines("b", file.path(tmp, "file2.csv"))
 
-# Find the most recent Excel file
-latest_file("data/reports", pattern = "\\.(xlsx?|xls)$")
+# Find the most recent CSV
+latest_file(tmp, pattern = "\\.csv$")
+#> [1] "/tmp/RtmpKsjrDO/file2.csv"
 
-# Search recursively
-latest_file("data", pattern = "\\.csv$", recursive = TRUE)
-} # }
+# Clean up
+unlink(file.path(tmp, c("file1.csv", "file2.csv")))
 ```

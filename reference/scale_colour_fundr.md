@@ -43,7 +43,6 @@ Other colors:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 # Scatter plot with fundr colors
@@ -51,9 +50,9 @@ ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
   geom_point(size = 3) +
   scale_colour_fundr("secondary")
 
+
 # US spelling also works
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_fundr("tertiary")
-} # }
 ```

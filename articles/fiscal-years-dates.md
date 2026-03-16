@@ -152,7 +152,7 @@ calculates age from potentially incomplete dates:
 dob_samples <- c("03/15/1985", "March 1985", "1985")
 
 calc_age_partial(dob_samples)
-#> [1] NA 40 40
+#> [1] NA 41 40
 ```
 
 For year-only dates, the function assumes mid-year (July 1) for the
@@ -291,7 +291,7 @@ ages <- calc_age_partial(fundr_portfolio$dob)
 # Summary statistics
 summary(ages)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-#>   21.00   44.00   54.00   54.05   64.00   95.00    6413
+#>    21.0    44.0    54.0    54.1    64.0    95.0    6413
 ```
 
 ### Donor Recency Analysis

@@ -68,7 +68,7 @@ date_interval(as.Date("2024-01-01"), as.Date("2024-01-15"), unit = "days")
 
 # Years since a date
 date_interval(as.Date("2020-06-15"), unit = "years")
-#> [1] 5.7
+#> [1] 5.8
 
 # Months between dates
 date_interval(as.Date("2024-01-15"), as.Date("2024-06-15"), unit = "months")

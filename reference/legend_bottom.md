@@ -48,7 +48,6 @@ Other theme:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 # Basic usage
@@ -56,9 +55,9 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_bottom()
 
+
 # Horizontal legend with left justification
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_bottom(justify = "left")
-} # }
 ```

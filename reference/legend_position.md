@@ -42,7 +42,6 @@ Other theme:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 # Legend on the right (default ggplot behavior)
@@ -50,9 +49,9 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_position("right")
 
+
 # Remove legend
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_position("none")
-} # }
 ```

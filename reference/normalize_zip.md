@@ -50,3 +50,25 @@ A character vector of normalized postal codes.
 
 Other normalization:
 [`normalize_phone()`](https://mattfarrow1.github.io/fundr/reference/normalize_phone.md)
+
+## Examples
+
+``` r
+zips <- c("12345", "12345-6789", "12345 6789", "  12345  ")
+
+# Default 5-digit format
+normalize_zip(zips)
+#> [1] "12345" "12345" "12345" "12345"
+
+# ZIP+4 format (preserves 9-digit codes)
+normalize_zip(zips, format = "zip9")
+#> [1] "12345"      "12345-6789" "12345-6789" "12345"     
+
+# Raw digits
+normalize_zip(zips, format = "digits")
+#> [1] "12345"     "123456789" "123456789" "12345"    
+
+# Preserve leading zeros
+normalize_zip("01234")
+#> [1] "01234"
+```

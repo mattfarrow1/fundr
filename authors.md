@@ -2,7 +2,7 @@
 
 ## Authors
 
-- **Matt Farrow**. Author, maintainer.
+- **Matt Farrow**. Author, maintainer, copyright holder.
 
 - **Claude (Anthropic AI)**. Contributor.  
   AI programming assistant

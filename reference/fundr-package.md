@@ -16,7 +16,7 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Matt Farrow <matt@mattfarrow.co>
+**Maintainer**: Matt Farrow <matt@mattfarrow.co> \[copyright holder\]
 
 Other contributors:
 

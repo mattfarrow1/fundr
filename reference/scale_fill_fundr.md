@@ -37,7 +37,6 @@ Other colors:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 # Bar chart with fundr fill colors
@@ -45,9 +44,9 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
   geom_bar() +
   scale_fill_fundr("secondary")
 
+
 # Reverse palette direction
 ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
   geom_bar() +
   scale_fill_fundr("tertiary", direction = -1)
-} # }
 ```

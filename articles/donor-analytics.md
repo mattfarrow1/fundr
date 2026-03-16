@@ -255,7 +255,7 @@ ages <- calc_age_partial(fundr_portfolio$dob)
 # Summary
 summary(ages)
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-#>   21.00   44.00   54.00   54.05   64.00   95.00    6413
+#>    21.0    44.0    54.0    54.1    64.0    95.0    6413
 
 # Age buckets
 age_buckets <- cut(ages,
@@ -266,7 +266,7 @@ age_buckets <- cut(ages,
 table(age_buckets, useNA = "ifany")
 #> age_buckets
 #> Under 30    30-39    40-49    50-59    60-69    70-79      80+     <NA> 
-#>      201      410      747      937      762      369      161     6413
+#>      199      408      748      935      767      368      162     6413
 ```
 
 ## Giving Tenure

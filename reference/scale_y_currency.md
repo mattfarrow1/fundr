@@ -66,7 +66,6 @@ A ggplot2 scale object.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
 library(ggplot2)
 
 # Sample data with large dollar amounts
@@ -80,9 +79,9 @@ ggplot(df, aes(category, amount)) +
   geom_col() +
   scale_y_currency()
 
+
 # Compact notation for large values
 ggplot(df, aes(category, amount)) +
   geom_col() +
   scale_y_currency(short = TRUE)
-} # }
 ```

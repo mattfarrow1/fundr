@@ -40,3 +40,21 @@ Character vector of fiscal year labels.
 Other fiscal-year:
 [`fy_quarter()`](https://mattfarrow1.github.io/fundr/reference/fy_quarter.md),
 [`fy_year()`](https://mattfarrow1.github.io/fundr/reference/fy_year.md)
+
+## Examples
+
+``` r
+dates <- as.Date(c("2024-06-30", "2024-07-01"))
+
+# Default short format
+fy_label(dates)
+#> [1] "FY24" "FY25"
+
+# Full year format
+fy_label(dates, short = FALSE)
+#> [1] "FY2024" "FY2025"
+
+# Custom prefix
+fy_label(dates, prefix = "Fiscal ")
+#> [1] "Fiscal 24" "Fiscal 25"
+```

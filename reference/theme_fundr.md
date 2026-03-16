@@ -131,3 +131,20 @@ Other theme:
 [`fundr_use_google_font()`](https://mattfarrow1.github.io/fundr/reference/fundr_use_google_font.md),
 [`legend_bottom()`](https://mattfarrow1.github.io/fundr/reference/legend_bottom.md),
 [`legend_position()`](https://mattfarrow1.github.io/fundr/reference/legend_position.md)
+
+## Examples
+
+``` r
+library(ggplot2)
+
+# Basic usage with default settings
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme_fundr(base_family = "sans")
+
+
+# Customize grid display
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme_fundr(base_family = "sans", grid = "Y")
+```

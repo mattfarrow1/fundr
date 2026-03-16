@@ -58,16 +58,19 @@ function.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# Create a temporary CSV file
+tmp <- tempdir()
+write.csv(mtcars[1:3, ], file.path(tmp, "test_data.csv"), row.names = FALSE)
+
 # Read the most recent CSV
-df <- read_latest("data/exports", pattern = "\\.csv$")
+df <- read_latest(tmp, pattern = "\\.csv$")
+#> Reading: /tmp/RtmpKsjrDO/test_data.csv
+head(df)
+#>    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#> 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#> 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#> 3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
 
-# Read with custom options
-df <- read_latest("data/exports", pattern = "\\.csv$",
-                  stringsAsFactors = FALSE)
-
-# Use a custom reader
-df <- read_latest("data/exports", pattern = "\\.xlsx$",
-                  reader = readxl::read_excel)
-} # }
+# Clean up
+unlink(file.path(tmp, "test_data.csv"))
 ```

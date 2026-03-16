@@ -37,8 +37,19 @@ time). Sorted by mtime descending.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-# List recent CSV files
-list_recent_files("data/exports", pattern = "\\.csv$", n = 10)
-} # }
+# Create temporary files
+tmp <- tempdir()
+writeLines("a", file.path(tmp, "data1.csv"))
+writeLines("b", file.path(tmp, "data2.csv"))
+
+# List CSV files sorted by modification time
+list_recent_files(tmp, pattern = "\\.csv$")
+#> # A tibble: 2 × 4
+#>   file      path                       size mtime              
+#>   <chr>     <chr>                     <dbl> <dttm>             
+#> 1 data2.csv /tmp/RtmpKsjrDO/data2.csv     2 2026-03-16 19:26:57
+#> 2 data1.csv /tmp/RtmpKsjrDO/data1.csv     2 2026-03-16 19:26:57
+
+# Clean up
+unlink(file.path(tmp, c("data1.csv", "data2.csv")))
 ```
