@@ -136,11 +136,11 @@ theme_fundr()
 ## Development
 
 This package was developed in partnership with
-[Claude](https://claude.ai), Anthropic’s AI assistant, using [Claude
-Code](https://claude.ai/code). Claude contributed to code architecture,
-function implementation, documentation, and testing throughout the
-development process. All code has been reviewed and approved by the
-package maintainer.
+[Claude](https://claude.com/product/overview), Anthropic’s AI assistant,
+using [Claude Code](https://claude.com/product/claude-code). Claude
+contributed to code architecture, function implementation,
+documentation, and testing throughout the development process. All code
+has been reviewed and approved by the package maintainer.
 
 ## Code of Conduct
 
