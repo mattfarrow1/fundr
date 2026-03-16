@@ -42,19 +42,16 @@ Call \code{fundr_setup()} at the beginning of your script or in your .Rprofile
 to ensure consistent behavior throughout your session.
 }
 \examples{
-# Before setup: large numbers may show as scientific notation
-format(1234567890)
+# Save current options
+old_opts <- options()
 
 # Configure session with July fiscal year (default)
-old_opts <- fundr_setup()
+fundr_setup(quiet = TRUE)
 
-# Configure for calendar year fiscal periods
-fundr_setup(fy_start_month = 1)
-
-# Now large numbers display normally
+# Large numbers now display without scientific notation
 format(1234567890)
 
-# Restore previous options if needed
+# Restore previous options
 options(old_opts)
 
 }

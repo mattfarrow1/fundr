@@ -30,19 +30,16 @@
 #' to ensure consistent behavior throughout your session.
 #'
 #' @examples
-#' # Before setup: large numbers may show as scientific notation
-#' format(1234567890)
+#' # Save current options
+#' old_opts <- options()
 #'
 #' # Configure session with July fiscal year (default)
-#' old_opts <- fundr_setup()
+#' fundr_setup(quiet = TRUE)
 #'
-#' # Configure for calendar year fiscal periods
-#' fundr_setup(fy_start_month = 1)
-#'
-#' # Now large numbers display normally
+#' # Large numbers now display without scientific notation
 #' format(1234567890)
 #'
-#' # Restore previous options if needed
+#' # Restore previous options
 #' options(old_opts)
 #'
 #' @export
@@ -80,13 +77,8 @@ fundr_setup <- function(
 #' @return Integer 1-12 representing the fiscal year start month.
 #'
 #' @examples
-#' # Get current default
+#' # Get current default (7 = July unless changed)
 #' get_fy_start_month()
-#'
-#' # After setting a different default
-#' fundr_setup(fy_start_month = 1, quiet = TRUE)
-#' get_fy_start_month()
-#' #> 1
 #'
 #' @export
 get_fy_start_month <- function() {
@@ -104,11 +96,15 @@ get_fy_start_month <- function() {
 #' @return Invisibly returns the previous value.
 #'
 #' @examples
-#' # Set to calendar year
-#' set_fy_start_month(1)
+#' # Save current setting
+#' old_month <- getOption("fundr.fy_start_month")
 #'
 #' # Set to October (federal fiscal year)
 #' set_fy_start_month(10)
+#' get_fy_start_month()
+#'
+#' # Restore previous setting
+#' if (!is.null(old_month)) options(fundr.fy_start_month = old_month)
 #'
 #' @export
 set_fy_start_month <- function(month) {

@@ -14,12 +14,7 @@ Returns the fiscal year start month from options, or the package default
 (July = 7) if not set.
 }
 \examples{
-# Get current default
+# Get current default (7 = July unless changed)
 get_fy_start_month()
-
-# After setting a different default
-fundr_setup(fy_start_month = 1, quiet = TRUE)
-get_fy_start_month()
-#> 1
 
 }
