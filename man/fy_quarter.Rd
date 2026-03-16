@@ -17,6 +17,16 @@ Integer vector (1-4).
 \description{
 Quarters are numbered 1-4 within the fiscal year defined by \code{fy_start_month}.
 }
+\examples{
+# July fiscal year: Q1 starts in July
+fy_quarter(as.Date("2024-07-15"))
+fy_quarter(as.Date("2024-10-15"))
+
+# Vectorized
+dates <- as.Date(c("2024-07-01", "2024-10-01", "2025-01-01", "2025-04-01"))
+fy_quarter(dates)
+
+}
 \seealso{
 Other fiscal-year: 
 \code{\link{fy_label}()},

@@ -26,6 +26,19 @@ Character vector of fiscal year labels.
 \description{
 Fiscal year label for a date
 }
+\examples{
+dates <- as.Date(c("2024-06-30", "2024-07-01"))
+
+# Default short format
+fy_label(dates)
+
+# Full year format
+fy_label(dates, short = FALSE)
+
+# Custom prefix
+fy_label(dates, prefix = "Fiscal ")
+
+}
 \seealso{
 Other fiscal-year: 
 \code{\link{fy_quarter}()},

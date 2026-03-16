@@ -3,11 +3,15 @@ Package: fundr
 Title: Fundraising Analytics Helpers
 Version: 0.2.0
 Authors@R: c(
-    person("Matt", "Farrow", , "matt@mattfarrow.co", role = c("aut", "cre")),
+    person("Matt", "Farrow", , "matt@mattfarrow.co", role = c("aut", "cre", "cph")),
     person("Claude", "(Anthropic AI)", role = "ctb",
            comment = "AI programming assistant")
   )
-Description: Utility functions for fundraising and advancement analytics. Designed to be tidyverse-compatible while keeping required dependencies minimal.
+Description: Provides utility functions for fundraising and advancement
+    analytics workflows. Includes fiscal year calculations, donor status
+    classification, phone and ZIP code normalization, and currency formatting.
+    Core functions have zero dependencies; optional features integrate with
+    'ggplot2' for visualization themes and scales.
 License: MIT + file LICENSE
 URL: https://github.com/mattfarrow1/fundr, https://mattfarrow1.github.io/fundr/
 BugReports: https://github.com/mattfarrow1/fundr/issues

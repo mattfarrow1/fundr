@@ -45,6 +45,25 @@ A character vector of normalized phone numbers.
 Normalizes phone numbers by removing punctuation and formatting them into a
 consistent representation.
 }
+\examples{
+phones <- c("(555) 123-4567", "555.123.4567", "5551234567", "1-555-123-4567")
+
+# Default dash format
+normalize_phone(phones)
+
+# Digits only
+normalize_phone(phones, format = "digits")
+
+# E.164 international format
+normalize_phone(phones, format = "e164")
+
+# Handle extensions
+normalize_phone("555-123-4567 x89", keep_extension = TRUE)
+
+# Allow 7-digit local numbers
+normalize_phone("123-4567", allow_7 = TRUE)
+
+}
 \seealso{
 Other normalization: 
 \code{\link{normalize_zip}()}

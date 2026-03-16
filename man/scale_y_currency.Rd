@@ -45,7 +45,7 @@ and displaying proper dollar formatting. Supports both full format
 ($1,234,567) and compact format ($1.2M).
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 # Sample data with large dollar amounts
@@ -63,6 +63,5 @@ ggplot(df, aes(category, amount)) +
 ggplot(df, aes(category, amount)) +
   geom_col() +
   scale_y_currency(short = TRUE)
-}
-
+\dontshow{\}) # examplesIf}
 }

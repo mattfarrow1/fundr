@@ -85,6 +85,21 @@ A minimal theme with fundraising-report friendly defaults.
 x-axis title (\code{l}, \code{m}/\code{c}, \code{r}) and the second controls the y-axis title (\code{b}, \code{m}/\code{c}, \code{t}).
 The default \code{"rt"} places the x title right and the y title at the top.
 }
+\examples{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+library(ggplot2)
+
+# Basic usage with default settings
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme_fundr(base_family = "sans")
+
+# Customize grid display
+ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  theme_fundr(base_family = "sans", grid = "Y")
+\dontshow{\}) # examplesIf}
+}
 \seealso{
 Other theme: 
 \code{\link{fundr_use_google_font}()},

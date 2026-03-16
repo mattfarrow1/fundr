@@ -21,7 +21,7 @@ scale_fill_fundr(
 Discrete fill scale using fundr palettes
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 # Bar chart with fundr fill colors
@@ -33,8 +33,7 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
 ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
   geom_bar() +
   scale_fill_fundr("tertiary", direction = -1)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other colors: 

@@ -132,8 +132,7 @@ fundr_pal <- function(palette = c("primary", "secondary", "tertiary"), direction
 #' @param direction If 1, use palette order; if -1, reverse.
 #' @param ... Passed to ggplot2::discrete_scale().
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' # Bar chart with fundr fill colors
@@ -145,7 +144,6 @@ fundr_pal <- function(palette = c("primary", "secondary", "tertiary"), direction
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(cyl))) +
 #'   geom_bar() +
 #'   scale_fill_fundr("tertiary", direction = -1)
-#' }
 #'
 #' @family colors
 #' @export
@@ -167,8 +165,7 @@ scale_fill_fundr <- function(palette = c("primary", "secondary", "tertiary"), di
 #' @param direction If 1, use palette order; if -1, reverse.
 #' @param ... Passed to ggplot2::discrete_scale().
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' # Scatter plot with fundr colors
@@ -180,7 +177,6 @@ scale_fill_fundr <- function(palette = c("primary", "secondary", "tertiary"), di
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point(size = 3) +
 #'   scale_color_fundr("tertiary")
-#' }
 #'
 #' @family colors
 #' @export

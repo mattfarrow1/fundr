@@ -15,6 +15,21 @@
 #'
 #' @return A character vector of normalized postal codes.
 #'
+#' @examples
+#' zips <- c("12345", "12345-6789", "12345 6789", "  12345  ")
+#'
+#' # Default 5-digit format
+#' normalize_zip(zips)
+#'
+#' # ZIP+4 format (preserves 9-digit codes)
+#' normalize_zip(zips, format = "zip9")
+#'
+#' # Raw digits
+#' normalize_zip(zips, format = "digits")
+#'
+#' # Preserve leading zeros
+#' normalize_zip("01234")
+#'
 #' @family normalization
 #' @export
 normalize_zip <- function(

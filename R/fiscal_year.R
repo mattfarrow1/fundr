@@ -24,6 +24,18 @@ fundr_check_month <- function(fy_start_month) {
 #'   Set session default with [fundr_setup()] or [set_fy_start_month()].
 #' @return Integer fiscal year (e.g., 2026).
 #'
+#' @examples
+#' # July fiscal year start (default)
+#' fy_year(as.Date("2024-06-30"))
+#' fy_year(as.Date("2024-07-01"))
+#'
+#' # October fiscal year start (federal)
+#' fy_year(as.Date("2024-10-01"), fy_start_month = 10)
+#'
+#' # Vectorized
+#' dates <- as.Date(c("2024-06-30", "2024-07-01", "2025-01-15"))
+#' fy_year(dates)
+#'
 #' @family fiscal-year
 #' @export
 fy_year <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L)) {
@@ -56,6 +68,18 @@ fy_year <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L)
 #' @param short If TRUE, uses 2-digit year (e.g., "FY26"); otherwise "FY2026".
 #' @return Character vector of fiscal year labels.
 #'
+#' @examples
+#' dates <- as.Date(c("2024-06-30", "2024-07-01"))
+#'
+#' # Default short format
+#' fy_label(dates)
+#'
+#' # Full year format
+#' fy_label(dates, short = FALSE)
+#'
+#' # Custom prefix
+#' fy_label(dates, prefix = "Fiscal ")
+#'
 #' @family fiscal-year
 #' @export
 fy_label <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L), prefix = "FY", short = TRUE) {
@@ -82,6 +106,15 @@ fy_label <- function(date, fy_start_month = getOption("fundr.fy_start_month", 7L
 #' @param date A Date (or something coercible via as.Date()).
 #' @param fy_start_month Integer 1-12. Default uses `getOption("fundr.fy_start_month", 7)`.
 #' @return Integer vector (1-4).
+#'
+#' @examples
+#' # July fiscal year: Q1 starts in July
+#' fy_quarter(as.Date("2024-07-15"))
+#' fy_quarter(as.Date("2024-10-15"))
+#'
+#' # Vectorized
+#' dates <- as.Date(c("2024-07-01", "2024-10-01", "2025-01-01", "2025-04-01"))
+#' fy_quarter(dates)
 #'
 #' @family fiscal-year
 #' @export

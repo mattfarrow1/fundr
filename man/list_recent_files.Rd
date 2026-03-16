@@ -25,9 +25,15 @@ Returns a data frame of files with their metadata, sorted by modification
 time (most recent first). Useful for reviewing available data files.
 }
 \examples{
-\dontrun{
-# List recent CSV files
-list_recent_files("data/exports", pattern = "\\\\.csv$", n = 10)
-}
+# Create temporary files
+tmp <- tempdir()
+writeLines("a", file.path(tmp, "data1.csv"))
+writeLines("b", file.path(tmp, "data2.csv"))
+
+# List CSV files sorted by modification time
+list_recent_files(tmp, pattern = "\\\\.csv$")
+
+# Clean up
+unlink(file.path(tmp, c("data1.csv", "data2.csv")))
 
 }

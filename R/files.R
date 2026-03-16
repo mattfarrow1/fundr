@@ -18,16 +18,17 @@
 #'   if no matching files are found.
 #'
 #' @examples
-#' \dontrun{
-#' # Find the most recent CSV in a data folder
-#' latest_file("data/exports", pattern = "\\.csv$")
+#' # Create temporary files for demonstration
+#' tmp <- tempdir()
+#' writeLines("a", file.path(tmp, "file1.csv"))
+#' Sys.sleep(0.1)
+#' writeLines("b", file.path(tmp, "file2.csv"))
 #'
-#' # Find the most recent Excel file
-#' latest_file("data/reports", pattern = "\\.(xlsx?|xls)$")
+#' # Find the most recent CSV
+#' latest_file(tmp, pattern = "\\.csv$")
 #'
-#' # Search recursively
-#' latest_file("data", pattern = "\\.csv$", recursive = TRUE)
-#' }
+#' # Clean up
+#' unlink(file.path(tmp, c("file1.csv", "file2.csv")))
 #'
 #' @export
 latest_file <- function(
@@ -107,18 +108,16 @@ latest_file <- function(
 #' function.
 #'
 #' @examples
-#' \dontrun{
+#' # Create a temporary CSV file
+#' tmp <- tempdir()
+#' write.csv(mtcars[1:3, ], file.path(tmp, "test_data.csv"), row.names = FALSE)
+#'
 #' # Read the most recent CSV
-#' df <- read_latest("data/exports", pattern = "\\.csv$")
+#' df <- read_latest(tmp, pattern = "\\.csv$")
+#' head(df)
 #'
-#' # Read with custom options
-#' df <- read_latest("data/exports", pattern = "\\.csv$",
-#'                   stringsAsFactors = FALSE)
-#'
-#' # Use a custom reader
-#' df <- read_latest("data/exports", pattern = "\\.xlsx$",
-#'                   reader = readxl::read_excel)
-#' }
+#' # Clean up
+#' unlink(file.path(tmp, "test_data.csv"))
 #'
 #' @export
 read_latest <- function(
@@ -204,10 +203,16 @@ detect_reader <- function(file_path) {
 #'   time). Sorted by mtime descending.
 #'
 #' @examples
-#' \dontrun{
-#' # List recent CSV files
-#' list_recent_files("data/exports", pattern = "\\.csv$", n = 10)
-#' }
+#' # Create temporary files
+#' tmp <- tempdir()
+#' writeLines("a", file.path(tmp, "data1.csv"))
+#' writeLines("b", file.path(tmp, "data2.csv"))
+#'
+#' # List CSV files sorted by modification time
+#' list_recent_files(tmp, pattern = "\\.csv$")
+#'
+#' # Clean up
+#' unlink(file.path(tmp, c("data1.csv", "data2.csv")))
 #'
 #' @export
 list_recent_files <- function(

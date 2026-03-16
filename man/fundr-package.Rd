@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Matt Farrow \email{matt@mattfarrow.co}
+\strong{Maintainer}: Matt Farrow \email{matt@mattfarrow.co} [copyright holder]
 
 Other contributors:
 \itemize{

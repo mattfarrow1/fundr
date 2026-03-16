@@ -30,7 +30,7 @@ at the bottom of a ggplot. Commonly used in reports where horizontal
 space is limited.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 # Basic usage
@@ -42,8 +42,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_bottom(justify = "left")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other theme: 

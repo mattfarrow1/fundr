@@ -44,7 +44,7 @@ Formats x-axis labels as currency values. See \code{\link[=scale_y_currency]{sca
 details on parameters.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 df <- data.frame(
@@ -56,6 +56,5 @@ ggplot(df, aes(revenue, profit)) +
   geom_point() +
   scale_x_currency(short = TRUE) +
   scale_y_currency(short = TRUE)
-}
-
+\dontshow{\}) # examplesIf}
 }

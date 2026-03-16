@@ -28,7 +28,7 @@ scale_color_fundr(
 Discrete colour scale using fundr palettes
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 # Scatter plot with fundr colors
@@ -40,8 +40,7 @@ ggplot(mtcars, aes(wt, mpg, colour = factor(cyl))) +
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_color_fundr("tertiary")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other colors: 

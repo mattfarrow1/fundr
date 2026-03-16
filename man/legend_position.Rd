@@ -26,7 +26,7 @@ A convenience function that returns a theme element to control legend
 position in ggplot2 plots.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("ggplot2", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 library(ggplot2)
 
 # Legend on the right (default ggplot behavior)
@@ -38,8 +38,7 @@ ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
   geom_point() +
   legend_position("none")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other theme: 

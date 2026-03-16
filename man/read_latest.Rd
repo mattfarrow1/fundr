@@ -40,17 +40,15 @@ For other file types or custom reading behavior, provide a \code{reader}
 function.
 }
 \examples{
-\dontrun{
+# Create a temporary CSV file
+tmp <- tempdir()
+write.csv(mtcars[1:3, ], file.path(tmp, "test_data.csv"), row.names = FALSE)
+
 # Read the most recent CSV
-df <- read_latest("data/exports", pattern = "\\\\.csv$")
+df <- read_latest(tmp, pattern = "\\\\.csv$")
+head(df)
 
-# Read with custom options
-df <- read_latest("data/exports", pattern = "\\\\.csv$",
-                  stringsAsFactors = FALSE)
-
-# Use a custom reader
-df <- read_latest("data/exports", pattern = "\\\\.xlsx$",
-                  reader = readxl::read_excel)
-}
+# Clean up
+unlink(file.path(tmp, "test_data.csv"))
 
 }

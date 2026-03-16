@@ -27,6 +27,19 @@
 #' The default `"rt"` places the x title right and the y title at the top.
 #' @return A ggplot2 theme object.
 #'
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
+#' library(ggplot2)
+#'
+#' # Basic usage with default settings
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   theme_fundr(base_family = "sans")
+#'
+#' # Customize grid display
+#' ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point() +
+#'   theme_fundr(base_family = "sans", grid = "Y")
+#'
 #' @family theme
 #' @export
 theme_fundr <- function(base_family = "montserrat", base_size = 12,
@@ -167,8 +180,7 @@ theme_fundr <- function(base_family = "montserrat", base_size = 12,
 #'
 #' @return A ggplot2 theme object that can be added to a plot.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' # Basic usage
@@ -180,7 +192,6 @@ theme_fundr <- function(base_family = "montserrat", base_size = 12,
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point() +
 #'   legend_bottom(justify = "left")
-#' }
 #'
 #' @family theme
 #' @export
@@ -225,8 +236,7 @@ legend_bottom <- function(
 #'
 #' @return A ggplot2 theme object that can be added to a plot.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' # Legend on the right (default ggplot behavior)
@@ -238,7 +248,6 @@ legend_bottom <- function(
 #' ggplot(mtcars, aes(wt, mpg, color = factor(cyl))) +
 #'   geom_point() +
 #'   legend_position("none")
-#' }
 #'
 #' @family theme
 #' @export

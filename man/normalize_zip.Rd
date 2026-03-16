@@ -34,6 +34,22 @@ Normalizes US ZIP codes to either 5-digit ("12345") or ZIP+4 ("12345-6789")
 format by removing punctuation and whitespace. Postal codes are treated as
 character strings; leading zeros are preserved.
 }
+\examples{
+zips <- c("12345", "12345-6789", "12345 6789", "  12345  ")
+
+# Default 5-digit format
+normalize_zip(zips)
+
+# ZIP+4 format (preserves 9-digit codes)
+normalize_zip(zips, format = "zip9")
+
+# Raw digits
+normalize_zip(zips, format = "digits")
+
+# Preserve leading zeros
+normalize_zip("01234")
+
+}
 \seealso{
 Other normalization: 
 \code{\link{normalize_phone}()}

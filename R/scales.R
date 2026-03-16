@@ -17,8 +17,7 @@
 #'
 #' @return A ggplot2 scale object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' # Sample data with large dollar amounts
@@ -36,7 +35,6 @@
 #' ggplot(df, aes(category, amount)) +
 #'   geom_col() +
 #'   scale_y_currency(short = TRUE)
-#' }
 #'
 #' @export
 scale_y_currency <- function(
@@ -76,8 +74,7 @@ scale_y_currency <- function(
 #'
 #' @return A ggplot2 scale object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf requireNamespace("ggplot2", quietly = TRUE)
 #' library(ggplot2)
 #'
 #' df <- data.frame(
@@ -89,7 +86,6 @@ scale_y_currency <- function(
 #'   geom_point() +
 #'   scale_x_currency(short = TRUE) +
 #'   scale_y_currency(short = TRUE)
-#' }
 #'
 #' @export
 scale_x_currency <- function(

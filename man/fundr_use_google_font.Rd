@@ -28,21 +28,13 @@ Downloads/registers a Google Font via sysfonts and enables showtext rendering
 so the font works reliably across devices.
 }
 \examples{
-\dontrun{
+\dontshow{if (requireNamespace("sysfonts", quietly = TRUE) && requireNamespace("showtext", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # Load the default Montserrat font
 fundr_use_google_font()
 
 # Load a different Google Font
 fundr_use_google_font("Roboto", "roboto")
-
-# Use in ggplot2 with theme_fundr()
-library(ggplot2)
-fundr_use_google_font()
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  theme_fundr()
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other theme: 
