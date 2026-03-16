@@ -57,7 +57,7 @@ writeLines("b", file.path(tmp, "file2.csv"))
 
 # Find the most recent CSV
 latest_file(tmp, pattern = "\\.csv$")
-#> [1] "/tmp/RtmpDTkkWw/file2.csv"
+#> [1] "/tmp/RtmpNu9PPS/file2.csv"
 
 # Clean up
 unlink(file.path(tmp, c("file1.csv", "file2.csv")))
