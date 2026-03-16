@@ -59,28 +59,16 @@ Call `fundr_setup()` at the beginning of your script or in your
 ## Examples
 
 ``` r
-# Before setup: large numbers may show as scientific notation
-format(1234567890)
-#> [1] "1234567890"
+# Save current options
+old_opts <- options()
 
 # Configure session with July fiscal year (default)
-old_opts <- fundr_setup()
-#> fundr session configured:
-#> - Scientific notation disabled (scipen = 999)
-#> - Display digits: 7
-#> - Fiscal year start month: 7 (July)
+fundr_setup(quiet = TRUE)
 
-# Configure for calendar year fiscal periods
-fundr_setup(fy_start_month = 1)
-#> fundr session configured:
-#> - Scientific notation disabled (scipen = 999)
-#> - Display digits: 7
-#> - Fiscal year start month: 1 (January)
-
-# Now large numbers display normally
+# Large numbers now display without scientific notation
 format(1234567890)
 #> [1] "1234567890"
 
-# Restore previous options if needed
+# Restore previous options
 options(old_opts)
 ```

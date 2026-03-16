@@ -98,29 +98,17 @@ to ensure consistent behavior throughout your session.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Before setup: large numbers may show as scientific notation</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fl">1234567890</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1234567890"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Save current options</span></span></span>
+<span class="r-in"><span><span class="va">old_opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Configure session with July fiscal year (default)</span></span></span>
-<span class="r-in"><span><span class="va">old_opts</span> <span class="op">&lt;-</span> <span class="fu">fundr_setup</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> fundr session configured:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Scientific notation disabled (scipen = 999)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Display digits: 7</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Fiscal year start month: 7 (July)</span>
+<span class="r-in"><span><span class="fu">fundr_setup</span><span class="op">(</span>quiet <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Configure for calendar year fiscal periods</span></span></span>
-<span class="r-in"><span><span class="fu">fundr_setup</span><span class="op">(</span>fy_start_month <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> fundr session configured:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Scientific notation disabled (scipen = 999)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Display digits: 7</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> - Fiscal year start month: 1 (January)</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Now large numbers display normally</span></span></span>
+<span class="r-in"><span><span class="co"># Large numbers now display without scientific notation</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="fl">1234567890</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "1234567890"</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Restore previous options if needed</span></span></span>
+<span class="r-in"><span><span class="co"># Restore previous options</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">old_opts</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

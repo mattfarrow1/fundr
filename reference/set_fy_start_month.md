@@ -23,9 +23,14 @@ Invisibly returns the previous value.
 ## Examples
 
 ``` r
-# Set to calendar year
-set_fy_start_month(1)
+# Save current setting
+old_month <- getOption("fundr.fy_start_month")
 
 # Set to October (federal fiscal year)
 set_fy_start_month(10)
+get_fy_start_month()
+#> [1] 10
+
+# Restore previous setting
+if (!is.null(old_month)) options(fundr.fy_start_month = old_month)
 ```

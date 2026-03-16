@@ -16,13 +16,7 @@ Integer 1-12 representing the fiscal year start month.
 ## Examples
 
 ``` r
-# Get current default
+# Get current default (7 = July unless changed)
 get_fy_start_month()
 #> [1] 7
-
-# After setting a different default
-fundr_setup(fy_start_month = 1, quiet = TRUE)
-get_fy_start_month()
-#> [1] 1
-#> 1
 ```

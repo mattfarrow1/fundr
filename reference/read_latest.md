@@ -64,7 +64,7 @@ write.csv(mtcars[1:3, ], file.path(tmp, "test_data.csv"), row.names = FALSE)
 
 # Read the most recent CSV
 df <- read_latest(tmp, pattern = "\\.csv$")
-#> Reading: /tmp/RtmpKsjrDO/test_data.csv
+#> Reading: /tmp/RtmpDTkkWw/test_data.csv
 head(df)
 #>    mpg cyl disp  hp drat    wt  qsec vs am gear carb
 #> 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
