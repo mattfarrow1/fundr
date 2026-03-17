@@ -5,10 +5,10 @@
 \alias{fundr_rating_levels}
 \title{Rating level reference table}
 \format{
-A data frame with 15 rows and 3 variables:
+A data frame with 16 rows and 3 variables:
 \describe{
-\item{rating_level}{Ordered factor rating label (e.g., "A - $100M+").}
 \item{rating_value}{Numeric threshold representing the rating level.}
+\item{rating_level}{Ordered factor rating label (e.g., "A - $100M+").}
 \item{rating_bucket}{Ordered factor grouping (Principal, Major, Mid-Level, Annual, Unrated).}
 }
 }
@@ -19,7 +19,20 @@ Internal conventions (fundr).
 fundr_rating_levels
 }
 \description{
-A reference table of wealth or capacity rating levels, numeric thresholds,
-and broader rating buckets commonly used in fundraising analytics.
+A comprehensive reference table of wealth/capacity rating levels, numeric
+thresholds, and broader rating buckets commonly used in fundraising analytics.
+Covers ratings from Unrated through $100M+ capacity.
+}
+\details{
+Use \code{\link[=rating_levels]{rating_levels()}} to get preset subsets with bucket assignments
+appropriate for your organization:
+\itemize{
+\item "small": Major at $25K+, Principal at $250K+
+\item "medium": Major at $50K+, Principal at $1M+
+\item "large": Major at $100K+, Principal at $5M+
+}
+}
+\seealso{
+\code{\link[=rating_levels]{rating_levels()}}, \code{\link[=bucket_rating_level]{bucket_rating_level()}}
 }
 \keyword{datasets}

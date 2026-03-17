@@ -77,20 +77,27 @@ calc_age <- function(birthdate, as_of = Sys.Date()) {
 #' @param as_of Reference date for status calculation. Default is today.
 #' @param fy_start_month Integer 1-12 indicating fiscal year start month.
 #'   Default 7 (July).
-#' @param lapsed_years Number of years with no gifts before a donor is
+#' @param lapsed_years Number of fiscal years with no gifts before a donor is
 #'   considered "Lapsed". Default 5.
+#' @param sybunt_years Number of fiscal years that qualify as SYBUNT. Default
+#'   is `lapsed_years - 1` (so SYBUNT = 2 to lapsed_years). Set to a smaller
+#'   value to narrow the SYBUNT window (e.g., `sybunt_years = 2` means only
+#'   2-3 years ago counts as SYBUNT).
+#' @param labels Named character vector to customize status labels. Names must
+#'   be the default labels ("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never")
+#'   and values are replacements. Partial replacement is supported.
 #'
-#' @return Ordered factor with levels: "Active", "LYBUNT", "SYBUNT",
-#'   "Lapsed", "Never" (from most to least engaged).
+#' @return Ordered factor with levels from most to least engaged. Default
+#'   levels are: "Active", "LYBUNT", "SYBUNT", "Lapsed", "Never".
 #'
 #' @details
-#' Status definitions:
+#' Default status definitions:
 #' \itemize{
 #'   \item \strong{Active}: Gave during the current fiscal year
 #'   \item \strong{LYBUNT}: "Last Year But Unfortunately Not This" - gave
 #'     last fiscal year but not yet this year
 #'   \item \strong{SYBUNT}: "Some Year But Unfortunately Not This" - gave
-#'     2+ fiscal years ago but within the lapsed threshold
+#'     2+ fiscal years ago but within the SYBUNT threshold
 #'   \item \strong{Lapsed}: Last gift was more than `lapsed_years` ago
 #'   \item \strong{Never}: No gift on record (NA last_gift_date)
 #' }
@@ -107,6 +114,13 @@ calc_age <- function(birthdate, as_of = Sys.Date()) {
 #'
 #' donor_status(dates, as_of = as.Date("2025-01-15"))
 #'
+#' # Narrower SYBUNT window (only 2-3 years counts as SYBUNT)
+#' donor_status(dates, as_of = as.Date("2025-01-15"), sybunt_years = 2)
+#'
+#' # Custom labels
+#' donor_status(dates, as_of = as.Date("2025-01-15"),
+#'              labels = c("Active" = "Current", "Never" = "Non-Donor"))
+#'
 #' # In a dplyr pipeline (using native pipe)
 #' # donors |>
 #' #   mutate(status = donor_status(last_gift_date))
@@ -117,7 +131,9 @@ donor_status <- function(
     last_gift_date,
     as_of = Sys.Date(),
     fy_start_month = 7L,
-    lapsed_years = 5L
+    lapsed_years = 5L,
+    sybunt_years = NULL,
+    labels = NULL
 ) {
   last_gift_date <- as.Date(last_gift_date)
   as_of <- as.Date(as_of)
@@ -141,15 +157,59 @@ donor_status <- function(
     ))
   }
 
+  # Default SYBUNT to lapsed_years - 1 (so SYBUNT covers 2 to lapsed_years)
+  if (is.null(sybunt_years)) {
+    sybunt_years <- lapsed_years - 1L
+  } else {
+    sybunt_years <- as.integer(sybunt_years)
+    if (length(sybunt_years) != 1L || is.na(sybunt_years) || sybunt_years < 1L) {
+      fundr_abort(c(
+        "`sybunt_years` must be a single positive integer.",
+        "x" = paste0("Got: ", sybunt_years),
+        "i" = "Use a value like `sybunt_years = 3`."
+      ))
+    }
+  }
+
+  # The SYBUNT upper bound is 1 (LYBUNT) + sybunt_years
+  sybunt_upper <- 1L + sybunt_years
+
   n <- length(last_gift_date)
 
-  # Define status levels (most to least engaged)
-  status_levels <- c("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never")
-  out <- factor(rep(NA_character_, n), levels = status_levels, ordered = TRUE)
+  # Define default status labels (most to least engaged)
+  default_labels <- c("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never")
+  status_labels <- default_labels
+
+  # Apply custom labels if provided
+
+  if (!is.null(labels)) {
+    if (!is.character(labels) || is.null(names(labels))) {
+      fundr_abort(c(
+        "`labels` must be a named character vector.",
+        "i" = 'Example: labels = c("Active" = "Current", "Never" = "Non-Donor")'
+      ))
+    }
+
+    invalid_names <- setdiff(names(labels), default_labels)
+    if (length(invalid_names) > 0) {
+      fundr_abort(c(
+        "Invalid names in `labels`.",
+        "x" = paste0("Unknown: ", paste(invalid_names, collapse = ", ")),
+        "i" = paste0("Valid names: ", paste(default_labels, collapse = ", "))
+      ))
+    }
+
+    # Replace matching labels
+    for (nm in names(labels)) {
+      status_labels[default_labels == nm] <- labels[[nm]]
+    }
+  }
+
+  out <- factor(rep(NA_character_, n), levels = status_labels, ordered = TRUE)
 
   # Never given
   never <- is.na(last_gift_date)
-  out[never] <- "Never"
+  out[never] <- status_labels[5]  # "Never" or custom
 
   ok <- !never
   if (!any(ok)) return(out)
@@ -161,17 +221,17 @@ donor_status <- function(
   # Calculate fiscal years since last gift
   fy_diff <- current_fy - gift_fy
 
-  # Classify
+  # Classify using default labels, then map to custom
   # Active: gave this fiscal year (diff == 0)
   # LYBUNT: gave last fiscal year (diff == 1)
-  # SYBUNT: gave 2+ years ago but within lapsed threshold
-  # Lapsed: gave more than lapsed_years ago
+  # SYBUNT: gave 2 to sybunt_upper years ago
+  # Lapsed: gave more than sybunt_upper years ago
 
-  status <- rep("Lapsed", sum(ok))
-  status[fy_diff == 0L] <- "Active"
-  status[fy_diff == 1L] <- "LYBUNT"
-  status[fy_diff >= 2L & fy_diff <= lapsed_years] <- "SYBUNT"
-  status[fy_diff > lapsed_years] <- "Lapsed"
+  status <- rep(status_labels[4], sum(ok))  # Default to "Lapsed"
+  status[fy_diff == 0L] <- status_labels[1]  # "Active"
+  status[fy_diff == 1L] <- status_labels[2]  # "LYBUNT"
+  status[fy_diff >= 2L & fy_diff <= sybunt_upper] <- status_labels[3]  # "SYBUNT"
+  status[fy_diff > sybunt_upper] <- status_labels[4]  # "Lapsed"
 
   out[ok] <- status
   out

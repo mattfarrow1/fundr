@@ -1,24 +1,11 @@
+# Comprehensive rating levels table
+# Contains all thresholds; use rating_levels() to get presets
+
 fundr_rating_levels <- data.frame(
-  rating_level = c(
-    "U - Unrated",
-    "N - Less than $10K",
-    "M - $10K to $24K",
-    "L - $25K to $49K",
-    "K - $50K to $99K",
-    "J - $100K to $249K",
-    "I - $250K to $499K",
-    "H - $500K to $999K",
-    "G - $1M to $2.49M",
-    "F - $2.5M to $4.9M",
-    "E - $5M to $9.9M",
-    "D - $10M to $24.9M",
-    "C - $25M to $49.9M",
-    "B - $50M to $99.9M",
-    "A - $100M+"
-  ),
   rating_value = c(
     0,
     1,
+    5000,
     10000,
     25000,
     50000,
@@ -33,19 +20,47 @@ fundr_rating_levels <- data.frame(
     50000000,
     100000000
   ),
+  rating_level = c(
+    "U - Unrated",
+    "O - Less than $5K",
+    "N - $5K to $9.9K",
+    "M - $10K to $24.9K",
+    "L - $25K to $49.9K",
+    "K - $50K to $99.9K",
+    "J - $100K to $249K",
+    "I - $250K to $499K",
+    "H - $500K to $999K",
+    "G - $1M to $2.49M",
+    "F - $2.5M to $4.9M",
+    "E - $5M to $9.9M",
+    "D - $10M to $24.9M",
+    "C - $25M to $49.9M",
+    "B - $50M to $99.9M",
+    "A - $100M+"
+  ),
+  # Default bucket assignments (large shop perspective)
   rating_bucket = c(
-    "Unrated",                 # U
-    "Annual", "Annual",        # N, M
-    "Mid-Level", "Mid-Level",  # L, K
-    "Major", "Major", "Major", "Major", "Major",   # J–F
-    "Principal", "Principal", "Principal", "Principal", "Principal"  # E–A
+    "Unrated",
+    "Annual",
+    "Annual",
+    "Annual",
+    "Mid-Level",
+    "Mid-Level",
+    "Major",
+    "Major",
+    "Major",
+    "Major",
+    "Major",
+    "Principal",
+    "Principal",
+    "Principal",
+    "Principal",
+    "Principal"
   ),
   stringsAsFactors = FALSE
 )
 
-# ---- Factor ordering (presentation) ----
-
-# A should appear first; U last
+# Factor ordering (A first, U last)
 rating_level_order <- c(
   "A - $100M+",
   "B - $50M to $99.9M",
@@ -57,10 +72,11 @@ rating_level_order <- c(
   "H - $500K to $999K",
   "I - $250K to $499K",
   "J - $100K to $249K",
-  "K - $50K to $99K",
-  "L - $25K to $49K",
-  "M - $10K to $24K",
-  "N - Less than $10K",
+  "K - $50K to $99.9K",
+  "L - $25K to $49.9K",
+  "M - $10K to $24.9K",
+  "N - $5K to $9.9K",
+  "O - Less than $5K",
   "U - Unrated"
 )
 

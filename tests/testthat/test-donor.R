@@ -153,6 +153,57 @@ test_that("donor_status errors on invalid inputs", {
   expect_error(donor_status(as.Date("2024-01-01"), lapsed_years = 0))
 })
 
+test_that("donor_status respects sybunt_years parameter", {
+  as_of <- as.Date("2025-01-15")  # FY2025
+
+  # Gift from FY2022 (3 years ago from FY2025)
+  gift_date_3yr <- as.Date("2021-09-15")
+
+  # Default sybunt_years (lapsed_years - 1 = 4) - should be SYBUNT
+  result <- donor_status(gift_date_3yr, as_of = as_of, lapsed_years = 5)
+  expect_equal(as.character(result), "SYBUNT")
+
+  # With sybunt_years = 2 (SYBUNT covers 2-3 years ago), 3yr gift is still SYBUNT
+  result <- donor_status(gift_date_3yr, as_of = as_of, lapsed_years = 5, sybunt_years = 2)
+  expect_equal(as.character(result), "SYBUNT")
+
+  # Gift from FY2021 (4 years ago) with sybunt_years = 2 - should be Lapsed
+  gift_date_4yr <- as.Date("2020-09-15")
+  result <- donor_status(gift_date_4yr, as_of = as_of, lapsed_years = 5, sybunt_years = 2)
+  expect_equal(as.character(result), "Lapsed")
+
+  # Same 4yr gift with default sybunt_years = 4 - should be SYBUNT
+  result <- donor_status(gift_date_4yr, as_of = as_of, lapsed_years = 5)
+  expect_equal(as.character(result), "SYBUNT")
+})
+
+test_that("donor_status accepts custom labels", {
+  dates <- as.Date(c("2024-09-15", NA))
+  as_of <- as.Date("2025-01-15")
+
+  # Partial label replacement
+  result <- donor_status(
+    dates,
+    as_of = as_of,
+    labels = c("Active" = "Current", "Never" = "Non-Donor")
+  )
+
+  expect_equal(as.character(result[1]), "Current")
+  expect_equal(as.character(result[2]), "Non-Donor")
+  expect_equal(levels(result), c("Current", "LYBUNT", "SYBUNT", "Lapsed", "Non-Donor"))
+})
+
+test_that("donor_status errors on invalid labels", {
+  expect_error(
+    donor_status(as.Date("2024-01-01"), labels = c("InvalidStatus" = "Test")),
+    "Invalid names"
+  )
+  expect_error(
+    donor_status(as.Date("2024-01-01"), labels = "not_named"),
+    "named character vector"
+  )
+})
+
 # years_since tests
 test_that("years_since calculates correctly", {
   expect_equal(

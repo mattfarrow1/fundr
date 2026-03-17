@@ -37,8 +37,8 @@ The `donor_status()` function classifies donors based on when they last gave:
 
 - **Active**: Gave in the current fiscal year
 - **LYBUNT**: Last Year But Unfortunately Not This (gave last FY, not this FY)
-- **SYBUNT**: Some Year But Unfortunately Not This (gave 2 FYs ago)
-- **Lapsed**: Gave more than 2 FYs ago
+- **SYBUNT**: Some Year But Unfortunately Not This (gave 2+ FYs ago but within threshold)
+- **Lapsed**: Gave more than `lapsed_years` ago (default: 5)
 - **Never**: No giving history
 
 ```{r}
@@ -60,6 +60,34 @@ sample_dates <- as.Date(c(
 ))
 
 donor_status(sample_dates)
+```
+
+### Customizing the SYBUNT Window
+
+By default, SYBUNT covers gifts from 2 to `lapsed_years` (5) fiscal years ago. Use `sybunt_years` to narrow or widen this window:
+
+```{r}
+# Default: SYBUNT is 2-5 years ago
+donor_status(sample_dates, lapsed_years = 5)
+
+# Narrower: SYBUNT is only 2-3 years ago (4+ becomes Lapsed)
+donor_status(sample_dates, lapsed_years = 5, sybunt_years = 2)
+```
+
+### Custom Status Labels
+
+Some organizations prefer different terminology. Use the `labels` parameter to customize:
+
+```{r}
+# Custom labels
+donor_status(
+  sample_dates,
+  labels = c(
+    "Active" = "Current",
+    "Never" = "Non-Donor",
+    "Lapsed" = "Inactive"
+  )
+)
 ```
 
 ## Giving Analysis

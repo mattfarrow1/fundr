@@ -5,7 +5,7 @@
 \alias{fundr_gift_levels}
 \title{Gift level reference table}
 \format{
-A data frame with 14 rows and 3 variables:
+A data frame with 23 rows and 3 variables:
 \describe{
 \item{ask_amount}{Numeric ask amount threshold.}
 \item{giving_level}{Ordered factor label for the threshold (e.g., "$1,000,000+").}
@@ -19,7 +19,19 @@ Internal conventions (fundr).
 fundr_gift_levels
 }
 \description{
-A reference table of common ask amounts, formatted giving level labels, and
-broader ask buckets useful for reporting and segmentation.
+A comprehensive reference table of gift amount thresholds, formatted giving
+level labels, and broader ask buckets useful for reporting and segmentation.
+Covers the full range from annual fund ($100+) to principal gifts ($150M+).
+}
+\details{
+Use \code{\link[=gift_levels]{gift_levels()}} to get preset subsets appropriate for your organization:
+\itemize{
+\item "small": Annual fund focus, $1 to $100K
+\item "medium": Leadership/major gifts, $1K to $1M
+\item "large": Principal gifts, $100K to $150M+
+}
+}
+\seealso{
+\code{\link[=gift_levels]{gift_levels()}}, \code{\link[=bucket_gift_level]{bucket_gift_level()}}
 }
 \keyword{datasets}

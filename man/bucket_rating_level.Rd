@@ -17,7 +17,9 @@ bucket_rating_level(
 \arguments{
 \item{rating_value}{Numeric vector of rating values (capacity/wealth estimate).}
 
-\item{levels}{A levels table like \code{fundr_rating_levels}.}
+\item{levels}{A levels table like \code{fundr_rating_levels}, or a preset name
+("small", "medium", "large", "all"). See \code{\link[=rating_levels]{rating_levels()}} for details on
+presets.}
 
 \item{value_col}{Name of the numeric threshold column.}
 
@@ -40,6 +42,9 @@ Maps numeric rating values to the nearest threshold in \code{fundr_rating_levels
 ratings <- c(25000, 75000, 500000, 5000000, 150000000, NA)
 bucket_rating_level(ratings)
 
+# Use a preset for smaller organizations
+bucket_rating_level(ratings, levels = "small")
+
 # Return broader rating buckets instead
 bucket_rating_level(ratings, what = "rating_bucket")
 
@@ -48,7 +53,11 @@ bucket_rating_level(ratings, what = "rating_bucket")
 
 }
 \seealso{
+\code{\link[=rating_levels]{rating_levels()}} for creating custom level tables
+
 Other bucketing: 
-\code{\link{bucket_gift_level}()}
+\code{\link{bucket_gift_level}()},
+\code{\link{gift_levels}()},
+\code{\link{rating_levels}()}
 }
 \concept{bucketing}

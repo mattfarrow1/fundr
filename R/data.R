@@ -1,28 +1,43 @@
 #' Gift level reference table
 #'
-#' A reference table of common ask amounts, formatted giving level labels, and
-#' broader ask buckets useful for reporting and segmentation.
+#' A comprehensive reference table of gift amount thresholds, formatted giving
+#' level labels, and broader ask buckets useful for reporting and segmentation.
+#' Covers the full range from annual fund ($100+) to principal gifts ($150M+).
 #'
-#' @format A data frame with 14 rows and 3 variables:
+#' Use [gift_levels()] to get preset subsets appropriate for your organization:
+#' - "small": Annual fund focus, $1 to $100K
+#' - "medium": Leadership/major gifts, $1K to $1M
+#' - "large": Principal gifts, $100K to $150M+
+#'
+#' @format A data frame with 23 rows and 3 variables:
 #' \describe{
 #'   \item{ask_amount}{Numeric ask amount threshold.}
 #'   \item{giving_level}{Ordered factor label for the threshold (e.g., "$1,000,000+").}
 #'   \item{ask_bucket}{Ordered factor bucket label (e.g., "$1M to $2.49M").}
 #' }
+#' @seealso [gift_levels()], [bucket_gift_level()]
 #' @source Internal conventions (fundr).
 "fundr_gift_levels"
 
 #' Rating level reference table
 #'
-#' A reference table of wealth or capacity rating levels, numeric thresholds,
-#' and broader rating buckets commonly used in fundraising analytics.
+#' A comprehensive reference table of wealth/capacity rating levels, numeric
+#' thresholds, and broader rating buckets commonly used in fundraising analytics.
+#' Covers ratings from Unrated through $100M+ capacity.
 #'
-#' @format A data frame with 15 rows and 3 variables:
+#' Use [rating_levels()] to get preset subsets with bucket assignments
+#' appropriate for your organization:
+#' - "small": Major at $25K+, Principal at $250K+
+#' - "medium": Major at $50K+, Principal at $1M+
+#' - "large": Major at $100K+, Principal at $5M+
+#'
+#' @format A data frame with 16 rows and 3 variables:
 #' \describe{
-#'   \item{rating_level}{Ordered factor rating label (e.g., "A - $100M+").}
 #'   \item{rating_value}{Numeric threshold representing the rating level.}
+#'   \item{rating_level}{Ordered factor rating label (e.g., "A - $100M+").}
 #'   \item{rating_bucket}{Ordered factor grouping (Principal, Major, Mid-Level, Annual, Unrated).}
 #' }
+#' @seealso [rating_levels()], [bucket_rating_level()]
 #' @source Internal conventions (fundr).
 "fundr_rating_levels"
 

@@ -17,7 +17,9 @@ bucket_gift_level(
 \arguments{
 \item{ask_amount}{Numeric vector of ask amounts.}
 
-\item{levels}{A levels table like \code{fundr_gift_levels}.}
+\item{levels}{A levels table like \code{fundr_gift_levels}, or a preset name
+("small", "medium", "large", "all"). See \code{\link[=gift_levels]{gift_levels()}} for details on
+presets.}
 
 \item{value_col}{Name of the numeric threshold column.}
 
@@ -41,6 +43,9 @@ Returns labels such as "$1,000,000+" and/or broader buckets.
 amounts <- c(500, 5000, 25000, 100000, 1500000, NA)
 bucket_gift_level(amounts)
 
+# Use a preset for smaller gift ranges
+bucket_gift_level(amounts, levels = "small")
+
 # Return broader ask buckets instead
 bucket_gift_level(amounts, what = "ask_bucket")
 
@@ -49,7 +54,11 @@ bucket_gift_level(amounts, what = "ask_bucket")
 
 }
 \seealso{
+\code{\link[=gift_levels]{gift_levels()}} for creating custom level tables
+
 Other bucketing: 
-\code{\link{bucket_rating_level}()}
+\code{\link{bucket_rating_level}()},
+\code{\link{gift_levels}()},
+\code{\link{rating_levels}()}
 }
 \concept{bucketing}
