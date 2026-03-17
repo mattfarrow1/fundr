@@ -11,7 +11,7 @@ segmentation."><meta property="og:image" content="https://mattfarrow1.github.io/
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,9 @@ segmentation.</p>
 <span>  <span class="va">last_gift_date</span>,</span>
 <span>  as_of <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  fy_start_month <span class="op">=</span> <span class="fl">7L</span>,</span>
-<span>  lapsed_years <span class="op">=</span> <span class="fl">5L</span></span>
+<span>  lapsed_years <span class="op">=</span> <span class="fl">5L</span>,</span>
+<span>  sybunt_years <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  labels <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -80,22 +82,35 @@ Default 7 (July).</p></dd>
 
 
 <dt id="arg-lapsed-years">lapsed_years<a class="anchor" aria-label="anchor" href="#arg-lapsed-years"></a></dt>
-<dd><p>Number of years with no gifts before a donor is
+<dd><p>Number of fiscal years with no gifts before a donor is
 considered "Lapsed". Default 5.</p></dd>
+
+
+<dt id="arg-sybunt-years">sybunt_years<a class="anchor" aria-label="anchor" href="#arg-sybunt-years"></a></dt>
+<dd><p>Number of fiscal years that qualify as SYBUNT. Default
+is <code>lapsed_years - 1</code> (so SYBUNT = 2 to lapsed_years). Set to a smaller
+value to narrow the SYBUNT window (e.g., <code>sybunt_years = 2</code> means only
+2-3 years ago counts as SYBUNT).</p></dd>
+
+
+<dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
+<dd><p>Named character vector to customize status labels. Names must
+be the default labels ("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never")
+and values are replacements. Partial replacement is supported.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Ordered factor with levels: "Active", "LYBUNT", "SYBUNT",
-"Lapsed", "Never" (from most to least engaged).</p>
+    <p>Ordered factor with levels from most to least engaged. Default
+levels are: "Active", "LYBUNT", "SYBUNT", "Lapsed", "Never".</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Status definitions:</p><ul><li><p><strong>Active</strong>: Gave during the current fiscal year</p></li>
+    <p>Default status definitions:</p><ul><li><p><strong>Active</strong>: Gave during the current fiscal year</p></li>
 <li><p><strong>LYBUNT</strong>: "Last Year But Unfortunately Not This" - gave
 last fiscal year but not yet this year</p></li>
 <li><p><strong>SYBUNT</strong>: "Some Year But Unfortunately Not This" - gave
-2+ fiscal years ago but within the lapsed threshold</p></li>
+2+ fiscal years ago but within the SYBUNT threshold</p></li>
 <li><p><strong>Lapsed</strong>: Last gift was more than <code>lapsed_years</code> ago</p></li>
 <li><p><strong>Never</strong>: No gift on record (NA last_gift_date)</p></li>
 </ul></div>
@@ -122,6 +137,17 @@ last fiscal year but not yet this year</p></li>
 <span class="r-in"><span><span class="fu">donor_status</span><span class="op">(</span><span class="va">dates</span>, as_of <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-01-15"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] Active LYBUNT SYBUNT Lapsed Never </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Active &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Never</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Narrower SYBUNT window (only 2-3 years counts as SYBUNT)</span></span></span>
+<span class="r-in"><span><span class="fu">donor_status</span><span class="op">(</span><span class="va">dates</span>, as_of <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-01-15"</span><span class="op">)</span>, sybunt_years <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Active LYBUNT SYBUNT Lapsed Never </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Active &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Never</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Custom labels</span></span></span>
+<span class="r-in"><span><span class="fu">donor_status</span><span class="op">(</span><span class="va">dates</span>, as_of <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2025-01-15"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Active"</span> <span class="op">=</span> <span class="st">"Current"</span>, <span class="st">"Never"</span> <span class="op">=</span> <span class="st">"Non-Donor"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Current   LYBUNT    SYBUNT    Lapsed    Non-Donor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: Current &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Non-Donor</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># In a dplyr pipeline (using native pipe)</span></span></span>
 <span class="r-in"><span><span class="co"># donors |&gt;</span></span></span>

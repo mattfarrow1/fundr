@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,64 @@
       <small>Source: <a href="https://github.com/mattfarrow1/fundr/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.0" id="fundr-030">fundr 0.3.0<a class="anchor" aria-label="anchor" href="#fundr-030"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-3-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-3-0"></a></h3>
+<div class="section level4">
+<h4 id="flexible-gift-and-rating-level-presets-0-3-0">Flexible Gift and Rating Level Presets<a class="anchor" aria-label="anchor" href="#flexible-gift-and-rating-level-presets-0-3-0"></a></h4>
+<ul><li>
+<p><strong><code><a href="../reference/gift_levels.html">gift_levels()</a></code></strong>: New helper function to get gift level presets appropriate for different organization sizes:</p>
+<ul><li>
+<code>"small"</code>: Annual fund focus, thresholds from $1 to $100K</li>
+<li>
+<code>"medium"</code>: Leadership/major gifts, thresholds from $1K to $1M</li>
+<li>
+<code>"large"</code>: Principal gifts, thresholds from $100K to $150M+</li>
+<li>
+<code>"all"</code>: Comprehensive (all thresholds)</li>
+<li>Also supports custom threshold selection via <code>include</code> parameter</li>
+</ul></li>
+<li>
+<p><strong><code><a href="../reference/rating_levels.html">rating_levels()</a></code></strong>: New helper function for rating level presets with organization-appropriate bucket assignments:</p>
+<ul><li>
+<code>"small"</code>: Major at $25K+, Principal at $250K+ (community foundations)</li>
+<li>
+<code>"medium"</code>: Major at $50K+, Principal at $1M+ (mid-size orgs)</li>
+<li>
+<code>"large"</code>: Major at $100K+, Principal at $5M+ (universities, hospitals)</li>
+<li>Supports custom bucket mapping via <code>bucket_map</code> parameter</li>
+</ul></li>
+<li>
+<p><strong><code><a href="../reference/bucket_gift_level.html">bucket_gift_level()</a></code></strong> and <strong><code><a href="../reference/bucket_rating_level.html">bucket_rating_level()</a></code></strong> now accept preset strings directly:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">amounts</span>, levels <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">ratings</span>, levels <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span></code></pre></div>
+</li>
+</ul></div>
+<div class="section level4">
+<h4 id="expanded-reference-data-0-3-0">Expanded Reference Data<a class="anchor" aria-label="anchor" href="#expanded-reference-data-0-3-0"></a></h4>
+<ul><li><p><strong><code>fundr_gift_levels</code></strong>: Now contains 23 comprehensive thresholds (up from 14), covering the full range from $100 to $150M+. Added thresholds: $100, $250, $500, $1K, $2.5K, $5K, $10K, $25K, $50K.</p></li>
+<li><p><strong><code>fundr_rating_levels</code></strong>: Now contains 16 thresholds (up from 15), with an additional $5K threshold for more granularity at lower capacity levels.</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="enhanced-donor-status-classification-0-3-0">Enhanced Donor Status Classification<a class="anchor" aria-label="anchor" href="#enhanced-donor-status-classification-0-3-0"></a></h4>
+<ul><li>
+<strong><code><a href="../reference/donor_status.html">donor_status()</a></code></strong> gains two new parameters for greater flexibility:
+<ul><li>
+<code>sybunt_years</code>: Control the SYBUNT window independently from <code>lapsed_years</code>. Default maintains backward compatibility (SYBUNT = 2 to lapsed_years).</li>
+<li>
+<code>labels</code>: Named character vector to customize status terminology (e.g., <code>c("Active" = "Current", "Never" = "Non-Donor")</code>).</li>
+</ul></li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="documentation-0-3-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-3-0"></a></h3>
+<ul><li>Updated “Bucketing Levels” vignette with comprehensive preset examples and comparison table.</li>
+<li>Updated “Donor Analytics” vignette with new <code><a href="../reference/donor_status.html">donor_status()</a></code> parameters.</li>
+<li>Improved function documentation with more examples.</li>
+</ul><hr></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.0" id="fundr-020">fundr 0.2.0<a class="anchor" aria-label="anchor" href="#fundr-020"></a></h2>
 <div class="section level3">

@@ -43,7 +43,7 @@ Other donor-analytics:
 
 ``` r
 years_since(as.Date("2020-06-15"))
-#> [1] 5.7
+#> [1] 5.8
 
 years_since(as.Date("2020-06-15"), as_of = as.Date("2024-06-15"))
 #> [1] 4

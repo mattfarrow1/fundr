@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,9 +118,10 @@ when they last gave:</p>
 last FY, not this FY)</li>
 <li>
 <strong>SYBUNT</strong>: Some Year But Unfortunately Not This (gave
-2 FYs ago)</li>
+2+ FYs ago but within threshold)</li>
 <li>
-<strong>Lapsed</strong>: Gave more than 2 FYs ago</li>
+<strong>Lapsed</strong>: Gave more than <code>lapsed_years</code>
+ago (default: 5)</li>
 <li>
 <strong>Never</strong>: No giving history</li>
 </ul>
@@ -148,6 +149,41 @@ last FY, not this FY)</li>
 <span><span class="co">#&gt; [1] Active LYBUNT SYBUNT Lapsed Never </span></span>
 <span><span class="co">#&gt; Levels: Active &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Never</span></span></code></pre></div>
 </div>
+<div class="section level3">
+<h3 id="customizing-the-sybunt-window">Customizing the SYBUNT Window<a class="anchor" aria-label="anchor" href="#customizing-the-sybunt-window"></a>
+</h3>
+<p>By default, SYBUNT covers gifts from 2 to <code>lapsed_years</code>
+(5) fiscal years ago. Use <code>sybunt_years</code> to narrow or widen
+this window:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Default: SYBUNT is 2-5 years ago</span></span>
+<span><span class="fu"><a href="../reference/donor_status.html">donor_status</a></span><span class="op">(</span><span class="va">sample_dates</span>, lapsed_years <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Active LYBUNT SYBUNT Lapsed Never </span></span>
+<span><span class="co">#&gt; Levels: Active &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Never</span></span>
+<span></span>
+<span><span class="co"># Narrower: SYBUNT is only 2-3 years ago (4+ becomes Lapsed)</span></span>
+<span><span class="fu"><a href="../reference/donor_status.html">donor_status</a></span><span class="op">(</span><span class="va">sample_dates</span>, lapsed_years <span class="op">=</span> <span class="fl">5</span>, sybunt_years <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Active LYBUNT SYBUNT Lapsed Never </span></span>
+<span><span class="co">#&gt; Levels: Active &lt; LYBUNT &lt; SYBUNT &lt; Lapsed &lt; Never</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="custom-status-labels">Custom Status Labels<a class="anchor" aria-label="anchor" href="#custom-status-labels"></a>
+</h3>
+<p>Some organizations prefer different terminology. Use the
+<code>labels</code> parameter to customize:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Custom labels</span></span>
+<span><span class="fu"><a href="../reference/donor_status.html">donor_status</a></span><span class="op">(</span></span>
+<span>  <span class="va">sample_dates</span>,</span>
+<span>  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Active"</span> <span class="op">=</span> <span class="st">"Current"</span>,</span>
+<span>    <span class="st">"Never"</span> <span class="op">=</span> <span class="st">"Non-Donor"</span>,</span>
+<span>    <span class="st">"Lapsed"</span> <span class="op">=</span> <span class="st">"Inactive"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Current   LYBUNT    SYBUNT    Inactive  Non-Donor</span></span>
+<span><span class="co">#&gt; Levels: Current &lt; LYBUNT &lt; SYBUNT &lt; Inactive &lt; Non-Donor</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="giving-analysis">Giving Analysis<a class="anchor" aria-label="anchor" href="#giving-analysis"></a>
@@ -157,26 +193,26 @@ last FY, not this FY)</li>
 </h3>
 <p>Categorize gifts by amount using
 <code><a href="../reference/bucket_gift_level.html">bucket_gift_level()</a></code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Sample gift amounts</span></span>
 <span><span class="va">gifts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25</span>, <span class="fl">100</span>, <span class="fl">500</span>, <span class="fl">1000</span>, <span class="fl">5000</span>, <span class="fl">25000</span>, <span class="fl">100000</span>, <span class="fl">1000000</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get giving level labels</span></span>
 <span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">gifts</span>, what <span class="op">=</span> <span class="st">"giving_level"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] $.01+       $.01+       $.01+       $.01+       $.01+       $.01+      </span></span>
+<span><span class="co">#&gt; [1] $1+         $100+       $500+       $1,000+     $5,000+     $25,000+   </span></span>
 <span><span class="co">#&gt; [7] $100,000+   $1,000,000+</span></span>
-<span><span class="co">#&gt; 14 Levels: $150,000,000+ &lt; $100,000,000+ &lt; $50,000,000+ &lt; ... &lt; No Amount</span></span>
+<span><span class="co">#&gt; 23 Levels: $150,000,000+ &lt; $100,000,000+ &lt; $50,000,000+ &lt; ... &lt; No Amount</span></span>
 <span></span>
 <span><span class="co"># Get broader buckets</span></span>
 <span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">gifts</span>, what <span class="op">=</span> <span class="st">"ask_bucket"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] Less than $100K Less than $100K Less than $100K Less than $100K</span></span>
-<span><span class="co">#&gt; [5] Less than $100K Less than $100K $100K to $249K  $1M to $2.49M  </span></span>
-<span><span class="co">#&gt; 14 Levels: $150M+ &lt; $100M to $149M &lt; $50M to $99.9M &lt; ... &lt; No Amount</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] Less than $100 $100 to $249   $500 to $999   $1K to $2.4K   $5K to $9.9K  </span></span>
+<span><span class="co">#&gt; [6] $25K to $49.9K $100K to $249K $1M to $2.49M </span></span>
+<span><span class="co">#&gt; 23 Levels: $150M+ &lt; $100M to $149M &lt; $50M to $99.9M &lt; ... &lt; No Amount</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="analyzing-portfolio-giving">Analyzing Portfolio Giving<a class="anchor" aria-label="anchor" href="#analyzing-portfolio-giving"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Bucket the largest gifts</span></span>
 <span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">gift_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span></span>
 <span>  <span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">largest_gift_amount</span>,</span>
@@ -187,13 +223,17 @@ last FY, not this FY)</li>
 <span><span class="va">gift_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">gift_level</span><span class="op">)</span></span>
 <span><span class="va">gift_dist</span><span class="op">[</span><span class="va">gift_dist</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; $1,000,000+   $750,000+   $500,000+   $250,000+   $100,000+       $.01+ </span></span>
-<span><span class="co">#&gt;           3           1           5          16          52        6924</span></span></code></pre></div>
+<span><span class="co">#&gt; $1,000,000+   $750,000+   $500,000+   $250,000+   $100,000+    $50,000+ </span></span>
+<span><span class="co">#&gt;           3           1           5          16          52          95 </span></span>
+<span><span class="co">#&gt;    $25,000+    $10,000+     $5,000+     $2,500+     $1,000+       $500+ </span></span>
+<span><span class="co">#&gt;         222         474         622         888        1368        1005 </span></span>
+<span><span class="co">#&gt;       $250+       $100+         $1+ </span></span>
+<span><span class="co">#&gt;         894         816         540</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="giving-summary-statistics">Giving Summary Statistics<a class="anchor" aria-label="anchor" href="#giving-summary-statistics"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter to donors only</span></span>
 <span><span class="va">donors</span> <span class="op">&lt;-</span> <span class="va">fundr_portfolio</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">first_gift_date</span><span class="op">)</span>, <span class="op">]</span></span>
 <span></span>
@@ -215,7 +255,7 @@ last FY, not this FY)</li>
 <h3 id="research-ratings">Research Ratings<a class="anchor" aria-label="anchor" href="#research-ratings"></a>
 </h3>
 <p>The portfolio includes wealth/capacity ratings:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Rating distribution</span></span>
 <span><span class="va">rating_dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">research_rating</span><span class="op">)</span></span>
 <span><span class="va">rating_dist</span></span>
@@ -233,7 +273,7 @@ last FY, not this FY)</li>
 <h3 id="rating-bucketing">Rating Bucketing<a class="anchor" aria-label="anchor" href="#rating-bucketing"></a>
 </h3>
 <p>Convert ratings to broader categories:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get rating buckets</span></span>
 <span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">rating_bucket</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span></span>
 <span>  <span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">research_rating</span></span>
@@ -248,7 +288,7 @@ last FY, not this FY)</li>
 <h3 id="prospect-pipeline">Prospect Pipeline<a class="anchor" aria-label="anchor" href="#prospect-pipeline"></a>
 </h3>
 <p>Analyze the prospect pipeline:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prospects with assigned fundraisers</span></span>
 <span><span class="va">assigned</span> <span class="op">&lt;-</span> <span class="va">fundr_portfolio</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">fundraiser</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Assigned Prospects:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">assigned</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span>
@@ -265,7 +305,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="fundraiser-portfolios">Fundraiser Portfolios<a class="anchor" aria-label="anchor" href="#fundraiser-portfolios"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prospects per fundraiser</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">fundraiser</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -282,7 +322,7 @@ last FY, not this FY)</li>
 </h2>
 <p>Use <code><a href="../reference/format_currency.html">format_currency()</a></code> and
 <code><a href="../reference/format_currency_short.html">format_currency_short()</a></code> for display:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">amounts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1234.56</span>, <span class="fl">50000</span>, <span class="fl">1500000</span>, <span class="fl">25000000</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Full format</span></span>
@@ -295,7 +335,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="percentage-formatting">Percentage Formatting<a class="anchor" aria-label="anchor" href="#percentage-formatting"></a>
 </h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.156</span>, <span class="fl">0.0234</span>, <span class="fl">0.789</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/format_pct.html">format_pct</a></span><span class="op">(</span><span class="va">rates</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "15.6%" "2.3%"  "78.9%"</span></span>
@@ -307,7 +347,7 @@ last FY, not this FY)</li>
 <h2 id="constituent-age">Constituent Age<a class="anchor" aria-label="anchor" href="#constituent-age"></a>
 </h2>
 <p>Calculate ages from dates of birth:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using calc_age() for full dates</span></span>
 <span><span class="va">sample_dobs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1960-05-15"</span>, <span class="st">"1975-12-01"</span>, <span class="st">"1990-03-22"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/calc_age.html">calc_age</a></span><span class="op">(</span><span class="va">sample_dobs</span><span class="op">)</span></span>
@@ -320,7 +360,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="age-distribution-in-portfolio">Age Distribution in Portfolio<a class="anchor" aria-label="anchor" href="#age-distribution-in-portfolio"></a>
 </h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate ages</span></span>
 <span><span class="va">ages</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_age_partial.html">calc_age_partial</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">dob</span><span class="op">)</span></span>
 <span></span>
@@ -347,7 +387,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="total-years-giving">Total Years Giving<a class="anchor" aria-label="anchor" href="#total-years-giving"></a>
 </h3>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Distribution of giving tenure</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">donors</span><span class="op">$</span><span class="va">total_years_giving</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -359,7 +399,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="consecutive-years">Consecutive Years<a class="anchor" aria-label="anchor" href="#consecutive-years"></a>
 </h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Recent donors with consecutive year streaks</span></span>
 <span><span class="va">recent_donors</span> <span class="op">&lt;-</span> <span class="va">donors</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">donors</span><span class="op">$</span><span class="va">consecutive_years_giving</span><span class="op">)</span>, <span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Donors with active streaks:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">recent_donors</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span>
@@ -376,7 +416,7 @@ last FY, not this FY)</li>
 <h2 id="regional-analysis">Regional Analysis<a class="anchor" aria-label="anchor" href="#regional-analysis"></a>
 </h2>
 <p>The portfolio has geographic weighting toward Dallas/Fort Worth:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">region</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;         Local         Texas      National International       Unknown </span></span>
@@ -384,7 +424,7 @@ last FY, not this FY)</li>
 <div class="section level3">
 <h3 id="giving-by-region">Giving by Region<a class="anchor" aria-label="anchor" href="#giving-by-region"></a>
 </h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Average total giving by region</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span><span class="va">total_giving</span> <span class="op">~</span> <span class="va">region</span>, data <span class="op">=</span> <span class="va">donors</span>, FUN <span class="op">=</span> <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          region total_giving</span></span>
@@ -399,7 +439,7 @@ last FY, not this FY)</li>
 <h2 id="segmentation-example">Segmentation Example<a class="anchor" aria-label="anchor" href="#segmentation-example"></a>
 </h2>
 <p>Combine multiple attributes for donor segmentation:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a high-value active donor segment</span></span>
 <span><span class="va">high_value_active</span> <span class="op">&lt;-</span> <span class="va">fundr_portfolio</span><span class="op">[</span></span>
 <span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">fundr_portfolio</span><span class="op">$</span><span class="va">donor_status</span><span class="op">)</span> <span class="op">&amp;</span></span>
@@ -417,7 +457,7 @@ last FY, not this FY)</li>
 <h2 id="using-dplyr-optional">Using dplyr (Optional)<a class="anchor" aria-label="anchor" href="#using-dplyr-optional"></a>
 </h2>
 <p>If you prefer tidyverse workflows:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fundr_portfolio</span> <span class="op">|&gt;</span></span>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,9 @@
 
 
 <dt id="arg-levels">levels<a class="anchor" aria-label="anchor" href="#arg-levels"></a></dt>
-<dd><p>A levels table like <code>fundr_rating_levels</code>.</p></dd>
+<dd><p>A levels table like <code>fundr_rating_levels</code>, or a preset name
+("small", "medium", "large", "all"). See <code><a href="rating_levels.html">rating_levels()</a></code> for details on
+presets.</p></dd>
 
 
 <dt id="arg-value-col">value_col<a class="anchor" aria-label="anchor" href="#arg-value-col"></a></dt>
@@ -96,8 +98,11 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other bucketing:
-<code><a href="bucket_gift_level.html">bucket_gift_level()</a></code></p></div>
+    <div class="dont-index"><p><code><a href="rating_levels.html">rating_levels()</a></code> for creating custom level tables</p>
+<p>Other bucketing:
+<code><a href="bucket_gift_level.html">bucket_gift_level()</a></code>,
+<code><a href="gift_levels.html">gift_levels()</a></code>,
+<code><a href="rating_levels.html">rating_levels()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -105,9 +110,15 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Bucket capacity ratings into levels</span></span></span>
 <span class="r-in"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25000</span>, <span class="fl">75000</span>, <span class="fl">500000</span>, <span class="fl">5000000</span>, <span class="fl">150000000</span>, <span class="cn">NA</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">bucket_rating_level</span><span class="op">(</span><span class="va">ratings</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] L - $25K to $49K   K - $50K to $99K   H - $500K to $999K E - $5M to $9.9M  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] L - $25K to $49.9K K - $50K to $99.9K H - $500K to $999K E - $5M to $9.9M  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] A - $100M+         &lt;NA&gt;              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Levels: A - $100M+ &lt; B - $50M to $99.9M &lt; ... &lt; U - Unrated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Levels: A - $100M+ &lt; B - $50M to $99.9M &lt; ... &lt; U - Unrated</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use a preset for smaller organizations</span></span></span>
+<span class="r-in"><span><span class="fu">bucket_rating_level</span><span class="op">(</span><span class="va">ratings</span>, levels <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] L - $25K to $49.9K L - $25K to $49.9K I - $250K to $499K E - $5M to $9.9M  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] C - $25M to $49.9M &lt;NA&gt;              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Levels: C - $25M to $49.9M &lt; E - $5M to $9.9M &lt; ... &lt; U - Unrated</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Return broader rating buckets instead</span></span></span>
 <span class="r-in"><span><span class="fu">bucket_rating_level</span><span class="op">(</span><span class="va">ratings</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span></span>

@@ -42,8 +42,9 @@ function classifies donors based on when they last gave:
 - **Active**: Gave in the current fiscal year
 - **LYBUNT**: Last Year But Unfortunately Not This (gave last FY, not
   this FY)
-- **SYBUNT**: Some Year But Unfortunately Not This (gave 2 FYs ago)
-- **Lapsed**: Gave more than 2 FYs ago
+- **SYBUNT**: Some Year But Unfortunately Not This (gave 2+ FYs ago but
+  within threshold)
+- **Lapsed**: Gave more than `lapsed_years` ago (default: 5)
 - **Never**: No giving history
 
 ``` r
@@ -72,6 +73,42 @@ donor_status(sample_dates)
 #> Levels: Active < LYBUNT < SYBUNT < Lapsed < Never
 ```
 
+### Customizing the SYBUNT Window
+
+By default, SYBUNT covers gifts from 2 to `lapsed_years` (5) fiscal
+years ago. Use `sybunt_years` to narrow or widen this window:
+
+``` r
+# Default: SYBUNT is 2-5 years ago
+donor_status(sample_dates, lapsed_years = 5)
+#> [1] Active LYBUNT SYBUNT Lapsed Never 
+#> Levels: Active < LYBUNT < SYBUNT < Lapsed < Never
+
+# Narrower: SYBUNT is only 2-3 years ago (4+ becomes Lapsed)
+donor_status(sample_dates, lapsed_years = 5, sybunt_years = 2)
+#> [1] Active LYBUNT SYBUNT Lapsed Never 
+#> Levels: Active < LYBUNT < SYBUNT < Lapsed < Never
+```
+
+### Custom Status Labels
+
+Some organizations prefer different terminology. Use the `labels`
+parameter to customize:
+
+``` r
+# Custom labels
+donor_status(
+  sample_dates,
+  labels = c(
+    "Active" = "Current",
+    "Never" = "Non-Donor",
+    "Lapsed" = "Inactive"
+  )
+)
+#> [1] Current   LYBUNT    SYBUNT    Inactive  Non-Donor
+#> Levels: Current < LYBUNT < SYBUNT < Inactive < Non-Donor
+```
+
 ## Giving Analysis
 
 ### Gift Level Bucketing
@@ -85,15 +122,15 @@ gifts <- c(25, 100, 500, 1000, 5000, 25000, 100000, 1000000)
 
 # Get giving level labels
 bucket_gift_level(gifts, what = "giving_level")
-#> [1] $.01+       $.01+       $.01+       $.01+       $.01+       $.01+      
+#> [1] $1+         $100+       $500+       $1,000+     $5,000+     $25,000+   
 #> [7] $100,000+   $1,000,000+
-#> 14 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
+#> 23 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
 
 # Get broader buckets
 bucket_gift_level(gifts, what = "ask_bucket")
-#> [1] Less than $100K Less than $100K Less than $100K Less than $100K
-#> [5] Less than $100K Less than $100K $100K to $249K  $1M to $2.49M  
-#> 14 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
+#> [1] Less than $100 $100 to $249   $500 to $999   $1K to $2.4K   $5K to $9.9K  
+#> [6] $25K to $49.9K $100K to $249K $1M to $2.49M 
+#> 23 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
 ```
 
 ### Analyzing Portfolio Giving
@@ -109,8 +146,12 @@ fundr_portfolio$gift_level <- bucket_gift_level(
 gift_dist <- table(fundr_portfolio$gift_level)
 gift_dist[gift_dist > 0]
 #> 
-#> $1,000,000+   $750,000+   $500,000+   $250,000+   $100,000+       $.01+ 
-#>           3           1           5          16          52        6924
+#> $1,000,000+   $750,000+   $500,000+   $250,000+   $100,000+    $50,000+ 
+#>           3           1           5          16          52          95 
+#>    $25,000+    $10,000+     $5,000+     $2,500+     $1,000+       $500+ 
+#>         222         474         622         888        1368        1005 
+#>       $250+       $100+         $1+ 
+#>         894         816         540
 ```
 
 ### Giving Summary Statistics

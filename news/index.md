@@ -1,5 +1,74 @@
 # Changelog
 
+## fundr 0.3.0
+
+### New Features
+
+#### Flexible Gift and Rating Level Presets
+
+- **[`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md)**:
+  New helper function to get gift level presets appropriate for
+  different organization sizes:
+
+  - `"small"`: Annual fund focus, thresholds from \$1 to \$100K
+  - `"medium"`: Leadership/major gifts, thresholds from \$1K to \$1M
+  - `"large"`: Principal gifts, thresholds from \$100K to \$150M+
+  - `"all"`: Comprehensive (all thresholds)
+  - Also supports custom threshold selection via `include` parameter
+
+- **[`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)**:
+  New helper function for rating level presets with
+  organization-appropriate bucket assignments:
+
+  - `"small"`: Major at \$25K+, Principal at \$250K+ (community
+    foundations)
+  - `"medium"`: Major at \$50K+, Principal at \$1M+ (mid-size orgs)
+  - `"large"`: Major at \$100K+, Principal at \$5M+ (universities,
+    hospitals)
+  - Supports custom bucket mapping via `bucket_map` parameter
+
+- **[`bucket_gift_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_gift_level.md)**
+  and
+  **[`bucket_rating_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_rating_level.md)**
+  now accept preset strings directly:
+
+  ``` r
+  bucket_gift_level(amounts, levels = "small")
+  bucket_rating_level(ratings, levels = "small")
+  ```
+
+#### Expanded Reference Data
+
+- **`fundr_gift_levels`**: Now contains 23 comprehensive thresholds (up
+  from 14), covering the full range from \$100 to \$150M+. Added
+  thresholds: \$100, \$250, \$500, \$1K, \$2.5K, \$5K, \$10K, \$25K,
+  \$50K.
+
+- **`fundr_rating_levels`**: Now contains 16 thresholds (up from 15),
+  with an additional \$5K threshold for more granularity at lower
+  capacity levels.
+
+#### Enhanced Donor Status Classification
+
+- **[`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md)**
+  gains two new parameters for greater flexibility:
+  - `sybunt_years`: Control the SYBUNT window independently from
+    `lapsed_years`. Default maintains backward compatibility (SYBUNT = 2
+    to lapsed_years).
+  - `labels`: Named character vector to customize status terminology
+    (e.g., `c("Active" = "Current", "Never" = "Non-Donor")`).
+
+### Documentation
+
+- Updated “Bucketing Levels” vignette with comprehensive preset examples
+  and comparison table.
+- Updated “Donor Analytics” vignette with new
+  [`donor_status()`](https://mattfarrow1.github.io/fundr/reference/donor_status.md)
+  parameters.
+- Improved function documentation with more examples.
+
+------------------------------------------------------------------------
+
 ## fundr 0.2.0
 
 ### New Features

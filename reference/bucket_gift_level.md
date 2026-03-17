@@ -26,7 +26,10 @@ bucket_gift_level(
 
 - levels:
 
-  A levels table like `fundr_gift_levels`.
+  A levels table like `fundr_gift_levels`, or a preset name ("small",
+  "medium", "large", "all"). See
+  [`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md)
+  for details on presets.
 
 - value_col:
 
@@ -55,8 +58,13 @@ source is character.
 
 ## See also
 
+[`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md)
+for creating custom level tables
+
 Other bucketing:
-[`bucket_rating_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_rating_level.md)
+[`bucket_rating_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_rating_level.md),
+[`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md),
+[`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)
 
 ## Examples
 
@@ -64,14 +72,19 @@ Other bucketing:
 # Bucket gift amounts into giving levels
 amounts <- c(500, 5000, 25000, 100000, 1500000, NA)
 bucket_gift_level(amounts)
-#> [1] $.01+       $.01+       $.01+       $100,000+   $1,000,000+ <NA>       
-#> 14 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
+#> [1] $500+       $5,000+     $25,000+    $100,000+   $1,000,000+ <NA>       
+#> 23 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
+
+# Use a preset for smaller gift ranges
+bucket_gift_level(amounts, levels = "small")
+#> [1] $500+     $5,000+   $25,000+  $100,000+ $100,000+ <NA>     
+#> 12 Levels: $100,000+ < $50,000+ < $25,000+ < $10,000+ < $5,000+ < ... < No Amount
 
 # Return broader ask buckets instead
 bucket_gift_level(amounts, what = "ask_bucket")
-#> [1] Less than $100K Less than $100K Less than $100K $100K to $249K 
-#> [5] $1M to $2.49M   <NA>           
-#> 14 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
+#> [1] $500 to $999   $5K to $9.9K   $25K to $49.9K $100K to $249K $1M to $2.49M 
+#> [6] <NA>          
+#> 23 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
 
 # Vectorized for use in data frames
 # df |> mutate(level = bucket_gift_level(gift_amount))

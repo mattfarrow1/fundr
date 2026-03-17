@@ -138,11 +138,11 @@ Categorize gifts and ratings:
 ``` r
 gift_amounts <- c(500, 50000, 1000000)
 bucket_gift_level(gift_amounts, what = "giving_level")
-#> [1] $.01+       $.01+       $1,000,000+
-#> 14 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
+#> [1] $500+       $50,000+    $1,000,000+
+#> 23 Levels: $150,000,000+ < $100,000,000+ < $50,000,000+ < ... < No Amount
 bucket_gift_level(gift_amounts, what = "ask_bucket")
-#> [1] Less than $100K Less than $100K $1M to $2.49M  
-#> 14 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
+#> [1] $500 to $999   $50K to $99.9K $1M to $2.49M 
+#> 23 Levels: $150M+ < $100M to $149M < $50M to $99.9M < ... < No Amount
 ```
 
 ### Visualization (requires ggplot2)

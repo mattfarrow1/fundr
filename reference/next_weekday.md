@@ -42,7 +42,7 @@ Other date-utilities:
 ``` r
 # Find next Monday
 next_weekday("Monday")
-#> [1] "2026-03-16"
+#> [1] "2026-03-23"
 
 # From a specific date
 next_weekday("Monday", as_of = as.Date("2024-06-14"))

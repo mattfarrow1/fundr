@@ -47,8 +47,8 @@ list_recent_files(tmp, pattern = "\\.csv$")
 #> # A tibble: 2 × 4
 #>   file      path                       size mtime              
 #>   <chr>     <chr>                     <dbl> <dttm>             
-#> 1 data2.csv /tmp/RtmpNu9PPS/data2.csv     2 2026-03-16 20:09:49
-#> 2 data1.csv /tmp/RtmpNu9PPS/data1.csv     2 2026-03-16 20:09:49
+#> 1 data2.csv /tmp/RtmpCxkqGh/data2.csv     2 2026-03-17 14:53:19
+#> 2 data1.csv /tmp/RtmpCxkqGh/data1.csv     2 2026-03-17 14:53:19
 
 # Clean up
 unlink(file.path(tmp, c("data1.csv", "data2.csv")))

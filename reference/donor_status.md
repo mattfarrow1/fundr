@@ -11,7 +11,9 @@ donor_status(
   last_gift_date,
   as_of = Sys.Date(),
   fy_start_month = 7L,
-  lapsed_years = 5L
+  lapsed_years = 5L,
+  sybunt_years = NULL,
+  labels = NULL
 )
 ```
 
@@ -33,17 +35,30 @@ donor_status(
 
 - lapsed_years:
 
-  Number of years with no gifts before a donor is considered "Lapsed".
-  Default 5.
+  Number of fiscal years with no gifts before a donor is considered
+  "Lapsed". Default 5.
+
+- sybunt_years:
+
+  Number of fiscal years that qualify as SYBUNT. Default is
+  `lapsed_years - 1` (so SYBUNT = 2 to lapsed_years). Set to a smaller
+  value to narrow the SYBUNT window (e.g., `sybunt_years = 2` means only
+  2-3 years ago counts as SYBUNT).
+
+- labels:
+
+  Named character vector to customize status labels. Names must be the
+  default labels ("Active", "LYBUNT", "SYBUNT", "Lapsed", "Never") and
+  values are replacements. Partial replacement is supported.
 
 ## Value
 
-Ordered factor with levels: "Active", "LYBUNT", "SYBUNT", "Lapsed",
-"Never" (from most to least engaged).
+Ordered factor with levels from most to least engaged. Default levels
+are: "Active", "LYBUNT", "SYBUNT", "Lapsed", "Never".
 
 ## Details
 
-Status definitions:
+Default status definitions:
 
 - **Active**: Gave during the current fiscal year
 
@@ -51,7 +66,7 @@ Status definitions:
   year but not yet this year
 
 - **SYBUNT**: "Some Year But Unfortunately Not This" - gave 2+ fiscal
-  years ago but within the lapsed threshold
+  years ago but within the SYBUNT threshold
 
 - **Lapsed**: Last gift was more than `lapsed_years` ago
 
@@ -80,6 +95,17 @@ dates <- as.Date(c(
 donor_status(dates, as_of = as.Date("2025-01-15"))
 #> [1] Active LYBUNT SYBUNT Lapsed Never 
 #> Levels: Active < LYBUNT < SYBUNT < Lapsed < Never
+
+# Narrower SYBUNT window (only 2-3 years counts as SYBUNT)
+donor_status(dates, as_of = as.Date("2025-01-15"), sybunt_years = 2)
+#> [1] Active LYBUNT SYBUNT Lapsed Never 
+#> Levels: Active < LYBUNT < SYBUNT < Lapsed < Never
+
+# Custom labels
+donor_status(dates, as_of = as.Date("2025-01-15"),
+             labels = c("Active" = "Current", "Never" = "Non-Donor"))
+#> [1] Current   LYBUNT    SYBUNT    Lapsed    Non-Donor
+#> Levels: Current < LYBUNT < SYBUNT < Lapsed < Non-Donor
 
 # In a dplyr pipeline (using native pipe)
 # donors |>

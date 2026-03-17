@@ -64,6 +64,8 @@
   : Fiscal year for a date
 - [`get_fy_start_month()`](https://mattfarrow1.github.io/fundr/reference/get_fy_start_month.md)
   : Get default fiscal year start month
+- [`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md)
+  : Get gift level thresholds
 - [`is_within()`](https://mattfarrow1.github.io/fundr/reference/is_within.md)
   : Check if date is within a time period
 - [`last_weekday()`](https://mattfarrow1.github.io/fundr/reference/last_weekday.md)
@@ -87,6 +89,8 @@
   : Not in operator
 - [`parse_partial_date()`](https://mattfarrow1.github.io/fundr/reference/parse_partial_date.md)
   : Parse partial dates (year-only or year-month)
+- [`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)
+  : Get rating level thresholds
 - [`read_latest()`](https://mattfarrow1.github.io/fundr/reference/read_latest.md)
   : Read the most recent file in a folder
 - [`scale_colour_fundr()`](https://mattfarrow1.github.io/fundr/reference/scale_colour_fundr.md)

@@ -25,7 +25,10 @@ bucket_rating_level(
 
 - levels:
 
-  A levels table like `fundr_rating_levels`.
+  A levels table like `fundr_rating_levels`, or a preset name ("small",
+  "medium", "large", "all"). See
+  [`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)
+  for details on presets.
 
 - value_col:
 
@@ -54,8 +57,13 @@ source is character.
 
 ## See also
 
+[`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)
+for creating custom level tables
+
 Other bucketing:
-[`bucket_gift_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_gift_level.md)
+[`bucket_gift_level()`](https://mattfarrow1.github.io/fundr/reference/bucket_gift_level.md),
+[`gift_levels()`](https://mattfarrow1.github.io/fundr/reference/gift_levels.md),
+[`rating_levels()`](https://mattfarrow1.github.io/fundr/reference/rating_levels.md)
 
 ## Examples
 
@@ -63,9 +71,15 @@ Other bucketing:
 # Bucket capacity ratings into levels
 ratings <- c(25000, 75000, 500000, 5000000, 150000000, NA)
 bucket_rating_level(ratings)
-#> [1] L - $25K to $49K   K - $50K to $99K   H - $500K to $999K E - $5M to $9.9M  
+#> [1] L - $25K to $49.9K K - $50K to $99.9K H - $500K to $999K E - $5M to $9.9M  
 #> [5] A - $100M+         <NA>              
-#> 15 Levels: A - $100M+ < B - $50M to $99.9M < ... < U - Unrated
+#> 16 Levels: A - $100M+ < B - $50M to $99.9M < ... < U - Unrated
+
+# Use a preset for smaller organizations
+bucket_rating_level(ratings, levels = "small")
+#> [1] L - $25K to $49.9K L - $25K to $49.9K I - $250K to $499K E - $5M to $9.9M  
+#> [5] C - $25M to $49.9M <NA>              
+#> 8 Levels: C - $25M to $49.9M < E - $5M to $9.9M < ... < U - Unrated
 
 # Return broader rating buckets instead
 bucket_rating_level(ratings, what = "rating_bucket")

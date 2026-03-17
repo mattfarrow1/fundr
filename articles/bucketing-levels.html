@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">fundr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,70 +76,367 @@
     
 <p>fundr includes reference tables for common gift/ask levels and wealth
 rating levels, plus helpers to bucket numeric values into consistent
-labels.</p>
-<div class="section level2">
-<h2 id="gift-level-bucketing">Gift Level Bucketing<a class="anchor" aria-label="anchor" href="#gift-level-bucketing"></a>
-</h2>
+labels. The bucketing functions support presets for different
+organization sizes, from small community foundations to large
+universities. ## Gift Level Bucketing</p>
+<p>The <code>fundr_gift_levels</code> table contains comprehensive
+thresholds from $1 to $150M+:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mattfarrow1/fundr" class="external-link">fundr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">99999</span>, <span class="fl">100000</span>, <span class="fl">250000</span>, <span class="fl">150000000</span><span class="op">)</span></span>
+<span><span class="co"># View all available thresholds</span></span>
+<span><span class="va">fundr_gift_levels</span></span>
+<span><span class="co">#&gt;    ask_amount  giving_level     ask_bucket</span></span>
+<span><span class="co">#&gt; 1     0.0e+00     No Amount      No Amount</span></span>
+<span><span class="co">#&gt; 2     1.0e-02           $1+ Less than $100</span></span>
+<span><span class="co">#&gt; 3     1.0e+02         $100+   $100 to $249</span></span>
+<span><span class="co">#&gt; 4     2.5e+02         $250+   $250 to $499</span></span>
+<span><span class="co">#&gt; 5     5.0e+02         $500+   $500 to $999</span></span>
+<span><span class="co">#&gt; 6     1.0e+03       $1,000+   $1K to $2.4K</span></span>
+<span><span class="co">#&gt; 7     2.5e+03       $2,500+ $2.5K to $4.9K</span></span>
+<span><span class="co">#&gt; 8     5.0e+03       $5,000+   $5K to $9.9K</span></span>
+<span><span class="co">#&gt; 9     1.0e+04      $10,000+ $10K to $24.9K</span></span>
+<span><span class="co">#&gt; 10    2.5e+04      $25,000+ $25K to $49.9K</span></span>
+<span><span class="co">#&gt; 11    5.0e+04      $50,000+ $50K to $99.9K</span></span>
+<span><span class="co">#&gt; 12    1.0e+05     $100,000+ $100K to $249K</span></span>
+<span><span class="co">#&gt; 13    2.5e+05     $250,000+ $250K to $499K</span></span>
+<span><span class="co">#&gt; 14    5.0e+05     $500,000+ $500K to $749K</span></span>
+<span><span class="co">#&gt; 15    7.5e+05     $750,000+ $750K to $999K</span></span>
+<span><span class="co">#&gt; 16    1.0e+06   $1,000,000+  $1M to $2.49M</span></span>
+<span><span class="co">#&gt; 17    2.5e+06   $2,500,000+ $2.5M to $4.9M</span></span>
+<span><span class="co">#&gt; 18    5.0e+06   $5,000,000+   $5M to $9.9M</span></span>
+<span><span class="co">#&gt; 19    1.0e+07  $10,000,000+ $10M to $24.9M</span></span>
+<span><span class="co">#&gt; 20    2.5e+07  $25,000,000+ $25M to $49.9M</span></span>
+<span><span class="co">#&gt; 21    5.0e+07  $50,000,000+ $50M to $99.9M</span></span>
+<span><span class="co">#&gt; 22    1.0e+08 $100,000,000+ $100M to $149M</span></span>
+<span><span class="co">#&gt; 23    1.5e+08 $150,000,000+         $150M+</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="using-presets">Using Presets<a class="anchor" aria-label="anchor" href="#using-presets"></a>
+</h3>
+<p>Different organizations have different gift level needs. Use
+<code><a href="../reference/gift_levels.html">gift_levels()</a></code> to get a preset appropriate for your
+shop:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Small shop: annual fund focus ($1 to $100K)</span></span>
+<span><span class="fu"><a href="../reference/gift_levels.html">gift_levels</a></span><span class="op">(</span><span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    ask_amount giving_level     ask_bucket</span></span>
+<span><span class="co">#&gt; 1     0.0e+00    No Amount      No Amount</span></span>
+<span><span class="co">#&gt; 2     1.0e-02          $1+ Less than $100</span></span>
+<span><span class="co">#&gt; 3     1.0e+02        $100+   $100 to $249</span></span>
+<span><span class="co">#&gt; 4     2.5e+02        $250+   $250 to $499</span></span>
+<span><span class="co">#&gt; 5     5.0e+02        $500+   $500 to $999</span></span>
+<span><span class="co">#&gt; 6     1.0e+03      $1,000+   $1K to $2.4K</span></span>
+<span><span class="co">#&gt; 7     2.5e+03      $2,500+ $2.5K to $4.9K</span></span>
+<span><span class="co">#&gt; 8     5.0e+03      $5,000+   $5K to $9.9K</span></span>
+<span><span class="co">#&gt; 9     1.0e+04     $10,000+ $10K to $24.9K</span></span>
+<span><span class="co">#&gt; 10    2.5e+04     $25,000+ $25K to $49.9K</span></span>
+<span><span class="co">#&gt; 11    5.0e+04     $50,000+ $50K to $99.9K</span></span>
+<span><span class="co">#&gt; 12    1.0e+05    $100,000+ $100K to $249K</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="st">"giving_level"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] &lt;NA&gt;          No Amount     $.01+         $.01+         $100,000+    </span></span>
-<span><span class="co">#&gt; [6] $250,000+     $150,000,000+</span></span>
-<span><span class="co">#&gt; 14 Levels: $150,000,000+ &lt; $100,000,000+ &lt; $50,000,000+ &lt; ... &lt; No Amount</span></span>
-<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="st">"ask_bucket"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] &lt;NA&gt;            No Amount       Less than $100K Less than $100K</span></span>
-<span><span class="co">#&gt; [5] $100K to $249K  $250K to $499K  $150M+         </span></span>
-<span><span class="co">#&gt; 14 Levels: $150M+ &lt; $100M to $149M &lt; $50M to $99.9M &lt; ... &lt; No Amount</span></span></code></pre></div>
+<span><span class="co"># Medium shop: leadership/major gifts ($1K to $1M)</span></span>
+<span><span class="fu"><a href="../reference/gift_levels.html">gift_levels</a></span><span class="op">(</span><span class="st">"medium"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    ask_amount giving_level     ask_bucket</span></span>
+<span><span class="co">#&gt; 1     0.0e+00    No Amount      No Amount</span></span>
+<span><span class="co">#&gt; 2     1.0e-02          $1+ Less than $100</span></span>
+<span><span class="co">#&gt; 3     1.0e+03      $1,000+   $1K to $2.4K</span></span>
+<span><span class="co">#&gt; 4     5.0e+03      $5,000+   $5K to $9.9K</span></span>
+<span><span class="co">#&gt; 5     1.0e+04     $10,000+ $10K to $24.9K</span></span>
+<span><span class="co">#&gt; 6     2.5e+04     $25,000+ $25K to $49.9K</span></span>
+<span><span class="co">#&gt; 7     5.0e+04     $50,000+ $50K to $99.9K</span></span>
+<span><span class="co">#&gt; 8     1.0e+05    $100,000+ $100K to $249K</span></span>
+<span><span class="co">#&gt; 9     2.5e+05    $250,000+ $250K to $499K</span></span>
+<span><span class="co">#&gt; 10    5.0e+05    $500,000+ $500K to $749K</span></span>
+<span><span class="co">#&gt; 11    1.0e+06  $1,000,000+  $1M to $2.49M</span></span>
+<span></span>
+<span><span class="co"># Large shop: principal gifts ($100K to $150M+)</span></span>
+<span><span class="fu"><a href="../reference/gift_levels.html">gift_levels</a></span><span class="op">(</span><span class="st">"large"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    ask_amount  giving_level     ask_bucket</span></span>
+<span><span class="co">#&gt; 1     0.0e+00     No Amount      No Amount</span></span>
+<span><span class="co">#&gt; 2     1.0e-02           $1+ Less than $100</span></span>
+<span><span class="co">#&gt; 3     1.0e+05     $100,000+ $100K to $249K</span></span>
+<span><span class="co">#&gt; 4     2.5e+05     $250,000+ $250K to $499K</span></span>
+<span><span class="co">#&gt; 5     5.0e+05     $500,000+ $500K to $749K</span></span>
+<span><span class="co">#&gt; 6     7.5e+05     $750,000+ $750K to $999K</span></span>
+<span><span class="co">#&gt; 7     1.0e+06   $1,000,000+  $1M to $2.49M</span></span>
+<span><span class="co">#&gt; 8     2.5e+06   $2,500,000+ $2.5M to $4.9M</span></span>
+<span><span class="co">#&gt; 9     5.0e+06   $5,000,000+   $5M to $9.9M</span></span>
+<span><span class="co">#&gt; 10    1.0e+07  $10,000,000+ $10M to $24.9M</span></span>
+<span><span class="co">#&gt; 11    2.5e+07  $25,000,000+ $25M to $49.9M</span></span>
+<span><span class="co">#&gt; 12    5.0e+07  $50,000,000+ $50M to $99.9M</span></span>
+<span><span class="co">#&gt; 13    1.0e+08 $100,000,000+ $100M to $149M</span></span>
+<span><span class="co">#&gt; 14    1.5e+08 $150,000,000+         $150M+</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="bucketing-gift-amounts">Bucketing Gift Amounts<a class="anchor" aria-label="anchor" href="#bucketing-gift-amounts"></a>
+</h3>
+<p>Use <code><a href="../reference/bucket_gift_level.html">bucket_gift_level()</a></code> to categorize gift amounts:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">amounts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">1000</span>, <span class="fl">5000</span>, <span class="fl">25000</span>, <span class="fl">100000</span>, <span class="fl">1000000</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Using comprehensive levels (default)</span></span>
+<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">amounts</span>, what <span class="op">=</span> <span class="st">"giving_level"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] $250+       $1,000+     $5,000+     $25,000+    $100,000+   $1,000,000+</span></span>
+<span><span class="co">#&gt; [7] &lt;NA&gt;       </span></span>
+<span><span class="co">#&gt; 23 Levels: $150,000,000+ &lt; $100,000,000+ &lt; $50,000,000+ &lt; ... &lt; No Amount</span></span>
+<span></span>
+<span><span class="co"># Using a preset for smaller gift ranges</span></span>
+<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">amounts</span>, levels <span class="op">=</span> <span class="st">"small"</span>, what <span class="op">=</span> <span class="st">"giving_level"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] $250+     $1,000+   $5,000+   $25,000+  $100,000+ $100,000+ &lt;NA&gt;     </span></span>
+<span><span class="co">#&gt; 12 Levels: $100,000+ &lt; $50,000+ &lt; $25,000+ &lt; $10,000+ &lt; $5,000+ &lt; ... &lt; No Amount</span></span>
+<span></span>
+<span><span class="co"># Get broader bucket labels</span></span>
+<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">amounts</span>, levels <span class="op">=</span> <span class="st">"small"</span>, what <span class="op">=</span> <span class="st">"ask_bucket"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] $250 to $499   $1K to $2.4K   $5K to $9.9K   $25K to $49.9K $100K to $249K</span></span>
+<span><span class="co">#&gt; [6] $100K to $249K &lt;NA&gt;          </span></span>
+<span><span class="co">#&gt; 12 Levels: $100K to $249K &lt; $50K to $99.9K &lt; ... &lt; No Amount</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="custom-thresholds">Custom Thresholds<a class="anchor" aria-label="anchor" href="#custom-thresholds"></a>
+</h3>
+<p>You can also select specific thresholds:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Custom selection of thresholds</span></span>
+<span><span class="va">my_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gift_levels.html">gift_levels</a></span><span class="op">(</span>include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.01</span>, <span class="fl">1000</span>, <span class="fl">5000</span>, <span class="fl">25000</span>, <span class="fl">100000</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">my_levels</span></span>
+<span><span class="co">#&gt;   ask_amount giving_level     ask_bucket</span></span>
+<span><span class="co">#&gt; 1    0.0e+00    No Amount      No Amount</span></span>
+<span><span class="co">#&gt; 2    1.0e-02          $1+ Less than $100</span></span>
+<span><span class="co">#&gt; 3    1.0e+03      $1,000+   $1K to $2.4K</span></span>
+<span><span class="co">#&gt; 4    5.0e+03      $5,000+   $5K to $9.9K</span></span>
+<span><span class="co">#&gt; 5    2.5e+04     $25,000+ $25K to $49.9K</span></span>
+<span><span class="co">#&gt; 6    1.0e+05    $100,000+ $100K to $249K</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">2500</span>, <span class="fl">50000</span><span class="op">)</span>, levels <span class="op">=</span> <span class="va">my_levels</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] $1+      $1,000+  $25,000+</span></span>
+<span><span class="co">#&gt; Levels: $100,000+ &lt; $25,000+ &lt; $5,000+ &lt; $1,000+ &lt; $1+ &lt; No Amount</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="rating-level-bucketing">Rating Level Bucketing<a class="anchor" aria-label="anchor" href="#rating-level-bucketing"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">9999</span>, <span class="fl">10000</span>, <span class="fl">250000</span>, <span class="fl">100000000</span><span class="op">)</span></span>
+<p>The <code>fundr_rating_levels</code> table contains wealth/capacity
+rating thresholds:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># View all available thresholds</span></span>
+<span><span class="va">fundr_rating_levels</span></span>
+<span><span class="co">#&gt;    rating_value       rating_level rating_bucket</span></span>
+<span><span class="co">#&gt; 1       0.0e+00        U - Unrated       Unrated</span></span>
+<span><span class="co">#&gt; 2       1.0e+00  O - Less than $5K        Annual</span></span>
+<span><span class="co">#&gt; 3       5.0e+03   N - $5K to $9.9K        Annual</span></span>
+<span><span class="co">#&gt; 4       1.0e+04 M - $10K to $24.9K        Annual</span></span>
+<span><span class="co">#&gt; 5       2.5e+04 L - $25K to $49.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 6       5.0e+04 K - $50K to $99.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 7       1.0e+05 J - $100K to $249K         Major</span></span>
+<span><span class="co">#&gt; 8       2.5e+05 I - $250K to $499K         Major</span></span>
+<span><span class="co">#&gt; 9       5.0e+05 H - $500K to $999K         Major</span></span>
+<span><span class="co">#&gt; 10      1.0e+06  G - $1M to $2.49M         Major</span></span>
+<span><span class="co">#&gt; 11      2.5e+06 F - $2.5M to $4.9M         Major</span></span>
+<span><span class="co">#&gt; 12      5.0e+06   E - $5M to $9.9M     Principal</span></span>
+<span><span class="co">#&gt; 13      1.0e+07 D - $10M to $24.9M     Principal</span></span>
+<span><span class="co">#&gt; 14      2.5e+07 C - $25M to $49.9M     Principal</span></span>
+<span><span class="co">#&gt; 15      5.0e+07 B - $50M to $99.9M     Principal</span></span>
+<span><span class="co">#&gt; 16      1.0e+08         A - $100M+     Principal</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="using-presets-1">Using Presets<a class="anchor" aria-label="anchor" href="#using-presets-1"></a>
+</h3>
+<p>Rating level presets adjust where the bucket boundaries fall (what
+counts as “Major” vs “Mid-Level”):</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Small shop: Major at $25K+, Principal at $250K+</span></span>
+<span><span class="fu"><a href="../reference/rating_levels.html">rating_levels</a></span><span class="op">(</span><span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   rating_value       rating_level rating_bucket</span></span>
+<span><span class="co">#&gt; 1      0.0e+00        U - Unrated       Unrated</span></span>
+<span><span class="co">#&gt; 2      1.0e+00  O - Less than $5K        Annual</span></span>
+<span><span class="co">#&gt; 3      5.0e+03   N - $5K to $9.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 4      2.5e+04 L - $25K to $49.9K         Major</span></span>
+<span><span class="co">#&gt; 5      2.5e+05 I - $250K to $499K     Principal</span></span>
+<span><span class="co">#&gt; 6      1.0e+06  G - $1M to $2.49M     Principal</span></span>
+<span><span class="co">#&gt; 7      5.0e+06   E - $5M to $9.9M     Principal</span></span>
+<span><span class="co">#&gt; 8      2.5e+07 C - $25M to $49.9M     Principal</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">y</span>, what <span class="op">=</span> <span class="st">"rating_level"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] &lt;NA&gt;               U - Unrated        N - Less than $10K N - Less than $10K</span></span>
-<span><span class="co">#&gt; [5] M - $10K to $24K   I - $250K to $499K A - $100M+        </span></span>
-<span><span class="co">#&gt; 15 Levels: A - $100M+ &lt; B - $50M to $99.9M &lt; ... &lt; U - Unrated</span></span>
-<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">y</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] &lt;NA&gt;      Unrated   Annual    Annual    Annual    Major     Principal</span></span>
+<span><span class="co"># Large shop: Major at $100K+, Principal at $5M+</span></span>
+<span><span class="fu"><a href="../reference/rating_levels.html">rating_levels</a></span><span class="op">(</span><span class="st">"large"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    rating_value       rating_level rating_bucket</span></span>
+<span><span class="co">#&gt; 1       0.0e+00        U - Unrated       Unrated</span></span>
+<span><span class="co">#&gt; 2       1.0e+00  O - Less than $5K        Annual</span></span>
+<span><span class="co">#&gt; 3       5.0e+03   N - $5K to $9.9K        Annual</span></span>
+<span><span class="co">#&gt; 4       1.0e+04 M - $10K to $24.9K        Annual</span></span>
+<span><span class="co">#&gt; 5       2.5e+04 L - $25K to $49.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 6       5.0e+04 K - $50K to $99.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 7       1.0e+05 J - $100K to $249K         Major</span></span>
+<span><span class="co">#&gt; 8       2.5e+05 I - $250K to $499K         Major</span></span>
+<span><span class="co">#&gt; 9       5.0e+05 H - $500K to $999K         Major</span></span>
+<span><span class="co">#&gt; 10      1.0e+06  G - $1M to $2.49M         Major</span></span>
+<span><span class="co">#&gt; 11      2.5e+06 F - $2.5M to $4.9M         Major</span></span>
+<span><span class="co">#&gt; 12      5.0e+06   E - $5M to $9.9M     Principal</span></span>
+<span><span class="co">#&gt; 13      1.0e+07 D - $10M to $24.9M     Principal</span></span>
+<span><span class="co">#&gt; 14      2.5e+07 C - $25M to $49.9M     Principal</span></span>
+<span><span class="co">#&gt; 15      5.0e+07 B - $50M to $99.9M     Principal</span></span>
+<span><span class="co">#&gt; 16      1.0e+08         A - $100M+     Principal</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="bucketing-ratings">Bucketing Ratings<a class="anchor" aria-label="anchor" href="#bucketing-ratings"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">50000</span>, <span class="fl">250000</span>, <span class="fl">1000000</span>, <span class="fl">10000000</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Using comprehensive levels</span></span>
+<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">ratings</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Annual    Mid-Level Major     Major     Principal</span></span>
+<span><span class="co">#&gt; Levels: Principal &lt; Major &lt; Mid-Level &lt; Annual &lt; Unrated</span></span>
+<span></span>
+<span><span class="co"># Using small shop preset (lower thresholds for Major/Principal)</span></span>
+<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">ratings</span>, levels <span class="op">=</span> <span class="st">"small"</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Mid-Level Major     Principal Principal Principal</span></span>
+<span><span class="co">#&gt; Levels: Principal &lt; Major &lt; Mid-Level &lt; Annual &lt; Unrated</span></span>
+<span></span>
+<span><span class="co"># Using large shop preset</span></span>
+<span><span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">ratings</span>, levels <span class="op">=</span> <span class="st">"large"</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Annual    Mid-Level Major     Major     Principal</span></span>
 <span><span class="co">#&gt; Levels: Principal &lt; Major &lt; Mid-Level &lt; Annual &lt; Unrated</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="custom-bucket-assignments">Custom Bucket Assignments<a class="anchor" aria-label="anchor" href="#custom-bucket-assignments"></a>
+</h3>
+<p>For full control, create custom bucket mappings:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Custom thresholds with custom bucket assignments</span></span>
+<span><span class="va">my_ratings</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rating_levels.html">rating_levels</a></span><span class="op">(</span></span>
+<span>  include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">10000</span>, <span class="fl">50000</span>, <span class="fl">250000</span><span class="op">)</span>,</span>
+<span>  bucket_map <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"0"</span> <span class="op">=</span> <span class="st">"Unrated"</span>,</span>
+<span>    <span class="st">"1"</span> <span class="op">=</span> <span class="st">"Annual"</span>,</span>
+<span>    <span class="st">"10000"</span> <span class="op">=</span> <span class="st">"Mid-Level"</span>,</span>
+<span>    <span class="st">"50000"</span> <span class="op">=</span> <span class="st">"Major"</span>,</span>
+<span>    <span class="st">"250000"</span> <span class="op">=</span> <span class="st">"Principal"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">my_ratings</span></span>
+<span><span class="co">#&gt;   rating_value       rating_level rating_bucket</span></span>
+<span><span class="co">#&gt; 1            0        U - Unrated       Unrated</span></span>
+<span><span class="co">#&gt; 2            1  O - Less than $5K        Annual</span></span>
+<span><span class="co">#&gt; 3        10000 M - $10K to $24.9K     Mid-Level</span></span>
+<span><span class="co">#&gt; 4        50000 K - $50K to $99.9K         Major</span></span>
+<span><span class="co">#&gt; 5       250000 I - $250K to $499K     Principal</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="working-with-a-data-frame">Working with a Data Frame<a class="anchor" aria-label="anchor" href="#working-with-a-data-frame"></a>
 </h2>
-<p>Below is a base R example; these functions are also designed to work
-well in <code>dplyr::mutate()</code> if you prefer tidy workflows.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>These functions work well in both base R and dplyr workflows:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  donor_id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,</span>
-<span>  ask_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50000</span>, <span class="fl">250000</span>, <span class="fl">1200000</span>, <span class="cn">NA</span>, <span class="fl">10000000</span><span class="op">)</span>,</span>
-<span>  capacity_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8000</span>, <span class="fl">250000</span>, <span class="fl">5000000</span>, <span class="fl">100000000</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span>  ask_amount <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">500</span>, <span class="fl">5000</span>, <span class="fl">50000</span>, <span class="fl">250000</span>, <span class="fl">1000000</span><span class="op">)</span>,</span>
+<span>  capacity_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8000</span>, <span class="fl">25000</span>, <span class="fl">100000</span>, <span class="fl">500000</span>, <span class="fl">5000000</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">ask_bucket</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">ask_amount</span>, what <span class="op">=</span> <span class="st">"ask_bucket"</span><span class="op">)</span></span>
-<span><span class="va">df</span><span class="op">$</span><span class="va">rating_bucket</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">capacity_value</span>, what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
-<span></span>
+<span><span class="co"># Using small shop presets</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">gift_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">ask_amount</span>, levels <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">rating_bucket</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">capacity_value</span>,</span>
+<span>                                         levels <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>                                         what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
 <span><span class="va">df</span></span>
-<span><span class="co">#&gt;   donor_id ask_amount capacity_value      ask_bucket rating_bucket</span></span>
-<span><span class="co">#&gt; 1        1    0.0e+00        0.0e+00       No Amount       Unrated</span></span>
-<span><span class="co">#&gt; 2        2    5.0e+04        8.0e+03 Less than $100K        Annual</span></span>
-<span><span class="co">#&gt; 3        3    2.5e+05        2.5e+05  $250K to $499K         Major</span></span>
-<span><span class="co">#&gt; 4        4    1.2e+06        5.0e+06   $1M to $2.49M     Principal</span></span>
-<span><span class="co">#&gt; 5        5         NA        1.0e+08            &lt;NA&gt;     Principal</span></span>
-<span><span class="co">#&gt; 6        6    1.0e+07             NA  $10M to $24.9M          &lt;NA&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt;   donor_id ask_amount capacity_value gift_level rating_bucket</span></span>
+<span><span class="co">#&gt; 1        1          0              0  No Amount       Unrated</span></span>
+<span><span class="co">#&gt; 2        2        500           8000      $500+     Mid-Level</span></span>
+<span><span class="co">#&gt; 3        3       5000          25000    $5,000+         Major</span></span>
+<span><span class="co">#&gt; 4        4      50000         100000   $50,000+         Major</span></span>
+<span><span class="co">#&gt; 5        5     250000         500000  $100,000+     Principal</span></span>
+<span><span class="co">#&gt; 6        6    1000000        5000000  $100,000+     Principal</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="with-dplyr-optional">With dplyr (Optional)<a class="anchor" aria-label="anchor" href="#with-dplyr-optional"></a>
+</h3>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    gift_level <span class="op">=</span> <span class="fu"><a href="../reference/bucket_gift_level.html">bucket_gift_level</a></span><span class="op">(</span><span class="va">ask_amount</span>, levels <span class="op">=</span> <span class="st">"small"</span><span class="op">)</span>,</span>
+<span>    rating_bucket <span class="op">=</span> <span class="fu"><a href="../reference/bucket_rating_level.html">bucket_rating_level</a></span><span class="op">(</span><span class="va">capacity_value</span>,</span>
+<span>                                         levels <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>                                         what <span class="op">=</span> <span class="st">"rating_bucket"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
-<h2 id="optional-plotting">Optional: Plotting<a class="anchor" aria-label="anchor" href="#optional-plotting"></a>
+<h2 id="choosing-the-right-preset">Choosing the Right Preset<a class="anchor" aria-label="anchor" href="#choosing-the-right-preset"></a>
 </h2>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ask_bucket</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="bucketing-levels_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="17%">
+<col width="27%">
+<col width="34%">
+<col width="21%">
+</colgroup>
+<thead><tr class="header">
+<th>Preset</th>
+<th>Gift Levels</th>
+<th>Rating Buckets</th>
+<th>Best For</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>"small"</code></td>
+<td>$1 to $100K</td>
+<td>Major at $25K+, Principal at $250K+</td>
+<td>Community foundations, small nonprofits</td>
+</tr>
+<tr class="even">
+<td><code>"medium"</code></td>
+<td>$1K to $1M</td>
+<td>Major at $50K+, Principal at $1M+</td>
+<td>Mid-size organizations</td>
+</tr>
+<tr class="odd">
+<td><code>"large"</code></td>
+<td>$100K to $150M+</td>
+<td>Major at $100K+, Principal at $5M+</td>
+<td>Universities, hospitals, large institutions</td>
+</tr>
+<tr class="even">
+<td><code>"all"</code></td>
+<td>Comprehensive</td>
+<td>Default buckets</td>
+<td>Custom filtering</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
+<h2 id="summary">Summary<a class="anchor" aria-label="anchor" href="#summary"></a>
+</h2>
+<table class="table">
+<thead><tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="../reference/gift_levels.html">gift_levels()</a></code></td>
+<td>Get gift level presets</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/bucket_gift_level.html">bucket_gift_level()</a></code></td>
+<td>Categorize gift amounts</td>
+</tr>
+<tr class="odd">
+<td><code><a href="../reference/rating_levels.html">rating_levels()</a></code></td>
+<td>Get rating level presets</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/bucket_rating_level.html">bucket_rating_level()</a></code></td>
+<td>Categorize wealth ratings</td>
+</tr>
+<tr class="odd">
+<td><code>fundr_gift_levels</code></td>
+<td>Comprehensive gift threshold table</td>
+</tr>
+<tr class="even">
+<td><code>fundr_rating_levels</code></td>
+<td>Comprehensive rating threshold table</td>
+</tr>
+</tbody>
+</table>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
