@@ -16,7 +16,9 @@ set.seed(42)  # For reproducibility
 # CONFIGURATION
 # =============================================================================
 
-n_records <- 10000
+# Using 200 records for CRAN package size requirements while still
+# providing enough data to demonstrate all package functions
+n_records <- 200
 
 # Record type distribution (approximate)
 pct_companies <- 0.08     # 8% companies (~800)

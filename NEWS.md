@@ -48,7 +48,7 @@
 ## New Features
 
 ### Sample Data
-- Added `fundr_portfolio`, a synthetic dataset of 10,000 constituent records for demonstrating package functions and learning R/tidyverse. Includes realistic data quality variations (mixed date formats, varied phone/ZIP formatting, missing values).
+- Added `fundr_portfolio`, a synthetic dataset of 200 constituent records for demonstrating package functions and learning R/tidyverse. Includes realistic data quality variations (mixed date formats, varied phone/ZIP formatting, missing values).
 
 ### Vignettes
 - Added comprehensive vignettes covering key package functionality:
