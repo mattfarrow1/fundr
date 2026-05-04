@@ -41,3 +41,7 @@ CLAUDE.md
 .claude/settings.local.json
 /doc/
 /Meta/
+# UAT
+uat.qmd
+uat.R
+.positai
