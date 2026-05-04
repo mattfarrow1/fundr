@@ -52,6 +52,20 @@ normalize_phone(phone, format = "digits")
 normalize_phone(phone, format = "e164")
 ```
 
+**About E.164 format:** E.164 is the international standard for phone number formatting defined by the ITU (International Telecommunication Union). Numbers in E.164 format:
+
+- Start with a `+` followed by the country code (e.g., `+1` for US/Canada)
+- Contain only digits after the `+` (no spaces, dashes, or parentheses)
+- Have a maximum length of 15 digits
+- Example: `+12145551234` for a US number
+
+E.164 is commonly used for:
+
+- SMS and messaging APIs (Twilio, etc.)
+- CRM integrations
+- International dialing
+- Database storage where consistency is critical
+
 ### Handling Extensions
 
 ```{r}

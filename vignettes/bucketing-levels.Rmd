@@ -9,6 +9,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+options(scipen = 999)  # Disable scientific notation for large numbers
 ```
 
 fundr includes reference tables for common gift/ask levels and wealth rating levels, plus helpers to bucket numeric values into consistent labels. The bucketing functions support presets for different organization sizes, from small community foundations to large universities.

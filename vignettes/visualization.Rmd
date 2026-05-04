@@ -174,7 +174,7 @@ ggplot(giving_by_status, aes(x = donor_status, y = total_giving)) +
 ```{r}
 # Scatter plot with currency on both axes
 donors <- fundr_portfolio[!is.na(fundr_portfolio$first_gift_amount), ]
-donors <- donors[sample(nrow(donors), 500), ]  # Sample for performance
+donors <- donors[sample(nrow(donors), min(nrow(donors), 500)), ]  # Sample for performance
 
 ggplot(donors, aes(x = first_gift_amount, y = largest_gift_amount)) +
   geom_point(alpha = 0.5, color = fundr_colors("bright blue")) +

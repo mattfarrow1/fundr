@@ -1,0 +1,70 @@
+---
+title: "Prepare for a Portfolio Review"
+format: html
+editor: visual
+---
+
+## Setup
+
+One of the goals of `fundr` is to simply the tasks associated with Prospect Development professionals. As a result, many of the functions are perfect for the work of processing a fundraiser's portfolio for an annual review.
+
+```{r}
+# Load libraries
+library(tidyverse)
+library(fundr)
+
+# Initialize defaults
+fundr_setup()
+```
+
+## Focusing Your Energy
+
+With so many data points available to us, it can be difficult to know where to focus and prioritize your efforts in a portfolio review, especially if you have limited time. One of the easiest ways to simply large amounts of data is to put it into buckets. The `fundr` package includes three functions to help simplify this work.
+
+- `bucket_gift_level`
+
+- `bucket_rating_level`
+
+- `bucket_recency`
+
+### Bucket Gift Level
+
+```{r}
+fundr_portfolio |>
+  select(largest_gift_amount) |> 
+  mutate(largest_gift_bucket = bucket_gift_level(largest_gift_amount,
+                                                 levels = "large")) |> 
+  ggplot(aes(largest_gift_bucket)) +
+  geom_bar()
+```
+
+### Bucket Dates
+
+```{r}
+fundr_portfolio |> 
+  filter(fundraiser == "James Wilson") |> 
+  mutate(time_since_assignment = bucket_recency(fundraiser_start_date)) |> 
+  ggplot(aes(time_since_assignment)) +
+  geom_bar()
+```
+
+### Bucket Ratings
+
+For `fundr_rating_levels` I need to do the following:
+
+- Make sure research ratings match rating levels
+
+- Consider renaming rating level to rating
+
+For `bucket_rating_level`, let's change the default for missing values to "U - Unrated" instead of `NA`.
+
+```{r}
+fundr_portfolio |> 
+  filter(fundraiser == "James Wilson") |> 
+  select(research_rating) |> 
+  left_join(fundr_rating_levels, by = c("research_rating" = "rating_level"))
+  # mutate(rating_bucket = bucket_rating_level(research_rating, 
+  #                                            levels = "large")) |> 
+  # ggplot(aes(rating_bucket)) +
+  # geom_bar()
+```
